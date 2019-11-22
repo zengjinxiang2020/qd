@@ -28,7 +28,7 @@
       <el-table-column prop="orderId" width="140" label="订单号">
         <template slot-scope="scope">
           <span>{{ scope.row.orderId }}</span>
-          <p>[{{ scope.row.pinkName }}]</p>
+          <p>{{ scope.row.pinkName }}</p>
         </template>
       </el-table-column>
       <el-table-column prop="realName" label="用户姓名"/>

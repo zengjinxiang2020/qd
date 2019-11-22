@@ -160,7 +160,7 @@ export default {
       edit(this.form).then(res => {
         this.resetForm()
         this.$notify({
-          title: '修改成功',
+          title: '操作成功',
           type: 'success',
           duration: 2500
         })
