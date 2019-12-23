@@ -293,7 +293,8 @@ export default {
         merId: data.merId,
         image: data.image,
         images: data.sliderImage,
-        title: data.storeName,
+        title: '',
+        storeName: data.storeName,
         info: data.storeInfo,
         postage: data.postage,
         unitName: data.unitName,
@@ -313,7 +314,11 @@ export default {
         num: 1,
         giveIntegral: 0,
         isDel: 0,
-        browse: 0
+        browse: 0,
+        bargainMaxPrice: 10,
+        bargainMinPrice: 0.01,
+        minPrice: 0.01,
+        bargainNum: 1
       }
       _this.dialog = true
     },

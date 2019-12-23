@@ -3,21 +3,11 @@
     <!--工具栏-->
     <div class="head-container">
       <!-- 新增 -->
-      <div style="display: inline-block;margin: 0px 2px;">
-        <el-button
-          v-permission="['ADMIN','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_CREATE']"
-          class="filter-item"
-          size="mini"
-          type="primary"
-          icon="el-icon-plus"
-          @click="add">新增</el-button>
-      </div>
     </div>
     <!--表单组件-->
     <eForm ref="form" :is-add="isAdd"/>
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
-      <el-table-column prop="id" label="砍价产品ID"/>
       <el-table-column prop="title" label="砍价标题"/>
       <el-table-column prop="info" label="砍价简介"/>
       <el-table-column prop="image" label="砍价图片">
@@ -25,9 +15,14 @@
           <a :href="scope.row.image" style="color: #42b983" target="_blank"><img :src="scope.row.image" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
-      <el-table-column prop="unitName" label="单位名称"/>
+      <el-table-column prop="price" label="砍价价格"/>
+      <el-table-column prop="price" label="砍价区间">
+        <template slot-scope="scope">
+          <span>{{ scope.row.bargainMinPrice }}~{{ scope.row.bargainMaxPrice }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="minPrice" label="最低价"/>
       <el-table-column prop="stock" label="库存"/>
-      <el-table-column prop="sales" label="销量"/>
       <el-table-column prop="startTime" label="开始时间">
         <template slot-scope="scope">
           <span>{{ formatTimeTwo(scope.row.startTime) }}</span>
@@ -38,9 +33,7 @@
           <span>{{ formatTimeTwo(scope.row.stopTime) }}</span>
         </template>
       </el-table-column>
-<!--      <el-table-column prop="storeName" label="砍价产品名称"/>-->
       <el-table-column prop="look" label="浏览量"/>
-      <el-table-column prop="share" label="分享量"/>
       <el-table-column v-if="checkPermission(['ADMIN','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_EDIT','YXSTOREBARGAIN_DELETE'])" label="操作" width="150px" align="center">
         <template slot-scope="scope">
           <el-button v-permission="['ADMIN','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_EDIT']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)"/>
