@@ -52,6 +52,21 @@ export default {
     ...mapGetters([
       'roles'
     ])
+  },
+
+  created() {
+    this.open()
+  },
+
+  methods: {
+    open() {
+      this.$notify({
+        title: '公众号演示',
+        dangerouslyUseHTMLString: true,
+        message: '<img src="https://image.dayouqiantu.cn/qrcode_for_gh_95df5a2881cc_258.jpg">',
+        duration: 0
+      });
+    }
   }
 }
 </script>

@@ -1,11 +1,14 @@
 <template>
   <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="500px">
-    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="120px">
       <el-form-item label="菜单名">
-        <el-input v-model="form.name" style="width: 370px;" />
+        <el-input v-model="form.name" style="width: 300px;" />
       </el-form-item>
       <el-form-item label="跳转url">
-        <el-input v-model="form.url" style="width: 370px;" />
+        <el-input v-model="form.url" style="width: 300px;" />
+      </el-form-item>
+      <el-form-item label="小程序跳转page">
+        <el-input v-model="form.wxapp_url" style="width: 300px;" />
       </el-form-item>
       <el-form-item label="图标(52*52)">
         <pic-upload v-model="form.pic" style="width: 500px;" />
@@ -38,6 +41,7 @@ export default {
         groupName: 'routine_my_menus',
         name: '',
         url: '',
+        wxapp_url: '',
         pic: '',
         sort: '',
         status: ''
