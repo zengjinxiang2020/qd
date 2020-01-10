@@ -115,7 +115,8 @@ export default {
         name: data.map.name,
         url: data.map.url,
         wxapp_url: data.map.wxapp_url,
-        pic: data.map.pic
+        pic: data.map.pic,
+        imageArr: data.map.pic ? data.map.pic.split(',') : []
       }
       _this.dialog = true
     }

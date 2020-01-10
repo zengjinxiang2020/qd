@@ -11,7 +11,7 @@
         <el-input v-model="form.wxapp_url" style="width: 300px;" />
       </el-form-item>
       <el-form-item label="分类图标(90*90)">
-        <pic-upload v-model="form.pic"  />
+        <MaterialList v-model="form.imageArr" style="width: 300px" type="image" :num=1 :width=150 :height=150></MaterialList>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -25,8 +25,9 @@
 <script>
 import { add, edit } from '@/api/yxSystemGroupData'
 import picUpload from '@/components/pic-upload'
+import MaterialList from '@/components/material'
 export default {
-  components: { picUpload },
+  components: { picUpload, MaterialList },
   props: {
     isAdd: {
       type: Boolean,
@@ -43,10 +44,18 @@ export default {
         url: '',
         wxapp_url: '',
         pic: '',
+        imageArr: [],
         sort: '',
         status: ''
       },
       rules: {
+      }
+    }
+  },
+  watch:{
+    'form.imageArr': function(val) {
+      if(val){
+        this.form.pic = val.join(",");
       }
     }
   },
@@ -96,6 +105,7 @@ export default {
       this.form = {
         id: '',
         groupName: 'routine_home_menus',
+        imageArr: [],
         value: '',
         addTime: '',
         sort: '',

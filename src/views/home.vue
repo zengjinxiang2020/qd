@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-editor-container">
+      <yshop-info />
       <panel-group />
       <panel-group-t />
 
@@ -32,6 +33,7 @@ import LineChart from './dashboard/LineChart'
 import PieChart from './dashboard/BarChartT'
 import BarChart from './dashboard/BarChart'
 import { count } from '@/api/visits'
+import YshopInfo from './dashboard/YshopInfo'
 
 /**
    * 记录访问，只有页面刷新或者第一次加载才会记录
@@ -46,27 +48,13 @@ export default {
     PanelGroupT,
     LineChart,
     PieChart,
-    BarChart
+    BarChart,
+    YshopInfo
   },
   computed: {
     ...mapGetters([
       'roles'
     ])
-  },
-
-  created() {
-    this.open()
-  },
-
-  methods: {
-    open() {
-      this.$notify({
-        title: '公众号演示',
-        dangerouslyUseHTMLString: true,
-        message: '<img src="https://image.dayouqiantu.cn/qrcode_for_gh_95df5a2881cc_258.jpg">',
-        duration: 0
-      });
-    }
   }
 }
 </script>

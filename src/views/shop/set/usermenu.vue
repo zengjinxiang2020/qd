@@ -24,7 +24,9 @@
       <el-table-column prop="map.wxapp_url" label="小程序跳转page" />
       <el-table-column ref="table" label="图标">
         <template slot-scope="scope">
-          <a :href="scope.row.map.pic" style="color: #42b983" target="_blank"><img :src="scope.row.map.pic" alt="点击打开" class="el-avatar"></a>
+          <a :href="scope.row.map.pic" style="color: #42b983" target="_blank">
+          <img :src="scope.row.map.pic" alt="点击打开" class="el-avatar">
+          </a>
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT','YXSYSTEMGROUPDATA_DELETE'])" label="操作" width="150px" align="center">
@@ -115,7 +117,8 @@ export default {
         name: data.map.name,
         url: data.map.url,
         wxapp_url: data.map.wxapp_url,
-        pic: data.map.pic
+        pic: data.map.pic,
+        imageArr: data.map.pic ? data.map.pic.split(',') : []
       }
       _this.dialog = true
     }
