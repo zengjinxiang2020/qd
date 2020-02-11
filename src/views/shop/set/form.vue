@@ -13,6 +13,13 @@
       <el-form-item label="图片(750*375)">
         <MaterialList v-model="form.imageArr" style="width: 300px" type="image" :num=1 :width=150 :height=150></MaterialList>
       </el-form-item>
+      <el-form-item label="排序">
+        <el-input v-model="form.sort" style="width: 300px;" />
+      </el-form-item>
+      <el-form-item label="是否显示">
+        <el-radio v-model="form.status" :label="1">是</el-radio>
+        <el-radio v-model="form.status" :label="0" style="width: 200px;">否</el-radio>
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <!--<el-input v-model="form.groupName" />-->
@@ -45,8 +52,8 @@ export default {
         wxapp_url: '',
         pic: '',
         imageArr: [],
-        sort: '',
-        status: ''
+        sort: 0,
+        status: 1
       },
       rules: {
       }
