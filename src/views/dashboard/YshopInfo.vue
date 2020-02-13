@@ -36,7 +36,7 @@
             <span style="font-weight: bolder">小程序演示：</span>关注上面公众号之后，选择yshop小程序体验即可
           </div>
           <div class="text item">
-            <span style="font-weight: bolder">H5演示：</span><a target="_blank" href="https://h5.dayouqiantu.cn">https://h5.dayouqiantu.cn</a> <br />
+            <span style="font-weight: bolder">H5演示：</span><a target="_blank" href="https://h5.yixiang.co">https://h5.yixiang.co</a> <br />
             <span style="font-weight: bolder">H5测试号</span>：hupeng/123456,也可以自行注册
           </div>
         </el-card>
