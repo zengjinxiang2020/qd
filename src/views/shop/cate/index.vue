@@ -4,7 +4,7 @@
     <div class="head-container">
       <div v-if="crud.props.searchToggle">
         <!-- 搜索 -->
-        <el-input v-model="query.cateName" clearable size="small" placeholder="输入部门名称搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input v-model="query.cateName" clearable size="small" placeholder="输入分类名称搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <rrOperation :crud="crud" />
       </div>
       <crudOperation :permission="permission" />
@@ -88,9 +88,9 @@ export default {
         ]
       },
       permission: {
-        add: ['admin', 'cate:add'],
-        edit: ['admin', 'cate:edit'],
-        del: ['admin', 'cate:del']
+        add: ['admin', 'YXSTORECATEGORY_CREATE'],
+        edit: ['admin', 'YXSTORECATEGORY_EDIT'],
+        del: ['admin', 'YXSTORECATEGORY_DELETE']
       },
       enabledTypeOptions: [
         { key: 'true', display_name: '正常' },
