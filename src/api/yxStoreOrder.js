@@ -50,6 +50,6 @@ export function remark(data) {
 export function get() {
   return request({
     url: 'api/yxExpress',
-    method: 'get',
+    method: 'get'
   })
 }

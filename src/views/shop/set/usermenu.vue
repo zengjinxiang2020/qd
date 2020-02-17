@@ -25,7 +25,7 @@
       <el-table-column ref="table" label="图标">
         <template slot-scope="scope">
           <a :href="scope.row.map.pic" style="color: #42b983" target="_blank">
-          <img :src="scope.row.map.pic" alt="点击打开" class="el-avatar">
+            <img :src="scope.row.map.pic" alt="点击打开" class="el-avatar">
           </a>
         </template>
       </el-table-column>

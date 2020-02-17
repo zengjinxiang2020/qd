@@ -17,10 +17,10 @@
         <el-input v-model="form.barCode" style="width: 320px;" />
       </el-form-item>
       <el-form-item label="商品图片">
-        <MaterialList v-model="form.imageArr" style="width: 500px" type="image" :num=1 :width=150 :height=150></MaterialList>
+        <MaterialList v-model="form.imageArr" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
       </el-form-item>
       <el-form-item label="轮播图">
-        <MaterialList v-model="form.sliderImageArr" style="width: 500px" type="image" :num=4 :width=150 :height=150></MaterialList>
+        <MaterialList v-model="form.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
       </el-form-item>
       <el-form-item label="商品简介">
         <el-input v-model="form.storeInfo" style="width: 500px;" rows="5" type="textarea" />
@@ -151,15 +151,15 @@ export default {
       }
     }
   },
-  watch:{
+  watch: {
     'form.imageArr': function(val) {
-      if(val){
-        this.form.image = val.join(",");
+      if (val) {
+        this.form.image = val.join(',')
       }
     },
     'form.sliderImageArr': function(val) {
-      if(val){
-        this.form.sliderImage = val.join(",");
+      if (val) {
+        this.form.sliderImage = val.join(',')
       }
     }
   },

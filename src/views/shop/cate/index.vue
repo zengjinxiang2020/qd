@@ -16,7 +16,7 @@
           <el-input v-model="form.cateName" style="width: 370px;" />
         </el-form-item>
         <el-form-item label="分类图片">
-          <MaterialList v-model="picArr" type="image" :num=1 :width=150 :height=150></MaterialList>
+          <MaterialList v-model="picArr" type="image" :num="1" :width="150" :height="150" />
         </el-form-item>
         <el-form-item label="状态">
           <el-radio-group v-model="form.isShow" style="width: 178px">
@@ -98,16 +98,16 @@ export default {
       ]
     }
   },
-  watch:{
+  watch: {
     picArr: function(val) {
-      this.form.pic = val.join(",");
+      this.form.pic = val.join(',')
     }
   },
   methods: {
     // 新增与编辑前做的操作
     [CRUD.HOOK.afterToCU](crud, form) {
       console.log(form)
-      if(form.pic){
+      if (form.pic) {
         this.picArr = form.pic.split(',')
       }
 

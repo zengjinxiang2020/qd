@@ -17,7 +17,7 @@
         <el-input v-model="form.api" :disabled="true" style="width: 370px;" />
       </el-form-item>
       <el-form-item label="微信分享图片">
-        <MaterialList v-model="form.imageArr" style="width: 370px" type="image" :num=1 :width=150 :height=150></MaterialList>
+        <MaterialList v-model="form.imageArr" style="width: 370px" type="image" :num="1" :width="150" :height="150" />
       </el-form-item>
       <el-form-item label="微信分享标题">
         <el-input v-model="form.wechat_share_title" style="width: 370px;" />
@@ -70,10 +70,10 @@ export default {
       }
     }
   },
-  watch:{
+  watch: {
     'form.imageArr': function(val) {
-      if(val){
-        this.form.wechat_share_img = val.join(",");
+      if (val) {
+        this.form.wechat_share_img = val.join(',')
       }
     }
   },
@@ -86,7 +86,7 @@ export default {
       })
 
       this.form = newObj
-      this.form.imageArr =this.form.wechat_share_img.split(',')
+      this.form.imageArr = this.form.wechat_share_img.split(',')
     })
   },
   methods: {

@@ -10,7 +10,7 @@
             <span style="font-weight: bolder">yshop基于当前流行技术组合的前后端分离商城系统：</span>
             SpringBoot2+Jpa+MybatisPlus+SpringSecurity
             的前后端分离的商城系统，
-             包含商城、拼团、砍价、商户管理、 秒杀、优惠券、积分、分销、会员等功能。
+            包含商城、拼团、砍价、商户管理、 秒杀、优惠券、积分、分销、会员等功能。
           </div>
           <div class="text item">
             <span style="font-weight: bolder">技术选型：</span>
@@ -36,7 +36,7 @@
             <span style="font-weight: bolder">小程序演示：</span>关注上面公众号之后，选择yshop小程序体验即可
           </div>
           <div class="text item">
-            <span style="font-weight: bolder">H5演示：</span><a target="_blank" href="https://h5.yixiang.co">https://h5.yixiang.co</a> <br />
+            <span style="font-weight: bolder">H5演示：</span><a target="_blank" href="https://h5.yixiang.co">https://h5.yixiang.co</a> <br>
             <span style="font-weight: bolder">H5测试号</span>：hupeng/123456,也可以自行注册
           </div>
         </el-card>
@@ -57,21 +57,21 @@
             <span style="font-weight: bolder">VIP版(JAVA++H5+公众号端)：</span>包括了开源版，还包括了移动端、移动端API
           </div>
           <div class="text item">
-            1、VIP为终身制包括JAVA端+H5公众号端，后期免费升级迭代及其技术支持。！<br />
-            2、价格：vip会员价248元(JAVA+H5+公众号版)，后续的系统升级vip价格会有相应的调整的，所以早上车更优惠哦！<br />
-            3、VIP购买淘宝地址：https://item.taobao.com/item.htm?id=607532386325<br />
-            4、加入vip群：931426444,请输入你的淘宝订单编号，即可入群<br />
-            5、群里面获取私服git<br />
-            6、如果需要小程序需要单独购买看下面<br />
+            1、VIP为终身制包括JAVA端+H5公众号端，后期免费升级迭代及其技术支持。！<br>
+            2、价格：vip会员价248元(JAVA+H5+公众号版)，后续的系统升级vip价格会有相应的调整的，所以早上车更优惠哦！<br>
+            3、VIP购买淘宝地址：https://item.taobao.com/item.htm?id=607532386325<br>
+            4、加入vip群：931426444,请输入你的淘宝订单编号，即可入群<br>
+            5、群里面获取私服git<br>
+            6、如果需要小程序需要单独购买看下面<br>
           </div>
           <div class="text item">
             <span style="font-weight: bolder">VIP版如果需要小程序需要另外单独购买：</span>
           </div>
           <div class="text item">
-            1、小程序是mpvue2.0框架开发<br />
-            2、价格：100元，只是单独的小程序！购买小程序请务必要购买上面VIP套餐<br />
-            3、购买淘宝地址：https://item.taobao.com/item.htm?id=612007949053<br />
-            4、群里面获取私服git<br />
+            1、小程序是mpvue2.0框架开发<br>
+            2、价格：100元，只是单独的小程序！购买小程序请务必要购买上面VIP套餐<br>
+            3、购买淘宝地址：https://item.taobao.com/item.htm?id=612007949053<br>
+            4、群里面获取私服git<br>
           </div>
         </el-card>
       </div>

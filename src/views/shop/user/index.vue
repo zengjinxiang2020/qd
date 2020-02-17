@@ -12,8 +12,8 @@
           v-for="item in statusOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value">
-        </el-option>
+          :value="item.value"
+        />
       </el-select>
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
@@ -51,8 +51,8 @@
         <template slot-scope="scope">
           <div>
             <el-tag v-if="scope.row.userType == 'wechat'">公众号</el-tag>
-            <el-tag v-else-if="scope.row.userType == 'routine'" >小程序</el-tag>
-            <el-tag v-else >H5</el-tag>
+            <el-tag v-else-if="scope.row.userType == 'routine'">小程序</el-tag>
+            <el-tag v-else>H5</el-tag>
           </div>
         </template>
       </el-table-column>
@@ -128,10 +128,10 @@ export default {
         { key: 'phone', display_name: '手机号码' }
       ],
       statusOptions: [
-      { value: 'routine', label: '小程序' },
-      { value: 'wechat', label: '公众号' },
-      { value: 'H5', label: 'H5' }
-    ]
+        { value: 'routine', label: '小程序' },
+        { value: 'wechat', label: '公众号' },
+        { value: 'H5', label: 'H5' }
+      ]
     }
   },
   created() {
@@ -165,7 +165,7 @@ export default {
     beforeInit() {
       this.url = 'api/yxUser'
       const sort = 'uid,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, userType: this.userType  }
+      this.params = { page: this.page, size: this.size, sort: sort, userType: this.userType }
       const query = this.query
       const type = query.type
       const value = query.value

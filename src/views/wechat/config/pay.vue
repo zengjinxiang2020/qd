@@ -10,8 +10,8 @@
       <el-form-item label="商户密钥">
         <el-input v-model="form.wxpay_mchKey" style="width: 370px;" type="password" />
       </el-form-item>
-      <el-form-item label="微信证书" >
-        <file-upload v-model="form.wxpay_keyPath" style="width: 500px;"/>
+      <el-form-item label="微信证书">
+        <file-upload v-model="form.wxpay_keyPath" style="width: 500px;" />
       </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="doSubmit">提交</el-button>

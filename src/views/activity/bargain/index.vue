@@ -1,9 +1,7 @@
 <template>
   <div class="app-container">
     <!--工具栏-->
-    <div class="head-container">
-
-    </div>
+    <div class="head-container" />
     <!--表单组件-->
     <eForm ref="form" :is-add="isAdd" />
     <!--表格渲染-->
@@ -15,14 +13,14 @@
           <a :href="scope.row.image" style="color: #42b983" target="_blank"><img :src="scope.row.image" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
-      <el-table-column prop="price" label="砍价价格"/>
+      <el-table-column prop="price" label="砍价价格" />
       <el-table-column prop="price" label="砍价区间">
         <template slot-scope="scope">
           <span>{{ scope.row.bargainMinPrice }}~{{ scope.row.bargainMaxPrice }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="minPrice" label="最低价"/>
-      <el-table-column prop="stock" label="库存"/>
+      <el-table-column prop="minPrice" label="最低价" />
+      <el-table-column prop="stock" label="库存" />
       <el-table-column prop="startTime" label="开始时间">
         <template slot-scope="scope">
           <span>{{ formatTimeTwo(scope.row.startTime) }}</span>
