@@ -16,6 +16,14 @@
           :value="item.value"
         />
       </el-select>
+      <el-select v-model="orderType" clearable placeholder="订单类型" class="filter-item" style="width: 130px">
+        <el-option
+          v-for="item in typeOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
     </div>
@@ -36,14 +44,6 @@
       <el-table-column prop="realName" label="用户姓名" />
       <el-table-column prop="cartInfoList" width="300" label="商品信息">
         <template slot-scope="scope">
-          <div v-for="(item,index) in scope.row.cartInfoList">
-            <span><img
-              style="width: 30px;height: 30px;margin:0;cursor: pointer;"
-              :src="item.cartInfoMap.productInfo.image"
-            ></span>
-            <span>{{ item.cartInfoMap.productInfo.storeName }}</span>
-            <span> | ￥{{ item.cartInfoMap.truePrice }}×{{ item.cartInfoMap.cartNum }}</span>
-          </div>
           <div v-for="(item,index) in scope.row.cartInfoList" v-if="item.cartInfoMap.productInfo.attrInfo">
             <span>
               <img
@@ -52,6 +52,14 @@
               >
             </span>
             <span>{{ item.cartInfoMap.productInfo.storeName }}&nbsp;{{ item.cartInfoMap.productInfo.attrInfo.suk }}</span>
+            <span> | ￥{{ item.cartInfoMap.truePrice }}×{{ item.cartInfoMap.cartNum }}</span>
+          </div>
+          <div v-else v-for="(item,index) in scope.row.cartInfoList">
+            <span><img
+              style="width: 30px;height: 30px;margin:0;cursor: pointer;"
+              :src="item.cartInfoMap.productInfo.image"
+            ></span>
+            <span>{{ item.cartInfoMap.productInfo.storeName }}</span>
             <span> | ￥{{ item.cartInfoMap.truePrice }}×{{ item.cartInfoMap.cartNum }}</span>
           </div>
         </template>
@@ -166,7 +174,7 @@ export default {
   mixins: [initData],
   data() {
     return {
-      delLoading: false, status,
+      delLoading: false, status, orderType: '0',
       queryTypeOptions: [
         { key: 'orderId', display_name: '订单号' },
         { key: 'realName', display_name: '用户姓名' },
@@ -182,6 +190,13 @@ export default {
         { value: '-1', label: '退款中' },
         { value: '-2', label: '已退款' },
         { value: '-4', label: '已删除' }
+      ],
+      typeOptions: [
+        { value: '0', label: '所有订单' },
+        { value: '1', label: '普通订单' },
+        { value: '2', label: '拼团订单' },
+        { value: '3', label: '秒杀订单' },
+        { value: '4', label: '砍价订单' }
       ]
     }
   },
@@ -196,7 +211,7 @@ export default {
     beforeInit() {
       this.url = 'api/yxStoreOrder'
       const sort = 'id,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, orderStatus: this.status }
+      this.params = { page: this.page, size: this.size, sort: sort, orderStatus: this.status, orderType: this.orderType }
       const query = this.query
       const type = query.type
       const value = query.value
