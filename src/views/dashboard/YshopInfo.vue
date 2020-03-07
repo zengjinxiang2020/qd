@@ -87,7 +87,7 @@
             <span style="font-weight: bolder">更新日志</span>
           </div>
           <div class="text item">
-            <span style="font-weight: bolder">（即将发布）yshop2.0dev版本 发布更新如下：</span>
+            <span style="font-weight: bolder">（2020-03-07）yshop2.0版本 发布更新如下：</span>
           </div>
           <div class="text item">
             1、优化代码结构与名称，修改get请求参数其统一继承分页参数
