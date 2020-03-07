@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'YSHOP',
+  title: 'YSHOP-2.0dev',
   /**
    * @description 是否显示 tagsView
    */

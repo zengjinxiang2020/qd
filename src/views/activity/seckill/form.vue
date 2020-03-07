@@ -135,7 +135,7 @@ export default {
     },
     'form.sliderImageArr': function(val) {
       if (val) {
-        this.form.sliderImage = val.join(',')
+        this.form.images = val.join(',')
       }
     }
   },

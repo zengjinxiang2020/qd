@@ -79,13 +79,15 @@ export default {
   },
   created() {
     get().then(rese => {
-      const newObj = {}
+      const that = this
       rese.content.map(function(key, value) {
         const keyName = key.menuName
-        newObj[keyName] = key.value
+        const newValue = key.value
+        if(keyName in that.form){
+          that.form[keyName] = newValue
+        }
       })
 
-      this.form = newObj
       this.form.imageArr = this.form.wechat_share_img.split(',')
     })
   },

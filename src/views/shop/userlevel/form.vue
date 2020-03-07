@@ -137,17 +137,17 @@ export default {
         name: '',
         money: '',
         validDate: '',
-        isForever: '',
+        isForever: 1,
         isPay: '',
-        isShow: '',
+        isShow: 1,
         grade: '',
         discount: '',
         image: '',
         icon: '',
-        explain: '',
-        addTime: '',
         imageArr: [],
         iconArr: [],
+        explain: '',
+        addTime: '',
         isDel: ''
       }
     }
