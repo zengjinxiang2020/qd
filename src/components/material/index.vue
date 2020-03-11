@@ -103,6 +103,7 @@
                         :src="item.url"
                         fit="contain"
                         :preview-src-list="[item.url]"
+                        z-index="999"
                       />
                       <div>
                         <el-checkbox class="material-name" :label="item.url">
@@ -458,6 +459,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  /deep/ .el-icon-circle-close{
+    color: red;
+  }
   .material-name{
     padding: 8px 0px;
   }
