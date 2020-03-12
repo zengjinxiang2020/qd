@@ -46,7 +46,7 @@
             <span>{{ item.cartInfoMap.productInfo.storeName }}&nbsp;{{ item.cartInfoMap.productInfo.attrInfo.suk }}</span>
             <span> | ￥{{ item.cartInfoMap.truePrice }}×{{ item.cartInfoMap.cartNum }}</span>
           </div>
-          <div v-else v-for="(item,index) in scope.row.cartInfoList">
+          <div v-else>
             <span><img
               style="width: 30px;height: 30px;margin:0;cursor: pointer;"
               :src="item.cartInfoMap.productInfo.image"
