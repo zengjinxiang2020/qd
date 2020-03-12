@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="150px">
-      <el-form-item label="AppID">
-        <el-input v-model="form.wxpay_appId" style="width: 370px;" />
-      </el-form-item>
+      <!--<el-form-item label="AppID">-->
+        <!--<el-input v-model="form.wxpay_appId" style="width: 370px;" />-->
+      <!--</el-form-item>-->
       <el-form-item label="商户id">
         <el-input v-model="form.wxpay_mchId" style="width: 370px;" type="password" />
       </el-form-item>
@@ -37,7 +37,7 @@ export default {
     return {
       delLoading: false,
       form: {
-        wxpay_appId: '',
+        //wxpay_appId: '',
         wxpay_mchId: '',
         wxpay_mchKey: '',
         wxpay_keyPath: ''
