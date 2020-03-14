@@ -17,6 +17,13 @@
           icon="el-icon-plus"
           @click="add"
         >新增</el-button>
+        <el-button
+          type="danger"
+          class="filter-item"
+          size="mini"
+          icon="el-icon-refresh"
+          @click="toQuery"
+        >刷新</el-button>
       </div>
     </div>
     <!--表单组件-->
