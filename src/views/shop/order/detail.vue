@@ -25,8 +25,8 @@
           <div class="text item">订单状态: {{ form.statusName }}</div>
           <div class="text item">商品总价: {{ form.totalPrice }}</div>
           <div class="text item">优惠券金额: {{ form.couponPrice }}</div>
-          <div class="text item">创建时间: {{ formatTime(form.addTime) }}</div>
-          <div class="text item">支付时间: {{ formatTime(form.payTime) }}</div>
+          <div class="text item">创建时间: {{ parseTime(form.addTime) }}</div>
+          <div class="text item">支付时间: {{ parseTime(form.payTime) }}</div>
         </el-col>
       </el-row>
     </el-card>
@@ -48,7 +48,7 @@
 
 <script>
 import { add, edit } from '@/api/yxStoreOrder'
-import { formatTime } from '@/utils/index'
+import { parseTime } from '@/utils/index'
 export default {
   props: {
     isAdd: {
@@ -120,7 +120,7 @@ export default {
     }
   },
   methods: {
-    formatTime,
+    parseTime,
     cancel() {
       this.resetForm()
     },
