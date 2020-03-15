@@ -30,7 +30,7 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-card>
+    <el-card v-if="form.storeId == 0">
       <div slot="header">
         <span>物流信息</span>
       </div>
@@ -39,7 +39,7 @@
 
       <div><el-button :loading="loading" type="primary" @click="express">查看物流</el-button></div>
       <div style="margin-top: 20px">
-      <el-timeline v-if="this.form.deliveryId && expressInfo.length > 0">
+      <el-timeline v-if="form.deliveryId && expressInfo.length > 0">
         <el-timeline-item
           v-for="(obj, index) in expressInfo"
           :key="index"
