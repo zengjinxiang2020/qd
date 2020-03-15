@@ -62,3 +62,12 @@ export function get() {
     method: 'get'
   })
 }
+
+export function express(data) {
+  return request({
+    url: 'api/yxStoreOrder/express',
+    method: 'post',
+    data
+  })
+}
+

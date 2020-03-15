@@ -36,6 +36,24 @@
       </div>
       <div class="text item">快递公司:{{ form.deliveryName }}</div>
       <div class="text item">快递单号:{{ form.deliveryId }}</div>
+
+      <div><el-button :loading="loading" type="primary" @click="express">查看物流</el-button></div>
+      <div style="margin-top: 20px">
+      <el-timeline v-if="this.form.deliveryId && expressInfo.length > 0">
+        <el-timeline-item
+          v-for="(obj, index) in expressInfo"
+          :key="index"
+          :timestamp="obj.acceptTime"
+          >
+          {{obj.acceptStation}}
+        </el-timeline-item>
+      </el-timeline>
+      <el-timeline :reverse="false" v-else>
+        <el-timeline-item>
+          暂无物流信息
+        </el-timeline-item>
+      </el-timeline>
+      </div>
     </el-card>
     <el-card>
       <div slot="header">
@@ -47,7 +65,7 @@
 </template>
 
 <script>
-import { add, edit } from '@/api/yxStoreOrder'
+import { add, edit, express } from '@/api/yxStoreOrder'
 import { parseTime } from '@/utils/index'
 export default {
   props: {
@@ -58,7 +76,7 @@ export default {
   },
   data() {
     return {
-      loading: false, dialog: false,
+      loading: false, dialog: false, expressInfo: [],
       form: {
         id: '',
         orderId: '',
@@ -89,6 +107,7 @@ export default {
         refundReason: '',
         refundPrice: '',
         deliveryName: '',
+        deliverySn: '',
         deliveryType: '',
         deliveryId: '',
         gainIntegral: '',
@@ -122,7 +141,25 @@ export default {
   methods: {
     parseTime,
     cancel() {
-      this.resetForm()
+      this.dialog = false
+    },
+    express() {
+      let params ={
+        "orderCode": this.form.id,
+        "shipperCode": this.form.deliverySn,
+        "logisticCode": this.form.deliveryId
+      }
+
+      express(params).then(res=>{
+
+        console.log(res)
+        this.expressInfo = res.Traces
+
+      }).catch(err => {
+        this.loading = false
+        console.log(err.response.data.message)
+      })
+
     },
     doSubmit() {
       this.loading = true
