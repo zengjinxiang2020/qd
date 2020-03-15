@@ -53,7 +53,7 @@
           <el-tabs v-model="materialgroupObjId" v-loading="materialgroupLoading" tab-position="left" @tab-click="tabClick">
             <el-tab-pane
               v-for="(item,index) in materialgroupList"
-              :key="index"
+              :key="item.id"
               :name="item.id"
             >
               <span slot="label"> {{ item.name }}</span>
