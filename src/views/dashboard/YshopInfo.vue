@@ -87,6 +87,72 @@
             <span style="font-weight: bolder">更新日志</span>
           </div>
           <div class="text item">
+            <span style="font-weight: bolder">（预计4月发布）yshop2.1版本 更新如下：</span>
+          </div>
+          <div class="text item">
+            1、单门店升级为多门店
+          </div>
+          <div class="text item">
+            2、充值增加充值方案
+          </div>
+          <div class="text item">
+            3、打通小程序与公众号账号
+          </div>
+          <div class="text item">
+            4、新增微信app支付（主要用于uniapp）
+          </div>
+          <div class="text item">
+            5、修复。。。。。等
+          </div>
+          <div class="text item">
+            <span style="font-weight: bolder">（2020-03-15）2.0.X修复优化版本 发布更新如下：</span>
+          </div>
+          <div class="text item">
+            1、修复后台上传图片点击图片预览关闭按钮不显示的问题#I1B8RB
+          </div>
+          <div class="text item">
+            2、后台新增物流快递查询
+          </div>
+          <div class="text item">
+            3、修复后台不能一次删除多个商品分类且优化删除分类#I1BASM
+          </div>
+          <div class="text item">
+            4、修复商品管理/管理商品/待上架产品删除问题#I1B9O7
+          </div>
+          <div class="text item">
+            5、微信支付新增小程序渠道,修复小程序与其他支付appid冲突问题，后台微信支付配置移除appid选项
+          </div>
+          <div class="text item">
+            6、后台微信菜单与自动回复显示字体调整
+          </div>
+          <div class="text item">
+            7、后台订单列表修改为状态栏展示
+          </div>
+          <div class="text item">
+            8、微信授权与小程序授权优化及其确认订单优化
+          </div>
+          <div class="text item">
+            9、新增公众号获取微信地址权限
+          </div>
+          <div class="text item">
+            10、修复打开图片素材库的标红警告#I1BLJM
+          </div>
+          <div class="text item">
+            11、修复后台订单详情时间显示不对的问题#I1BLV6
+          </div>
+          <div class="text item">
+            12、修复提交订单页面选取优惠时显示优惠券有效期错乱#I1BHA1
+          </div>
+          <div class="text item">
+            13、修复PC端图片素材“删除分组标红警告 #I1BNII
+          </div>
+          <div class="text item">
+            14、小程序增加下拉刷新功能#I1AHAX
+          </div>
+          <div class="text item">
+            15、修复小程序首页--促销单品--更多 报错#I1AA47
+          </div>
+          <div class="text item">
             <span style="font-weight: bolder">（2020-03-07）yshop2.0版本 发布更新如下：</span>
           </div>
           <div class="text item">
@@ -163,45 +229,6 @@
           </div>
           <div class="text item">
             25、修复公众号商品直接微信分享标题不显示的问题#I1AX0R
-          </div>
-          <div class="text item">
-            <span style="font-weight: bolder">（2020-02-24）yshop修复优化版本 发布更新如下：</span>
-          </div>
-          <div class="text item">
-            1.修复小程序积分支付功能#I1A03I
-          </div>
-          <div class="text item">
-            2.修复小程序砍价功能上面时间没有进行倒计时#I1A037
-          </div>
-          <div class="text item">
-            3.优化小程序底层导航栏适配ios#I1A1QX
-          </div>
-          <div class="text item">
-            4.修复小程序返回的问题#I1A036
-          </div>
-          <div class="text item">
-            5.修复小程序地址管理#I1A03U
-          </div>
-          <div class="text item">
-            6.调整小程序首页样式修改与H5保持同步
-          </div>
-          <div class="text item">
-            7.H5首页数据加载顺序调整
-          </div>
-          <div class="text item">
-            <span style="font-weight: bolder">（2020-02-20）yshop1.9.10版本 发布更新如下：</span>
-          </div>
-          <div class="text item">
-            1.小程序新增了商品详情海报功能
-          </div>
-          <div class="text item">
-            2.小程序新增了手机号绑定功能
-          </div>
-          <div class="text item">
-            3.修复小程序选择规格的问题#I19PD7
-          </div>
-          <div class="text item">
-            4.修改移动端二维码海报生成拆分为H5端与小程序端
           </div>
         </el-card>
       </div>

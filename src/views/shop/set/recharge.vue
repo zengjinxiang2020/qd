@@ -19,15 +19,8 @@
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="id" label="ID" />
-      <el-table-column prop="map.name" label="标题" />
-      <el-table-column prop="map.url" label="链接url" />
-      <el-table-column prop="map.wxapp_url" label="mpvue小程序路由" width="140" />
-      <el-table-column prop="map.uniapp_url" label="uniapp路由" />
-      <el-table-column ref="table" label="图片">
-        <template slot-scope="scope">
-          <a :href="scope.row.map.pic" style="color: #42b983" target="_blank"><img :src="scope.row.map.pic" alt="点击打开" class="el-avatar"></a>
-        </template>
-      </el-table-column>
+      <el-table-column prop="map.price" label="额度" />
+      <el-table-column prop="map.give_price" label="赠送" />
       <el-table-column prop="sort" label="排序" />
       <el-table-column label="状态" align="center">
         <template slot-scope="scope">
@@ -72,7 +65,7 @@
 import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
 import { del } from '@/api/yxSystemGroupData'
-import eForm from './form'
+import eForm from './rechargeform'
 export default {
   components: { eForm },
   mixins: [initData],
@@ -91,7 +84,7 @@ export default {
     beforeInit() {
       this.url = 'api/yxSystemGroupData'
       const sort = 'id,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, groupName: 'routine_home_banner' }
+      this.params = { page: this.page, size: this.size, sort: sort, groupName: 'recharge_price_ways' }
       return true
     },
     subDelete(id) {
@@ -122,12 +115,8 @@ export default {
       _this.form = {
         id: data.id,
         groupName: data.groupName,
-        name: data.map.name,
-        url: data.map.url,
-        wxapp_url: data.map.wxapp_url,
-        uniapp_url: data.map.uniapp_url,
-        pic: data.map.pic,
-        imageArr: data.map.pic ? data.map.pic.split(',') : [],
+        day: data.map.day,
+        sign_num: data.map.sign_num,
         sort: data.sort,
         status: data.status
       }

@@ -1,11 +1,19 @@
 import request from '@/utils/request'
 
-export function get() {
+export function add(data) {
   return request({
     url: 'api/yxSystemStore',
-    method: 'get'
+    method: 'post',
+    data
   })
 }
+
+// export function get() {
+//   return request({
+//     url: 'api/yxSystemStore',
+//     method: 'get'
+//   })
+// }
 
 export function getL(data) {
   return request({
@@ -23,7 +31,7 @@ export function del(ids) {
   })
 }
 
-export function update(data) {
+export function edit(data) {
   return request({
     url: 'api/yxSystemStore',
     method: 'put',
@@ -31,4 +39,4 @@ export function update(data) {
   })
 }
 
-export default { get, getL, update, del }
+export default { getL, add, edit, del }
