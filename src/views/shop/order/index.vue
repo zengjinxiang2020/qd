@@ -71,7 +71,11 @@
           <p>{{ scope.row.pinkName }}</p>
         </template>
       </el-table-column>
-      <el-table-column prop="realName" label="用户姓名" />
+      <el-table-column prop="realName" label="用户昵称" >
+        <template slot-scope="scope">
+           <span>{{ scope.row.userDTO.nickname }}</span>
+          </template>
+      </el-table-column>
       <el-table-column prop="cartInfoList" width="300" label="商品信息">
         <template slot-scope="scope">
           <div v-for="(item,index) in scope.row.cartInfoList" v-if="item.cartInfoMap.productInfo.attrInfo">
@@ -564,7 +568,8 @@ export default {
         shippingType: data.shippingType,
         isChannel: data.isChannel,
         isRemind: data.isRemind,
-        isSystemDel: data.isSystemDel
+        isSystemDel: data.isSystemDel,
+        nickname: data.userDTO.nickname
       }
       _this.dialog = true
     }

@@ -8,12 +8,12 @@ export function add(data) {
   })
 }
 
-// export function get() {
-//   return request({
-//     url: 'api/yxSystemStore',
-//     method: 'get'
-//   })
-// }
+export function get() {
+  return request({
+    url: 'api/yxSystemStore',
+    method: 'get'
+  })
+}
 
 export function getL(data) {
   return request({
@@ -39,4 +39,4 @@ export function edit(data) {
   })
 }
 
-export default { getL, add, edit, del }
+export default { getL, add, edit, del, get }

@@ -543,7 +543,8 @@ export default {
         shippingType: data.shippingType,
         isChannel: data.isChannel,
         isRemind: data.isRemind,
-        isSystemDel: data.isSystemDel
+        isSystemDel: data.isSystemDel,
+        nickname: data.userDTO.nickname
       }
       _this.dialog = true
     }
