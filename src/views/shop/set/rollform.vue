@@ -45,7 +45,7 @@ export default {
       loading: false, dialog: false,
       form: {
         id: '',
-        groupName: 'routine_home_roll_news',
+        groupName: 'yshop_home_roll_news',
         info: '',
         wxapp_url: '',
         uniapp_url: '',
@@ -102,7 +102,7 @@ export default {
       this.$refs['form'].resetFields()
       this.form = {
         id: '',
-        groupName: 'routine_home_roll_news',
+        groupName: 'yshop_home_roll_news',
         info: '',
         wxapp_url: '',
         uniapp_url: '',

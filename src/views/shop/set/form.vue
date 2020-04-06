@@ -49,7 +49,7 @@ export default {
       loading: false, dialog: false,
       form: {
         id: '',
-        groupName: 'routine_home_banner',
+        groupName: 'yshop_home_banner',
         name: '',
         url: '',
         wxapp_url: '',
@@ -115,7 +115,7 @@ export default {
       this.$refs['form'].resetFields()
       this.form = {
         id: '',
-        groupName: 'routine_home_banner',
+        groupName: 'yshop_home_banner',
         name: '',
         url: '',
         wxapp_url: '',

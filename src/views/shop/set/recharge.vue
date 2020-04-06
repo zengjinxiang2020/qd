@@ -84,7 +84,7 @@ export default {
     beforeInit() {
       this.url = 'api/yxSystemGroupData'
       const sort = 'id,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, groupName: 'recharge_price_ways' }
+      this.params = { page: this.page, size: this.size, sort: sort, groupName: 'yshop_recharge_price_ways' }
       return true
     },
     subDelete(id) {
@@ -115,8 +115,8 @@ export default {
       _this.form = {
         id: data.id,
         groupName: data.groupName,
-        day: data.map.day,
-        sign_num: data.map.sign_num,
+        give_price: data.map.give_price,
+        price: data.map.price,
         sort: data.sort,
         status: data.status
       }

@@ -39,7 +39,7 @@ export default {
       loading: false, dialog: false,
       form: {
         id: '',
-        groupName: 'recharge_price_ways',
+        groupName: 'yshop_recharge_price_ways',
         price: 1,
         give_price: 0,
         sort: 0,
@@ -94,7 +94,7 @@ export default {
       this.$refs['form'].resetFields()
       this.form = {
         id: '',
-        groupName: 'recharge_price_ways',
+        groupName: 'yshop_recharge_price_ways',
         price: 1,
         give_price: 0,
         sort: 0,

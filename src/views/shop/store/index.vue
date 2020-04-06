@@ -114,7 +114,7 @@
   // crud交由presenter持有
   const defaultCrud = CRUD({ title: '门店', url: 'api/yxSystemStore', sort: 'id,desc', crudMethod: { ...crudYxSystemStore }})
   const defaultForm = { id: null, name: null, introduction: null, phone: null, address: null, detailedAddress: null, image: null, latitude:
-  null, longitude: null, validTime: null, dayTime: null, addTime: null, isShow: 1, imageArr: [], validTimeArr: [], dayTimeArr: [] }
+  null, longitude: null, validTime: null, dayTime: null, addTime: null, isShow: 1, imageArr: [], validTimeArr: [],  dayTimeArr: [new Date(),new Date()] }
   export default {
     name: 'YxSystemStore',
     components: { pagination, crudOperation, rrOperation, udOperation, MaterialList },

@@ -34,6 +34,9 @@
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
+      <el-select v-model="storeId" clearable placeholder="选择门店" class="filter-item" style="width: 130px">
+        <el-option v-for="item in storeList" :key="item.key" :label="item.name" :value="item.id" />
+      </el-select>
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
       <el-button
         type="danger"
@@ -53,7 +56,8 @@
     <eRemark ref="form4" :is-add="isAdd" />
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
-      <el-table-column prop="orderId" width="140" label="订单号">
+      <el-table-column prop="storeName" label="所属门店" />
+      <el-table-column prop="orderId" width="150" label="订单号">
         <template slot-scope="scope">
           <span>{{ scope.row.orderId }}</span>
           <p>{{ scope.row.pinkName }}</p>
@@ -181,6 +185,7 @@
 import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
 import { del } from '@/api/yxStoreOrder'
+import { getAll } from '@/api/yxSystemStore'
 import eForm from './formC'
 import eDetail from './detail'
 import eRefund from './refund'
@@ -192,7 +197,7 @@ export default {
   mixins: [initData],
   data() {
     return {
-      delLoading: false, status: '-9', orderType: '0',
+      delLoading: false, status: '-9', orderType: '0', storeList: [] , storeId: null,
       queryTypeOptions: [
         { key: 'orderId', display_name: '订单号' },
         { key: 'realName', display_name: '用户姓名' },
@@ -215,8 +220,14 @@ export default {
     this.$nextTick(() => {
       this.init()
     })
+    this.getStoreAll()
   },
   methods: {
+    getStoreAll() {
+      getAll().then(res => {
+          this.storeList = res
+      })
+    },
     formatTime,
     checkPermission,
     handleOrder(tab, event) {
@@ -226,7 +237,7 @@ export default {
     beforeInit() {
       this.url = 'api/yxStoreOrder'
       const sort = 'id,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, orderStatus: this.status, orderType: 5 }
+      this.params = { page: this.page, size: this.size, sort: sort, orderStatus: this.status, orderType: 5, storeId: this.storeId }
       const query = this.query
       const type = query.type
       const value = query.value

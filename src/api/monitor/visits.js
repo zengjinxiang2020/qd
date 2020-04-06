@@ -20,3 +20,5 @@ export function getChartData() {
     method: 'get'
   })
 }
+
+

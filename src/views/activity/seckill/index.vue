@@ -163,7 +163,8 @@ export default {
         isHot: data.isHot,
         isDel: data.isDel,
         num: data.num,
-        isShow: data.isShow
+        isShow: data.isShow,
+        timeId: data.timeId
       }
       _this.dialog = true
     }

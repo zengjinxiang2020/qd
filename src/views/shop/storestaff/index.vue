@@ -93,7 +93,7 @@ import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
-import cuser from './user'
+import cuser from '@/views/components/user'
 import crudYxSystemStore from '@/api/yxSystemStore'
 
 // crud交由presenter持有

@@ -1,10 +1,6 @@
 <template>
   <div>
     <div v-if="value.uid">
-      <!--<img :src="value.avatar" alt="" class="el-upload-list__item-thumbnail">-->
-      <!--<span class="el-upload-list__item-delete" @click="deleteMaterial(index)">-->
-        <!--<i class="el-icon-delete" />-->
-      <!--</span>-->
       <ul  class="el-upload-list el-upload-list--picture-card">
         <li tabindex="0" class="el-upload-list__item is-ready">
           <div>
@@ -51,6 +47,15 @@
           </template>
         </el-table-column>
         <el-table-column prop="phone" label="手机号码" />
+        <el-table-column label="用户来源" align="center">
+          <template slot-scope="scope">
+            <div>
+              <el-tag v-if="scope.row.userType == 'wechat'">公众号</el-tag>
+              <el-tag v-else-if="scope.row.userType == 'routine'">小程序</el-tag>
+              <el-tag v-else>H5</el-tag>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column v-if="checkPermission(['admin','YXUSER_ALL','YXUSER_EDIT','YXUSER_DELETE'])" label="操作" width="185" align="center" fixed="right">
           <template slot-scope="scope">
             <el-button

@@ -15,6 +15,13 @@ export function get() {
   })
 }
 
+export function getAll() {
+  return request({
+    url: 'api/yxSystemStore/all',
+    method: 'get'
+  })
+}
+
 export function getL(data) {
   return request({
     url: 'api/yxSystemStore/getL',
@@ -39,4 +46,4 @@ export function edit(data) {
   })
 }
 
-export default { getL, add, edit, del, get }
+export default { getL, add, edit, del, get, getAll }

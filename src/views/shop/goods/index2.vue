@@ -28,7 +28,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="storeName" label="商品名称" />
-      <el-table-column prop="cateName" label="分类名称" />
+      <el-table-column prop="storeCategory.cateName" label="分类名称" />
       <el-table-column prop="price" label="商品价格" />
       <el-table-column prop="sales" label="销量" />
       <el-table-column prop="stock" label="库存" />
