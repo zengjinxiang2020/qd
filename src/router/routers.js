@@ -7,17 +7,17 @@ Vue.use(Router)
 export const constantRouterMap = [
   { path: '/login',
     meta: { title: '登录', noCache: true },
-    component: () => import('@/views/login'),
+    component: (resolve) => require(['@/views/login'], resolve),
     hidden: true
   },
   {
     path: '/404',
-    component: () => import('@/views/features/404'),
+    component: (resolve) => require(['@/views/features/404'], resolve),
     hidden: true
   },
   {
     path: '/401',
-    component: () => import('@/views/features/401'),
+    component: (resolve) => require(['@/views/features/401'], resolve),
     hidden: true
   },
   {
