@@ -27,7 +27,7 @@ export const constantRouterMap = [
     children: [
       {
         path: '/redirect/:path*',
-        component: () => import('@/views/features/redirect')
+        component: (resolve) => require(['@/views/features/redirect'], resolve)
       }
     ]
   },
@@ -38,7 +38,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/home'),
+        component: (resolve) => require(['@/views/home'], resolve),
         name: 'Dashboard',
         meta: { title: '首页', icon: 'index', affix: true, noCache: true }
       }
@@ -52,7 +52,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'center',
-        component: () => import('@/views/system/user/center'),
+        component: (resolve) => require(['@/views/system/user/center'], resolve),
         name: '个人中心',
         meta: { title: '个人中心' }
       }
