@@ -5,7 +5,7 @@
         <el-input v-model="form.realName" style="width: 370px;" />
       </el-form-item>
       <el-form-item label="提现金额">
-        <el-input v-model="form.extractPrice" style="width: 370px;" />
+        <el-input-number v-model="form.extractPrice" style="width: 370px;" />
       </el-form-item>
       <el-form-item label="审核状态">
         <el-radio v-model="form.status" :label="-1">无效</el-radio>

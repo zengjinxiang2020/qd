@@ -34,7 +34,7 @@
       </el-table-column>
       <el-table-column prop="addTime" label="评论时间">
         <template slot-scope="scope">
-          <span>{{ formatTime(scope.row.addTime) }}</span>
+          <span>{{ formatTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_EDIT','YXSTOREPRODUCTREPLY_DELETE'])" label="操作" width="150px" align="center">

@@ -13,7 +13,7 @@
       <el-form-item label="拼团开始时间">
         <template>
           <el-date-picker
-            v-model="form.startTimeDate"
+            v-model="form.startTime"
             type="datetime"
             placeholder="选择日期时间"
           />
@@ -22,7 +22,7 @@
       <el-form-item label="拼团结束时间">
         <template>
           <el-date-picker
-            v-model="form.endTimeDate"
+            v-model="form.stopTime"
             type="datetime"
             placeholder="选择日期时间"
           />

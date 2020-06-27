@@ -29,25 +29,25 @@
         <editor v-model="form.description" />
       </el-form-item>
       <el-form-item label="商品价格">
-        <el-input v-model="form.price" />
+        <el-input-number v-model="form.price" />
       </el-form-item>
       <el-form-item label="市场价">
-        <el-input v-model="form.otPrice" />
+        <el-input-number v-model="form.otPrice" />
       </el-form-item>
       <el-form-item label="成本价">
-        <el-input v-model="form.cost" />
+        <el-input-number v-model="form.cost" />
       </el-form-item>
       <el-form-item label="邮费">
-        <el-input v-model="form.postage" />
+        <el-input-number v-model="form.postage" />
       </el-form-item>
       <el-form-item label="排序">
-        <el-input v-model="form.sort" />
+        <el-input-number v-model="form.sort" />
       </el-form-item>
       <el-form-item label="销量">
-        <el-input v-model="form.sales" />
+        <el-input-number v-model="form.sales" />
       </el-form-item>
       <el-form-item label="库存">
-        <el-input v-model="form.stock" />
+        <el-input-number v-model="form.stock" />
       </el-form-item>
       <el-form-item label="热卖单品">
         <el-radio v-model="form.isHot" :label="1">是</el-radio>
@@ -74,10 +74,10 @@
         <el-radio v-model="form.isGood" :label="0" style="width: 200px;">否</el-radio>
       </el-form-item>
       <el-form-item label="获得积分">
-        <el-input v-model="form.giveIntegral" />
+        <el-input-number v-model="form.giveIntegral" />
       </el-form-item>
       <el-form-item label="虚拟销量">
-        <el-input v-model="form.ficti" />
+        <el-input-number v-model="form.ficti" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

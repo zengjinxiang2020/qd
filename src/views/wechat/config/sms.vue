@@ -1,20 +1,24 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="150px">
-      <el-form-item label="分销开关">
-        <el-radio v-model="form.store_brokerage_open" :label="1">开启</el-radio>
-        <el-radio v-model="form.store_brokerage_open" :label="2">关闭</el-radio>
+      <el-form-item label="开启短信">
+        <el-radio v-model="form.sms_enable" :label="1">开启</el-radio>
+        <el-radio v-model="form.sms_enable" :label="2">关闭</el-radio>
       </el-form-item>
-      <el-form-item label="一级返佣比例">
-        <el-input v-model="form.store_brokerage_ratio" style="width: 370px;" />
-        <p style="color: red">订单交易成功后给上级返佣的比例0 - 100,例:5 = 反订单金额的5%</p>
+      <el-form-item label="签名">
+        <el-input v-model="form.sms_sign" style="width: 370px;" />
       </el-form-item>
-      <el-form-item label="二级返佣比例">
-        <el-input v-model="form.store_brokerage_two" style="width: 370px;" />
-        <p style="color: red">订单交易成功后给上级返佣的比例0 - 100,例:5 = 反订单金额的5%</p>
+      <el-form-item label="模板id">
+        <el-input v-model="form.sms_templateId" style="width: 370px;" />
       </el-form-item>
-      <el-form-item label="提现最低金额">
-        <el-input v-model="form.user_extract_min_price" style="width: 370px;" />
+      <el-form-item label="region">
+        <el-input v-model="form.sms_region" style="width: 370px;" />
+      </el-form-item>
+      <el-form-item label="accessKey">
+        <el-input v-model="form.sms_access_key" style="width: 370px;" />
+      </el-form-item>
+      <el-form-item label="accessKeySecret">
+        <el-input v-model="form.sms_access_secret" style="width: 370px;" type="password" />
       </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="doSubmit">提交</el-button>
@@ -37,10 +41,12 @@ export default {
     return {
       delLoading: false,
       form: {
-        store_brokerage_open: 1,
-        store_brokerage_ratio: 0,
-        store_brokerage_two: 0,
-        user_extract_min_price: 100
+        sms_enable: 2,
+        sms_sign: '',
+        sms_templateId: '',
+        sms_region: '',
+        sms_access_key: '',
+        sms_access_secret: ''
       },
       rules: {
       }
@@ -57,7 +63,7 @@ export default {
         }
       })
 
-      this.form.store_brokerage_open = parseInt(this.form.store_brokerage_open)
+      this.form.sms_enable = parseInt(this.form.sms_enable)
     })
   },
   methods: {

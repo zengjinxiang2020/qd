@@ -21,7 +21,6 @@
       <el-table-column prop="id" label="模板id" />
       <el-table-column prop="tempkey" label="模板编号" />
       <el-table-column prop="name" label="模板名" />
-      <el-table-column prop="content" label="回复内容" />
       <el-table-column prop="tempid" label="模板ID" />
       <el-table-column prop="status" label="状态">
         <template slot-scope="scope">

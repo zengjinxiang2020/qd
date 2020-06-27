@@ -37,7 +37,7 @@
       </el-table-column>
       <el-table-column prop="addTime" label="添加时间">
         <template slot-scope="scope">
-          <span>{{ formatTimeTwo(scope.row.addTime) }}</span>
+          <span>{{ formatTimeTwo(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="审核状态">

@@ -92,7 +92,8 @@ export function formatTime(time, option) {
 }
 
 export function formatTimeTwo(time) {
-  time = time * 1000
+  if(time == null) return "无"
+  //time = time * 1000
   const d = new Date(time)
   return (
     d.getFullYear() + '年' +

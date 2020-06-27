@@ -13,7 +13,7 @@
       <el-form-item label="秒杀开始时间">
         <template>
           <el-date-picker
-            v-model="form.startTimeDate"
+            v-model="form.startTime"
             type="date"
             placeholder="选择日期时间"
           />
@@ -22,7 +22,7 @@
       <el-form-item label="秒杀结束时间">
         <template>
           <el-date-picker
-            v-model="form.endTimeDate"
+            v-model="form.stopTime"
             type="date"
             placeholder="选择日期时间"
           />

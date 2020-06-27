@@ -7,9 +7,6 @@
       <el-form-item label="模板名">
         <el-input v-model="form.name" style="width: 370px;" />
       </el-form-item>
-      <el-form-item label="回复内容">
-        <el-input v-model="form.content" style="width: 370px;" rows="5" type="textarea" />
-      </el-form-item>
       <el-form-item label="模板ID">
         <el-input v-model="form.tempid" style="width: 370px;" />
       </el-form-item>
@@ -44,7 +41,7 @@ export default {
         content: '',
         tempid: '',
         addTime: '',
-        status: ''
+        status: 1
       },
       rules: {
       }

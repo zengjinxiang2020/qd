@@ -10,7 +10,7 @@
       <el-form-item label="领取开启时间">
         <template>
           <el-date-picker
-            v-model="form.startTimeDate"
+            v-model="form.startTime"
             type="datetime"
             placeholder="选择日期时间"
           />
@@ -19,7 +19,7 @@
       <el-form-item label="券领结束时间">
         <template>
           <el-date-picker
-            v-model="form.endTimeDate"
+            v-model="form.endTime"
             type="datetime"
             placeholder="选择日期时间"
           />

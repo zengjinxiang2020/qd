@@ -5,16 +5,16 @@
         <el-input v-model="form.title" style="width: 300px;" />
       </el-form-item>
       <el-form-item label="优惠券面值">
-        <el-input v-model="form.couponPrice" style="width: 300px;" />
+        <el-input-number v-model="form.couponPrice" style="width: 300px;" />
       </el-form-item>
       <el-form-item label="优惠券最低消费">
-        <el-input v-model="form.useMinPrice" style="width: 300px;" />
+        <el-input-number v-model="form.useMinPrice" style="width: 300px;" />
       </el-form-item>
       <el-form-item label="优惠券有效期限(天)">
-        <el-input v-model="form.couponTime" style="width: 300px;" />
+        <el-input-number v-model="form.couponTime" style="width: 300px;" />
       </el-form-item>
       <el-form-item label="排序">
-        <el-input v-model="form.sort" style="width: 300px;" />
+        <el-input-number v-model="form.sort" style="width: 300px;" />
       </el-form-item>
       <el-form-item label="状态">
         <el-radio v-model="form.status" :label="1">开启</el-radio>

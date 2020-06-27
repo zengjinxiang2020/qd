@@ -1,20 +1,18 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="150px">
-      <el-form-item label="分销开关">
-        <el-radio v-model="form.store_brokerage_open" :label="1">开启</el-radio>
-        <el-radio v-model="form.store_brokerage_open" :label="2">关闭</el-radio>
+      <el-form-item label="移动端H5地址">
+        <el-input v-model="form.site_url" style="width: 370px;" />
       </el-form-item>
-      <el-form-item label="一级返佣比例">
-        <el-input v-model="form.store_brokerage_ratio" style="width: 370px;" />
-        <p style="color: red">订单交易成功后给上级返佣的比例0 - 100,例:5 = 反订单金额的5%</p>
+      <el-form-item label="移动端API地址">
+        <el-input v-model="form.api_url" style="width: 370px;" />
       </el-form-item>
-      <el-form-item label="二级返佣比例">
-        <el-input v-model="form.store_brokerage_two" style="width: 370px;" />
-        <p style="color: red">订单交易成功后给上级返佣的比例0 - 100,例:5 = 反订单金额的5%</p>
+      <el-form-item label="后台API地址">
+        <el-input v-model="form.admin_api_url" style="width: 370px;" />
       </el-form-item>
-      <el-form-item label="提现最低金额">
-        <el-input v-model="form.user_extract_min_price" style="width: 370px;" />
+      <el-form-item label="文件存储方式">
+        <el-radio v-model="form.file_store_mode" :label="1">本地存储</el-radio>
+        <el-radio v-model="form.file_store_mode" :label="2">云存储</el-radio>
       </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="doSubmit">提交</el-button>
@@ -37,10 +35,10 @@ export default {
     return {
       delLoading: false,
       form: {
-        store_brokerage_open: 1,
-        store_brokerage_ratio: 0,
-        store_brokerage_two: 0,
-        user_extract_min_price: 100
+        file_store_mode: 2,
+        site_url: '',
+        api_url: '',
+        admin_api_url: ''
       },
       rules: {
       }
@@ -57,7 +55,7 @@ export default {
         }
       })
 
-      this.form.store_brokerage_open = parseInt(this.form.store_brokerage_open)
+      this.form.file_store_mode = parseInt(this.form.file_store_mode)
     })
   },
   methods: {

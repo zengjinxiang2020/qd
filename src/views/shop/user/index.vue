@@ -41,9 +41,9 @@
       <el-table-column prop="nowMoney" label="用户余额" />
       <el-table-column prop="brokeragePrice" label="佣金金额" />
       <el-table-column prop="integral" label="用户积分" />
-      <el-table-column :show-overflow-tooltip="true" prop="addTime" label="创建日期">
+      <el-table-column  prop="createTime" label="创建日期" width="140">
         <template slot-scope="scope">
-          <span>{{ formatTime(scope.row.addTime) }}</span>
+          <span>{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>
       <el-table-column label="状态" align="center">

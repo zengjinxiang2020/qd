@@ -79,6 +79,7 @@
                     :on-progress="handleProgress"
                     :before-upload="beforeUpload"
                     :on-success="handleSuccess"
+                    :data="{type: 1}"
                     multiple
                   >
                     <el-button size="small" type="primary">批量上传</el-button>

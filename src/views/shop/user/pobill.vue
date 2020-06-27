@@ -117,7 +117,7 @@ export default {
         page: this.page,
         size: this.size,
         nickname: this.nickname,
-        category: 'now_money',
+        category: 'integral',
         type: ''
       }
       const query = this.query

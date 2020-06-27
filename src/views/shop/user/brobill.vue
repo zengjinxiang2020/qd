@@ -118,7 +118,7 @@ export default {
         size: this.size,
         nickname: this.nickname,
         category: 'now_money',
-        type: ''
+        type: 'brokerage'
       }
       const query = this.query
       const type = query.type
