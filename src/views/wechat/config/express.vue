@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="150px">
-      <el-form-item label="开启短信">
+      <el-form-item label="开启">
         <el-radio v-model="form.exp_enable" :label="1">开启</el-radio>
         <el-radio v-model="form.exp_enable" :label="2">关闭</el-radio>
       </el-form-item>

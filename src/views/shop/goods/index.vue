@@ -15,8 +15,11 @@
           size="mini"
           type="primary"
           icon="el-icon-plus"
-          @click="add"
-        >新增</el-button>
+        >
+          <router-link :to="'/shop/goodsAdd'">
+            新增
+          </router-link>
+        </el-button>
         <el-button
           type="danger"
           class="filter-item"
@@ -27,8 +30,6 @@
       </div>
     </div>
     <!--表单组件-->
-    <eForm ref="form" :is-add="isAdd" />
-    <eAttr ref="form2" :is-attr="isAttr" />
     <comForm ref="form3" :is-add="isAdd" />
     <killForm ref="form4" :is-add="isAdd" />
     <bargainForm ref="form5" :is-add="isAdd" />
@@ -53,34 +54,32 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="205px" align="center">
+      <el-table-column label="操作" width="265px" align="center">
         <template slot-scope="scope">
-          <el-button slot="reference" type="danger" size="mini" @click="attr(scope.row)">规格属性</el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            icon="el-icon-edit"
+          >
+          <router-link :to="'/shop/goodsEdit/'+scope.row.id">
+            编辑
+          </router-link>
+          </el-button>
+          <el-popover
+            :ref="scope.row.id"
+            placement="top"
+            width="180"
+          >
+            <p>确定删除本条数据吗？</p>
+            <div style="text-align: right; margin: 0">
+              <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
+              <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
+            </div>
+            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini">删除</el-button>
+          </el-popover>
           <el-dropdown size="mini" split-button type="primary" trigger="click">
             操作
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <el-button
-                  size="mini"
-                  type="primary"
-                  icon="el-icon-edit"
-                  @click="edit(scope.row)"
-                >编辑</el-button>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <el-popover
-                  :ref="scope.row.id"
-                  placement="top"
-                  width="180"
-                >
-                  <p>确定删除本条数据吗？</p>
-                  <div style="text-align: right; margin: 0">
-                    <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
-                    <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
-                  </div>
-                  <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini">删除</el-button>
-                </el-popover>
-              </el-dropdown-item>
               <el-dropdown-item>
                 <el-button
                   size="mini"
@@ -124,12 +123,11 @@ import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
 import { del, onsale } from '@/api/yxStoreProduct'
 import eForm from './form'
-import eAttr from './attr'
 import comForm from '@/views/activity/combination/form'
 import killForm from '@/views/activity/seckill/form'
 import bargainForm from '@/views/activity/bargain/form'
 export default {
-  components: { eForm, eAttr, comForm, killForm, bargainForm },
+  components: { eForm, comForm, killForm, bargainForm },
   mixins: [initData],
   data() {
     return {

@@ -1,6 +1,15 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="500px">
-    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="130px">
+  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="800px">
+    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="140px">
+      <el-form-item label="优惠券类型">
+        <el-radio-group v-model="form.type" @change="couponsType">
+          <el-radio :label=0>通用券</el-radio>
+          <el-radio :label=1>商品券</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="选择商品" v-if="form.type == 1">
+        <cgood v-model="form.product" @selectGoods="getGoods"></cgood>
+      </el-form-item>
       <el-form-item label="优惠券名称">
         <el-input v-model="form.title" style="width: 300px;" />
       </el-form-item>
@@ -30,7 +39,9 @@
 
 <script>
 import { add, edit } from '@/api/yxStoreCoupon'
+import cgood from '@/views/components/goods'
 export default {
+  components: { cgood },
   props: {
     isAdd: {
       type: Boolean,
@@ -49,14 +60,25 @@ export default {
         couponTime: 1,
         sort: 0,
         status: 1,
-        addTime: ''
-        // isDel: 0
+        type: 0,
+        productId: '',
+        product: []
       },
       rules: {
       }
     }
   },
   methods: {
+    getGoods(p) {
+      var ids = []
+      p.forEach((item,index) => {
+        ids.push(item.id)
+      })
+      this.form.productId = ids.join(",")
+    },
+    couponsType() {
+      //alert(this.form.type)
+    },
     cancel() {
       this.resetForm()
     },
@@ -108,7 +130,9 @@ export default {
         couponTime: 1,
         sort: 0,
         status: 1,
-        addTime: ''
+        type: 0,
+        productId: '',
+        product: []
       }
     }
   }

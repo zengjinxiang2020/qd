@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build:prod": "vue-cli-service build",
+    "build": "vue-cli-service build",
     "build:stage": "vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
     "lint": "eslint --fix --ext .js,.vue src",
@@ -64,7 +64,8 @@
     "xlsx": "^0.11.16",
     "js-beautify": "^1.10.2",
     "sortablejs": "1.8.4",
-    "vuedraggable": "2.20.0"
+    "vuedraggable": "2.20.0",
+    "vue-ueditor-wrap": "^2.4.1"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -99,7 +100,9 @@
     "svgo": "1.2.0",
     "vue-template-compiler": "2.6.10",
     "babel-plugin-transform-remove-console": "^6.9.4",
-    "babel-plugin-dynamic-import-node": "2.3.0"
+    "babel-plugin-dynamic-import-node": "2.3.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2"
   },
   "engines": {
     "node": ">=8.9",

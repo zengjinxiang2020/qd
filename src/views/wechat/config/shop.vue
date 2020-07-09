@@ -14,6 +14,10 @@
         <el-radio v-model="form.file_store_mode" :label="1">本地存储</el-radio>
         <el-radio v-model="form.file_store_mode" :label="2">云存储</el-radio>
       </el-form-item>
+      <el-form-item label="包邮金额">
+        <el-input v-model="form.store_free_postage" style="width: 370px;" />
+        <p style="color: red">如果设置满包邮0 表示全局包邮，如果设置大于0表示满这价格包邮，否则走运费模板算法</p>
+      </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="doSubmit">提交</el-button>
       </el-form-item>
@@ -38,7 +42,8 @@ export default {
         file_store_mode: 2,
         site_url: '',
         api_url: '',
-        admin_api_url: ''
+        admin_api_url: '',
+        store_free_postage: ''
       },
       rules: {
       }

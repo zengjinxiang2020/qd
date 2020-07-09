@@ -7,11 +7,11 @@
       </el-form-item>
       <el-form-item label="一级返佣比例">
         <el-input v-model="form.store_brokerage_ratio" style="width: 370px;" />
-        <p style="color: red">订单交易成功后给上级返佣的比例0 - 100,例:5 = 反订单金额的5%</p>
+        <p style="color: red">金额乘以百分比,如果商品设置了单独分销，最终金额：固定返佣 + 比例返佣 = 总返佣金额</p>
       </el-form-item>
       <el-form-item label="二级返佣比例">
         <el-input v-model="form.store_brokerage_two" style="width: 370px;" />
-        <p style="color: red">订单交易成功后给上级返佣的比例0 - 100,例:5 = 反订单金额的5%</p>
+        <p style="color: red">金额乘以百分比,如果商品设置了单独分销，最终金额：固定返佣 + 比例返佣 = 总返佣金额<</p>
       </el-form-item>
       <el-form-item label="提现最低金额">
         <el-input v-model="form.user_extract_min_price" style="width: 370px;" />

@@ -18,7 +18,6 @@
       >刷新</el-button>
     </div>
     <!--表单组件-->
-    <eForm ref="form" :is-add="isAdd" />
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="id" label="商品id" />
@@ -42,7 +41,11 @@
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT','YXSTOREPRODUCT_DELETE'])" label="操作" width="150px" align="center">
         <template slot-scope="scope">
-          <el-button v-permission="['admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" />
+          <el-button v-permission="['admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT']" size="mini" type="primary" icon="el-icon-edit">
+            <router-link :to="'/shop/goodsEdit/'+scope.row.id">
+              编辑
+            </router-link>
+          </el-button>
           <el-popover
             :ref="scope.row.id"
             v-permission="['admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE']"
