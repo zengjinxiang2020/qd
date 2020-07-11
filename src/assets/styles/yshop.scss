@@ -151,9 +151,6 @@ html, body {
     font-size: 12px !important;
 }
 
-.ivu-table-wrapper {
-    overflow: unset !important;
-}
 
 .page {
     margin-top: 22px;
@@ -166,71 +163,6 @@ html, body {
 .vxe-table--loading .vxe-table--spinner:after, .vxe-table--loading .vxe-table--spinner:before {
     width: 50% !important;
     height: 50% !important;
-}
-
-/*表格公共样式*/
-.ivu-table-header table{
-    border-top: 1px #e8eaec dashed !important;
-}
-.ivu-form .ivu-form-item-label, .ivu-radio-group-button .ivu-radio-wrapper, .ivu-table {
-    font-size: 12px !important;
-}
-
-.ivu-table-cell{
-    padding: 6px 18px !important;
-}
-
-.ivu-table th {
-    background: #fff !important;
-}
-
-.ivu-btn {
-    font-size: 12px !important;
-}
-
-.ivu-icon-ios-refresh {
-    color: #1890FF !important;
-}
-
-.product_tabs .ivu-tabs-bar {
-    margin-bottom: 0 !important
-}
-
-.product_tabs .ivu-page-header {
-    border-bottom: 0;
-}
-
-.product_tabs .ivu-page-header-content {
-    margin-bottom: 0 !important
-}
-
-.ivu-radio-wrapper {
-    font-size: 12px !important;
-}
-
-.ivu-input {
-    font-size: 12px !important;
-}
-
-.modalBody .ivu-modal-body {
-    padding: 27px !important;
-}
-
-.Modals .ivu-mt, .ivu-mt-16 {
-    margin-top: 0 !important;
-}
-
-/*.Modals .ivu-table-border th, .ivu-table-border td{border-right:0!important;}*/
-.Modals .ivu-form-item-content {
-    line-height: unset;
-}
-
-.Modals .label .ivu-input {
-    border: 1px solid #F5F5F5;
-}
-
-.Modals .ivu-table table {
-    width: 100% !important;
 }
 
 
@@ -324,21 +256,6 @@ html, body {
     z-index: 0 !important;
 }
 
-.ivu-divider-horizontal {
-    /*margin-bottom: 0 !important;*/
-    /*margin: 0 !important;*/
-}
-
-/*设置导航菜单*/
-.i-layout-menu-side-title-icon-single .ivu-icon {
-    font-size: 20px;
-}
-.ivu-layout-content{
-    position: relative;
-}
-.ivu-form-item-content {
-    font-size: 12px !important;
-}
 
 /*字体上移变蓝色*/
 .font-blue:hover {
@@ -346,62 +263,6 @@ html, body {
     cursor:pointer;
 }
 
-/*作用于运费模板组件*/
-.Modals .ivu-table .ivu-table-header table{
-    border-top: 0 !important;
-}
 
-.ivu-table-cell{
-    padding: 10px 0 !important;
-}
-.ivu-table-cell-with-expand{
-    line-height: 31px !important;
-}
-/*tab标签栏*/
-.i-layout-tabs-fix{
-    z-index: 5 !important;
-}
-/*全局表格加padding*/
-.ivu-table th, .ivu-table td{
-    padding: 0 5px;
-}
-/*全局表格设置浮动样式*/
-.ivu-table-fixed-right th,.ivu-table-fixed-right td{
-    text-align: center !important;
-}
-.ivu-table-fixed-right{
-    box-shadow: -2px 0 6px -2px rgba(0, 0, 0, 0.1) !important;
-    top: 1px !important;
-}
-.ivu-table-fixed-right tr:last-child(1) td{
-    border-bottom: 0;
-}
-.ivu-table-fixed::before, .ivu-table-fixed-right::before{
-    background-color: unset !important;
-}
-.ivu-table:before{
-    background-color: unset !important;
-}
-.ivu-table-fixed-body{
-    background-color: #fff;
-    overflow: unset !important;
-}
 
-.ivu-table-header thead tr th:nth-of-type(1){
-    padding-left: 16px;
-}
-.ivu-table td:nth-of-type(1){
-    padding-left: 16px;
-}
-.ivu-table-cell-expand{
-    text-align: left;
-}
-.vxe-header--row th:nth-of-type(1){
-    padding-left: 10px !important;
-}
-.vxe-table--body td:nth-of-type(1){
-    padding-left: 10px !important;
-}
-.ivu-modal-header{
-    background: #fafafa;
-}
+

@@ -819,40 +819,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-  .noLeft
-    >>> .ivu-form-item-content
-      margin-left 0 !important
-  .iview-video-style{
-    width: 40%;
-    height: 180px;
-    border-radius: 10px;
-    background-color: #707070;
-    margin-top: 10px;
-    position: relative;
-    overflow: hidden;
-  }
-  .iview-video-style .iconv{
-    color: #fff;
-    line-height: 180px;
-    width: 50px;
-    height: 50px;
-    display: inherit;
-    font-size: 26px;
-    position: absolute;
-    top: -74px;
-    left: 50%;
-    margin-left: -25px;
-  }
-  .iview-video-style .mark{
-    position: absolute;
-    width: 100%;
-    height: 30px;
-    top: 0;
-    background-color: rgba(0,0,0,.5);
-    text-align: center;
-  }
-  .uploadVideo
-    margin-left 10px;
   .submission
     margin-left 10px;
   .color-list .tip{
@@ -881,47 +847,6 @@ export default {
   .rulesBox
     display flex
     flex-wrap: wrap;
-  .pictrueBox
-    display inline-block;
-  .pictrueTab
-    width:40px !important;
-    height:40px !important;
-  .pictrue
-    width:60px;
-    height:60px;
-    border:1px dotted rgba(0,0,0,0.1);
-    margin-right:15px;
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    img
-      width 100%
-      height 100%
-    .btndel
-      position: absolute;
-      z-index: 1;
-      width :20px !important;
-      height: 20px !important;
-      left: 46px;
-      top: -4px;
-  .upLoad {
-    width: 58px;
-    height: 58px;
-    line-height: 58px;
-    border: 1px dotted rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    background: rgba(0, 0, 0, 0.02);
-    cursor: pointer;
-  }
   .curs
     cursor pointer
-  .inpWith
-    width 60%;
-  .labeltop
-    >>> .ivu-form-item-label
-      float: none !important;
-      display: inline-block !important;
-      margin-left: 120px !important;
-      width auto !important
-
-</style scoped lang="stylus">
+</style>
