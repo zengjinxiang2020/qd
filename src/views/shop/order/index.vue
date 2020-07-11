@@ -309,7 +309,7 @@
       beforeInit() {
         this.url = 'api/yxStoreOrder'
         const sort = 'id,desc'
-        this.params = { page: this.page, size: this.size, sort: sort, orderStatus: this.status, orderType: this.orderType, addTime: this.createTime, listContent: this.listContent  }
+        this.params = { page: this.page, size: this.size, sort: sort, orderStatus: this.status, orderType: this.orderType, createTime: this.createTime, listContent: this.listContent  }
         const query = this.query
         const type = query.type
         const value = query.value
