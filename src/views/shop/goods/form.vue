@@ -136,9 +136,9 @@
           <el-col :xl="23" :lg="24" :md="24" :sm="24" :xs="24" v-if="formValidate.spec_type === 0">
             <el-form-item >
               <el-table :data="oneFormValidate" border>
-                <el-table-column prop="imageArr" label="图片" align="center">
+                <el-table-column prop="pic" label="图片" align="center">
                   <template slot-scope="scope">
-                    <MaterialList v-model="scope.row.imageArr" type="image" :num="1" :width="60" :height="60" />
+                    <<single-pic v-model="scope.row.pic" type="image" :num="1" :width="60" :height="60" />
                   </template>
                 </el-table-column>
                 <el-table-column prop="price" label="售价" align="center">
