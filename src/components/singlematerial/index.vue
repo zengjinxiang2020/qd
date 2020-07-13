@@ -1,10 +1,10 @@
 <template>
   <div v-if="type == 'image'">
-    <div v-if="value != ''">
+    <div v-if="myValue != ''">
       <ul  class="el-upload-list el-upload-list--picture-card">
         <li tabindex="0" class="el-upload-list__item is-ready" :style="'width: '+width+'px;height: '+height+'px'">
           <div>
-            <img :src="value" alt="" class="el-upload-list__item-thumbnail">
+            <img :src="myValue" alt="" class="el-upload-list__item-thumbnail">
             <span class="el-upload-list__item-actions">
                 <span class="el-upload-list__item-delete" @click="deleteMaterial">
                   <i class="el-icon-delete" />
@@ -90,7 +90,7 @@
                 show-icon
               />
               <el-row :gutter="5">
-                <el-checkbox-group v-model="urls" :max="num - value.length">
+                <el-checkbox-group v-model="urls" :max="num - myValue.length">
                   <el-col v-for="(item,index) in tableData" :key="index" :span="4">
                     <el-card :body-style="{ padding: '5px' }">
                       <el-image
@@ -183,6 +183,7 @@ export default {
         Authorization: getToken()
       },
       dialogVisible: false,
+      myValue: this.value,
       url: '',
       listDialogVisible: false,
       materialgroupList: [],
@@ -208,6 +209,11 @@ export default {
       'uploadApi'
     ])
   },
+  watch: {
+    value: function (val) {
+      this.myValue = val
+    }
+  },
   methods: {
     moveMaterial(index, type) {
       if (type == 'up') {
@@ -232,7 +238,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function() {
-        that.value = ''
+        that.myValue = ''
         that.urls = []
       })
     },
@@ -449,6 +455,7 @@ export default {
     },
     sureUrls() {
       console.log('this.urls:'+this.urls)
+      this.myValue = this.urls[0]
       this.$emit('input', this.urls[0])
       this.listDialogVisible = false
     }
