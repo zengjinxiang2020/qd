@@ -11,7 +11,7 @@ module.exports = {
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
 
-  //it is base on https://github.com/vuejs/eslint-config-vue
+
   rules: {
     "vue/max-attributes-per-line": [2, {
       "singleline": 10,
