@@ -21,7 +21,7 @@
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
-        <el-table-column v-permission="['admin','storeProductRule:edit','storeProductRule:del']" label="操作" width="150px" align="center">
+        <el-table-column v-permission="['admin','yxStoreProductRule:edit','yxStoreProductRule:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
             <udOperation
               :data="scope.row"
@@ -56,9 +56,9 @@ export default {
   data() {
     return {
         permission: {
-          add: ['admin', 'storeProductRule:add'],
-          edit: ['admin', 'storeProductRule:edit'],
-          del: ['admin', 'storeProductRule:del']
+          add: ['admin', 'yxStoreProductRule:add'],
+          edit: ['admin', 'yxStoreProductRule:edit'],
+          del: ['admin', 'yxStoreProductRule:del']
         }
       }
   },

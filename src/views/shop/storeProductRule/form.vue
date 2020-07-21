@@ -73,9 +73,9 @@
       return {
 
         permission: {
-          add: ['admin', 'storeProductRule:add'],
-          edit: ['admin', 'storeProductRule:edit'],
-          del: ['admin', 'storeProductRule:del']
+          add: ['admin', 'yxStoreProductRule:add'],
+          edit: ['admin', 'yxStoreProductRule:edit'],
+          del: ['admin', 'yxStoreProductRule:del']
         },
         rules: {
           ruleName: [
