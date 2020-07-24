@@ -464,7 +464,7 @@ export default {
     sureUrls() {
       let str = '';
       this.urls.forEach(item => {
-        str += '<img src="' + item + '">'
+        str += '<img width="100%" src="' + item + '">'
         //this.$set(this.value, this.value.length, item)
         nowEditor.dialog.close(true);
         nowEditor.editor.setContent(str, true);
