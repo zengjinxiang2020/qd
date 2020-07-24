@@ -1,36 +1,36 @@
 <template>
   <div>
     <!--<ul v-for="(item,index) in value" :key="index" class="el-upload-list el-upload-list&#45;&#45;picture-card">-->
-      <!--<li tabindex="0" class="el-upload-list__item is-ready" :style="'width: '+width+'px;height: '+height+'px'">-->
-        <!--<div>-->
-          <!--<img :src="item" alt="" class="el-upload-list__item-thumbnail">-->
-          <!--<span class="el-upload-list__item-actions">-->
-            <!--<span v-if="index != 0" class="el-upload-list__item-preview" @click="moveMaterial(index,'up')">-->
-              <!--<i class="el-icon-back" />-->
-            <!--</span>-->
-            <!--<span class="el-upload-list__item-preview" @click="zoomMaterial(index)">-->
-              <!--<i class="el-icon-view" />-->
-            <!--</span>-->
-            <!--<span class="el-upload-list__item-delete" @click="deleteMaterial(index)">-->
-              <!--<i class="el-icon-delete" />-->
-            <!--</span>-->
-            <!--<span v-if="index != value.length-1" class="el-upload-list__item-preview" @click="moveMaterial(index,'down')">-->
-              <!--<i class="el-icon-right" />-->
-            <!--</span>-->
-          <!--</span>-->
-        <!--</div>-->
-      <!--</li>-->
+    <!--<li tabindex="0" class="el-upload-list__item is-ready" :style="'width: '+width+'px;height: '+height+'px'">-->
+    <!--<div>-->
+    <!--<img :src="item" alt="" class="el-upload-list__item-thumbnail">-->
+    <!--<span class="el-upload-list__item-actions">-->
+    <!--<span v-if="index != 0" class="el-upload-list__item-preview" @click="moveMaterial(index,'up')">-->
+    <!--<i class="el-icon-back" />-->
+    <!--</span>-->
+    <!--<span class="el-upload-list__item-preview" @click="zoomMaterial(index)">-->
+    <!--<i class="el-icon-view" />-->
+    <!--</span>-->
+    <!--<span class="el-upload-list__item-delete" @click="deleteMaterial(index)">-->
+    <!--<i class="el-icon-delete" />-->
+    <!--</span>-->
+    <!--<span v-if="index != value.length-1" class="el-upload-list__item-preview" @click="moveMaterial(index,'down')">-->
+    <!--<i class="el-icon-right" />-->
+    <!--</span>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--</li>-->
     <!--</ul>-->
     <!--<div v-if="num > value.length" tabindex="0" class="el-upload el-upload&#45;&#45;picture-card" :style="'width: '+width+'px;height: '+height+'px;'+'line-height:'+height+'px;'" @click="toSeleteMaterial">-->
-      <!--<i class="el-icon-plus" />-->
+    <!--<i class="el-icon-plus" />-->
     <!--</div>-->
 
     <!--<el-dialog-->
-      <!--append-to-body-->
-      <!--:visible.sync="dialogVisible"-->
-      <!--width="35%"-->
+    <!--append-to-body-->
+    <!--:visible.sync="dialogVisible"-->
+    <!--width="35%"-->
     <!--&gt;-->
-      <!--<img :src="url" alt="" style="width: 100%">-->
+    <!--<img :src="url" alt="" style="width: 100%">-->
     <!--</el-dialog>-->
 
     <div
@@ -149,7 +149,7 @@ import { getPage as materialgroupPage, addObj as materialgroupAdd, delObj as mat
 import { getPage, addObj, delObj, putObj } from '@/api/tools/material'
 import { getToken } from '@/utils/auth'
 import { mapGetters } from 'vuex'
-import '../../../public/UEditor/dialogs/internal';
+import '../../../public/UEditor/dialogs/internal'
 
 export default {
   name: 'MaterialList',
@@ -462,12 +462,12 @@ export default {
       return isPic && isLt2M
     },
     sureUrls() {
-      let str = '';
+      let str = ''
       this.urls.forEach(item => {
         str += '<img width="100%" src="' + item + '">'
-        //this.$set(this.value, this.value.length, item)
-        nowEditor.dialog.close(true);
-        nowEditor.editor.setContent(str, true);
+        // this.$set(this.value, this.value.length, item)
+        nowEditor.dialog.close(true)
+        nowEditor.editor.setContent(str, true)
       })
       this.listDialogVisible = false
     }
