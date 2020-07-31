@@ -7,6 +7,12 @@
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
+      <el-select v-model="cateId"  clearable placeholder="商品分类" class="filter-item" style="width: 130px">
+        <el-option v-for="item in cateList" :disabled="item.disabled === 0"
+                   :value="item.value"
+                   :key="item.id"
+                   :label="item.label"></el-option>
+      </el-select>
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
       <el-button
@@ -86,6 +92,7 @@ export default {
     return {
       delLoading: false,
       visible: false,
+      cateId: null,
       queryTypeOptions: [
         { key: 'storeName', display_name: '商品名称' }
       ]
@@ -101,7 +108,7 @@ export default {
     beforeInit() {
       this.url = 'api/yxStoreProduct'
       const sort = 'id,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, isShow: 0, isDel: 0 }
+      this.params = { page: this.page, size: this.size, sort: sort, isShow: 0, isDel: 0,cateId: this.cateId  }
       const query = this.query
       const type = query.type
       const value = query.value

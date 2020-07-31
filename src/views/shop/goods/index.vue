@@ -4,8 +4,14 @@
     <div class="head-container">
       <!-- 搜索 -->
       <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
-      <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
+      <el-select v-model="query.type" clearable placeholder="搜索类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+      </el-select>
+      <el-select v-model="cateId"  clearable placeholder="商品分类" class="filter-item" style="width: 130px">
+        <el-option v-for="item in cateList" :disabled="item.disabled === 0"
+                   :value="item.value"
+                   :key="item.id"
+                   :label="item.label"></el-option>
       </el-select>
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
@@ -123,11 +129,13 @@ import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
 import { del, onsale } from '@/api/yxStoreProduct'
 import eForm from './form'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import comForm from '@/views/activity/combination/form'
 import killForm from '@/views/activity/seckill/form'
 import bargainForm from '@/views/activity/bargain/form'
+import Treeselect from '@riophae/vue-treeselect'
 export default {
-  components: { eForm, comForm, killForm, bargainForm },
+  components: { eForm, comForm, Treeselect,killForm, bargainForm },
   mixins: [initData],
   data() {
     return {
@@ -136,7 +144,8 @@ export default {
       queryTypeOptions: [
         { key: 'storeName', display_name: '商品名称' }
       ],
-      isAttr: false
+      isAttr: false,
+      cateId: null,
     }
   },
   created() {
@@ -149,7 +158,7 @@ export default {
     beforeInit() {
       this.url = 'api/yxStoreProduct'
       const sort = 'id,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, isShow: 1, isDel: 0 }
+      this.params = { page: this.page, size: this.size, sort: sort, isShow: 1, isDel: 0,cateId: this.cateId }
       const query = this.query
       const type = query.type
       const value = query.value
