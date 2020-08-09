@@ -25,7 +25,7 @@
       <el-table-column prop="extractPrice" label="提现金额" />
       <el-table-column prop="extractType" label="提现方式">
         <template slot-scope="scope">
-          <div v-if="scope.row.extractType='weixin'">
+          <div v-if="scope.row.extractType=='weixin'">
             姓名:{{ scope.row.realName }}<br>
             微信号:{{ scope.row.wechat }}
           </div>
