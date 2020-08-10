@@ -7,6 +7,15 @@
       <el-form-item label="小程序密钥">
         <el-input v-model="form.wxapp_secret" style="width: 370px;" type="password" />
       </el-form-item>
+      <el-form-item label="小程序验证TOKEN">
+        <el-input v-model="form.wechat_ma_token" style="width: 370px;"  />
+      </el-form-item>
+      <el-form-item label="小程序EncodingAESKey">
+        <el-input v-model="form.wechat_ma_encodingaeskey" style="width: 370px;"  />
+      </el-form-item>
+      <el-form-item label="微信服务器地址">
+        <el-input v-model="form.wxapi" :disabled="true" style="width: 370px;" />
+      </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="doSubmit">提交</el-button>
       </el-form-item>
@@ -31,7 +40,10 @@ export default {
       delLoading: false,
       form: {
         wxapp_appId: '',
-        wxapp_secret: ''
+        wxapp_secret: '',
+        wechat_ma_token: '',
+        wechat_ma_encodingaeskey: '',
+        wxapi: 'http://你的H5api端域名/api/wxapp/serve',
       },
       rules: {
       }
