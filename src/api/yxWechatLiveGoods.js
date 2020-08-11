@@ -25,7 +25,7 @@ export function edit(data) {
 }
 export function sync(ids) {
   return request({
-    url: 'api/yxWechatLiveGoods/sync',
+    url: 'api/yxWechatLiveGoods/synchro',
     method: 'post',
     data: ids
   })

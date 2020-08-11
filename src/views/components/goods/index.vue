@@ -121,8 +121,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function() {
-        that.value.splice(index, 1)
-        that.urls = []
+        that.newValue.splice(index, 1)
+        that.url = []
       })
     },
     doSelect() {

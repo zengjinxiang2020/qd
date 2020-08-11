@@ -42,32 +42,32 @@
               </el-form-item>
               <el-form-item label="价格类型" prop="priceType" label-width="80px">
                 <el-radio-group v-model="form.priceType" >
-                  <el-radio :label="1" class="radio">一口价</el-radio>
-                  <el-radio :label="2">价格区间</el-radio>
-                  <el-radio :label="3">显示折扣价</el-radio>
+                  <el-radio :label="'1'" class="radio">一口价</el-radio>
+                  <el-radio :label="'2'" class="radio">价格区间</el-radio>
+                  <el-radio :label="'3'" class="radio">显示折扣价</el-radio>
                 </el-radio-group>
                 </el-form-item>
-                  <el-col v-if="form.priceType===1" v-bind="grid">
+                  <el-col v-if="form.priceType=='1'" v-bind="grid">
                     <el-form-item  label="一口价" prop="price" label-width="80px">
                       <el-input v-model="form.price" style="width: 200px;" />
                     </el-form-item>
                   </el-col>
-                  <el-col v-if="form.priceType===2" v-bind="grid">
+                  <el-col v-if="form.priceType=='2'" v-bind="grid">
                     <el-form-item label="最低价格" prop="price" label-width="80px">
                       <el-input v-model="form.price"  style="width: 200px;"/>
                     </el-form-item>
                   </el-col>
-                  <el-col v-if="form.priceType===2" v-bind="grid">
+                  <el-col v-if="form.priceType=='2'" v-bind="grid">
                     <el-form-item label="最高价格" prop="price2" label-width="80px" >
                       <el-input v-model="form.price2"  style="width: 200px;"/>
                     </el-form-item>
                   </el-col>
-                  <el-col v-if="form.priceType===3" v-bind="grid">
+                  <el-col v-if="form.priceType=='3'" v-bind="grid">
                     <el-form-item label="市场价" prop="price" label-width="80px">
                       <el-input v-model="form.price" style="width: 200px;" />
                     </el-form-item>
                   </el-col>
-                  <el-col v-if="form.priceType===3" v-bind="grid">
+                  <el-col v-if="form.priceType=='3'" v-bind="grid">
                     <el-form-item label="现价" prop="price2" label-width="80px">
                       <el-input v-model="form.price2"  style="width: 200px;"/>
                     </el-form-item>
@@ -84,28 +84,44 @@
         <el-table-column v-if="columns.visible('goodsId')" prop="goodsId" label="直播商品id" />
         <el-table-column v-if="columns.visible('name')" prop="name" label="商品名称" />
         <el-table-column v-if="columns.visible('productId')" prop="productId" label="关联商品id" />
-        <el-table-column v-if="columns.visible('coverImgUrl')" prop="coverImgUrl" label="商品" />
+        <el-table-column v-if="columns.visible('coverImgeUrl')" prop="coverImgUrl" label="商品图片" >
+          <template slot-scope="scope">
+            <a :href="scope.row.coverImgeUrl" style="color: #42b983" target="_blank"><img :src="scope.row.coverImgeUrl" alt="点击打开" class="el-avatar"></a>
+          </template>
+        </el-table-column>
         <el-table-column v-if="columns.visible('url')" prop="url" label="商品小程序路径" />
         <el-table-column v-if="columns.visible('priceType')" prop="priceType" label="价格类型" >
           <template slot-scope="scope">
             <div>
-              <el-tag v-if="scope.row.type === 1" :type="''">一口价</el-tag>
-              <el-tag v-else-if="scope.row.type === 2" :type="''">价格区间</el-tag>
-              <el-tag v-else-if="scope.row.type === 3" :type="''">显示折扣价</el-tag>
+              <el-tag v-if="scope.row.priceType == 1" :type="''">一口价</el-tag>
+              <el-tag v-else-if="scope.row.priceType == 2" :type="''">价格区间</el-tag>
+              <el-tag v-else-if="scope.row.priceType == 3" :type="''">显示折扣价</el-tag>
             </div>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('price')" prop="price" label="price" />
-        <el-table-column v-if="columns.visible('price2')" prop="price2" label="price2" />
+<!--        <el-table-column v-if="columns.visible('price')" prop="price" label="price" />-->
+<!--        <el-table-column v-if="columns.visible('price2')" prop="price2" label="price2" />-->
         <el-table-column v-if="columns.visible('auditStatus')" prop="auditStatus" label="审核状态" >
+<!--          //0：未审核，1：审核中，2:审核通过，3审核失败-->
           <template slot-scope="scope">
             <div>
-              <el-tag v-if="scope.row.auditStatus === 1" :type="''">推流</el-tag>
-              <el-tag v-else :type="''">手机直播</el-tag>
+              <el-tag v-if="scope.row.auditStatus === 0" :type="''">未审核</el-tag>
+              <el-tag v-else-if="scope.row.auditStatus === 1" :type="''">审核中</el-tag>
+              <el-tag v-else-if="scope.row.auditStatus === 2" :type="''">审核通过</el-tag>
+              <el-tag v-else-if="scope.row.auditStatus === 3" :type="''">审核失败</el-tag>
             </div>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('thirdPartyTag')" prop="thirdPartyTag" label="1, 2：表示是为api添加商品，否则是直播控制台添加的商品" />
+<!--        1, 2：表示是为api添加商品，否则是直播控制台添加的商品-->
+        <el-table-column v-if="columns.visible('thirdPartyTag')" prop="thirdPartyTag" label="添加途径" >
+          <template slot-scope="scope">
+            <div>
+              <el-tag v-if="scope.row.thirdPartyTag == 0" :type="''">api添加</el-tag>
+              <el-tag v-else-if="scope.row.thirdPartyTag == 2" :type="''">控制台</el-tag>
+            </div>
+          </template>
+        </el-table-column>
+
         <el-table-column v-permission="['admin','yxWechatLiveGoods:edit','yxWechatLiveGoods:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
             <udOperation
@@ -122,7 +138,7 @@
 </template>
 
 <script>
-import {  sync } from '@/api/yxWechatLive'
+import {  sync } from '@/api/yxWechatLiveGoods'
 import crudYxWechatLiveGoods from '@/api/yxWechatLiveGoods'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import rrOperation from '@crud/RR.operation'
@@ -193,6 +209,43 @@ export default {
         this.syncLoading = false
       }).then(() => {
         this.syncLoading = false
+      })
+    },
+    /**
+     * 执行删除
+     * @param {*} data 数据项
+     */
+    doDelete(data) {
+      let delAll = false
+      let dataStatus
+      const ids = []
+      if (data instanceof Array) {
+        delAll = true
+        data.forEach(val => {
+          ids.push(val.goodsId)
+        })
+      } else {
+        ids.push(data.goodsId)
+        dataStatus = crud.getDataStatus(data.goodsId)
+      }
+      if (!callVmHook(crud, CRUD.HOOK.beforeDelete, data)) {
+        return
+      }
+      if (!delAll) {
+        dataStatus.delete = CRUD.STATUS.PROCESSING
+      }
+      return crud.crudMethod.del(ids).then(() => {
+        if (delAll) {
+          crud.delAllLoading = false
+        } else dataStatus.delete = CRUD.STATUS.PREPARED
+        crud.dleChangePage(1)
+        crud.delSuccessNotify()
+        callVmHook(crud, CRUD.HOOK.afterDelete, data)
+        crud.refresh()
+      }).catch(() => {
+        if (delAll) {
+          crud.delAllLoading = false
+        } else dataStatus.delete = CRUD.STATUS.PREPARED
       })
     },
     // 获取数据前设置好接口地址
