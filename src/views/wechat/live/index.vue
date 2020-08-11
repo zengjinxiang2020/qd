@@ -3,7 +3,19 @@
     <!--工具栏-->
     <div class="head-container">
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
-      <crudOperation :permission="permission" />
+      <crudOperation :permission="permission">
+        <el-tooltip slot="right" class="item" effect="dark" content="数据库中表字段变动时使用该功能" placement="top-start">
+          <el-button
+            class="filter-item"
+            size="mini"
+            type="success"
+            icon="el-icon-refresh"
+            :loading="syncLoading"
+            :disabled="crud.selections.length === 0"
+            @click="sync"
+          >同步</el-button>
+        </el-tooltip>
+      </crudOperation>
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="800px">
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
@@ -82,7 +94,20 @@
             <a :href="scope.row.shareImge" style="color: #42b983" target="_blank"><img :src="scope.row.shareImge" alt="点击打开" class="el-avatar"></a>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('liveStatus')" prop="liveStatus" label="直播间状态" />
+<!--        101：直播中，102：未开始，103 已结束，104 禁播，105：暂停，106：异常，107：已过期-->
+        <el-table-column v-if="columns.visible('liveStatus')" prop="liveStatus" label="直播间状态" >
+          <template slot-scope="scope">
+            <div>
+              <el-tag v-if="scope.row.liveStatus === 101" :type="''">直播中</el-tag>
+              <el-tag v-if="scope.row.liveStatus === 102" :type="''">未开始</el-tag>
+              <el-tag v-if="scope.row.liveStatus === 103" :type="''">已结束</el-tag>
+              <el-tag v-if="scope.row.liveStatus === 104" :type="''">禁播</el-tag>
+              <el-tag v-if="scope.row.liveStatus === 105" :type="''">暂停</el-tag>
+              <el-tag v-if="scope.row.liveStatus === 106" :type="''">异常</el-tag>
+              <el-tag v-if="scope.row.liveStatus === 107" :type="''">已过期</el-tag>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column v-if="columns.visible('startTime')" prop="startTime" label="开始时间" />
         <el-table-column v-if="columns.visible('endTime')" prop="endTime" label="预计结束时间" />
         <el-table-column v-if="columns.visible('anchorName')" prop="anchorName" label="主播昵称" />
@@ -96,7 +121,7 @@
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.type === 1" :type="''">推流</el-tag>
-              <el-tag v-else :type=" 'info' ">手机直播</el-tag>
+              <el-tag v-else :type="''">手机直播</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -104,7 +129,7 @@
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.screenType === 1" :type="''">横屏</el-tag>
-              <el-tag v-else :type=" 'info' ">竖屏</el-tag>
+              <el-tag v-else :type="''">竖屏</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -112,7 +137,7 @@
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.closeLike === 1" :type="''">关闭</el-tag>
-              <el-tag v-else :type=" 'info' ">开启</el-tag>
+              <el-tag v-else :type="''">开启</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -120,7 +145,7 @@
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.closeGoods === 1" :type="''">关闭</el-tag>
-              <el-tag v-else :type=" 'info' ">开启</el-tag>
+              <el-tag v-else :type=" '' ">开启</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -128,7 +153,7 @@
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.closeComment === 1" :type="''">关闭</el-tag>
-              <el-tag v-else :type=" 'info' ">开启</el-tag>
+              <el-tag v-else :type=" '' ">开启</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -148,6 +173,7 @@
 </template>
 
 <script>
+import {  sync } from '@/api/yxWechatLive'
 import crudYxWechatLive from '@/api/yxWechatLive'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import rrOperation from '@crud/RR.operation'
@@ -165,7 +191,7 @@ export default {
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
-
+      syncLoading: false,
       permission: {
         add: ['admin', 'yxWechatLive:add'],
         edit: ['admin', 'yxWechatLive:edit'],
@@ -210,6 +236,18 @@ export default {
   watch: {
   },
   methods: {
+    sync() {
+      this.crud.selections.forEach(val => {
+      })
+      this.syncLoading = true
+      sync().then(() => {
+        this.crud.refresh()
+        this.crud.notify('同步成功', CRUD.NOTIFICATION_TYPE.SUCCESS)
+        this.syncLoading = false
+      }).then(() => {
+        this.syncLoading = false
+      })
+    },
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
       return true
