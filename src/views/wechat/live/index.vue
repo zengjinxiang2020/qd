@@ -70,16 +70,16 @@
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
-        <el-table-column v-if="columns.visible('roomId')" prop="roomId" label="直播间id" />
+        <el-table-column v-if="columns.visible('roomid')" prop="roomid" label="直播间id" />
         <el-table-column v-if="columns.visible('name')" prop="name" label="直播间标题" />
-        <el-table-column v-if="columns.visible('coverImg')" prop="coverImg" label="背景图">
+        <el-table-column v-if="columns.visible('coverImge')" prop="coverImge" label="背景图">
           <template slot-scope="scope">
-            <a :href="scope.row.coverImge" style="color: #42b983" target="_blank"><img :src="scope.row.coverImg" alt="点击打开" class="el-avatar"></a>
+            <a :href="scope.row.coverImge" style="color: #42b983" target="_blank"><img :src="scope.row.coverImge" alt="点击打开" class="el-avatar"></a>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('shareImg')" prop="shareImg" label="分享图片" >
+        <el-table-column v-if="columns.visible('shareImge')" prop="shareImge" label="分享图片" >
           <template slot-scope="scope">
-            <a :href="scope.row.shareImge" style="color: #42b983" target="_blank"><img :src="scope.row.shareImg" alt="点击打开" class="el-avatar"></a>
+            <a :href="scope.row.shareImge" style="color: #42b983" target="_blank"><img :src="scope.row.shareImge" alt="点击打开" class="el-avatar"></a>
           </template>
         </el-table-column>
         <el-table-column v-if="columns.visible('liveStatus')" prop="liveStatus" label="直播间状态" />
@@ -87,9 +87,9 @@
         <el-table-column v-if="columns.visible('endTime')" prop="endTime" label="预计结束时间" />
         <el-table-column v-if="columns.visible('anchorName')" prop="anchorName" label="主播昵称" />
         <el-table-column v-if="columns.visible('anchorWechat')" prop="anchorWechat" label="主播微信号" />
-        <el-table-column v-if="columns.visible('anchorImg')" prop="anchorImg" label="主播头像" >
+        <el-table-column v-if="columns.visible('anchorImge')" prop="anchorImge" label="主播头像" >
           <template slot-scope="scope">
-            <a :href="scope.row.anchorImge" style="color: #42b983" target="_blank"><img :src="scope.row.anchorImg" alt="点击打开" class="el-avatar"></a>
+            <a :href="scope.row.anchorImge" style="color: #42b983" target="_blank"><img :src="scope.row.anchorImge" alt="点击打开" class="el-avatar"></a>
           </template>
         </el-table-column>
         <el-table-column v-if="columns.visible('type')" prop="type" label="直播类型" >
@@ -158,7 +158,7 @@ import MaterialList from '@/components/material'
 
 // crud交由presenter持有
 const defaultCrud = CRUD({ title: 'wxlive', url: 'api/yxWechatLive', sort: 'roomId,desc', crudMethod: { ...crudYxWechatLive }})
-const defaultForm = { roomId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: null, screenType: null, closeLike: null,closeGoods: null, closeComment: null }
+const defaultForm = { roomid: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: null, screenType: null, closeLike: null,closeGoods: null, closeComment: null }
 export default {
   name: 'YxWechatLive',
   components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList},
@@ -223,9 +223,9 @@ export default {
     },
     // 编辑前
     [CRUD.HOOK.beforeToEdit](crud, form) {
-      form.imageArr = [form.image]
-      form.shareImgArr = [form.image]
-      form.anchorImgeArr = [form.image]
+      form.coverImgArr = [form.coverImge]
+      form.shareImgArr = [form.shareImge]
+      form.anchorImgArr = [form.anchorImge]
     }
   }
 }
