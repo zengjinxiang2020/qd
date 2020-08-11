@@ -183,7 +183,7 @@ import pagination from '@crud/Pagination'
 import MaterialList from '@/components/material'
 
 // crud交由presenter持有
-const defaultCrud = CRUD({ title: 'wxlive', url: 'api/yxWechatLive', sort: 'roomId,desc', crudMethod: { ...crudYxWechatLive }})
+const defaultCrud = CRUD({ title: '直播房间', url: 'api/yxWechatLive', sort: 'roomId,desc', crudMethod: { ...crudYxWechatLive }})
 const defaultForm = { roomid: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: null, screenType: null, closeLike: null,closeGoods: null, closeComment: null }
 export default {
   name: 'YxWechatLive',

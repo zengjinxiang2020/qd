@@ -120,7 +120,7 @@ import MaterialList from "@/components/material";
 import cgood from '@/views/components/good'
 
 // crud交由presenter持有
-const defaultCrud = CRUD({ title: 'yxWechatLiveGoods', url: 'api/yxWechatLiveGoods', sort: 'goodsId,desc', crudMethod: { ...crudYxWechatLiveGoods }})
+const defaultCrud = CRUD({ title: '直播商品', url: 'api/yxWechatLiveGoods', sort: 'goods_id,desc', crudMethod: { ...crudYxWechatLiveGoods }})
 const defaultForm = {   good: {productId: null,storeName: null,image: null}, goodsId: null, productId: null, coverImgeUrl: null, url: null, priceType: null, price: null, price2: null, name: null, thirdPartyTag: null, auditId: null, auditStatus: null }
 export default {
   name: 'YxWechatLiveGoods',
