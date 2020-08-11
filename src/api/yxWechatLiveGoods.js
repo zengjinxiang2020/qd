@@ -23,5 +23,11 @@ export function edit(data) {
     data
   })
 }
-
-export default { add, edit, del }
+export function sync(ids) {
+  return request({
+    url: 'api/yxWechatLiveGoods/sync',
+    method: 'post',
+    data: ids
+  })
+}
+export default { add, edit, del, sync }

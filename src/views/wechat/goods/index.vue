@@ -11,7 +11,19 @@
         <rrOperation :crud="crud" />
       </div>
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
-      <crudOperation :permission="permission" />
+      <crudOperation :permission="permission">
+        <el-tooltip slot="right" class="item" effect="dark" content="数据库中表字段变动时使用该功能" placement="top-start">
+          <el-button
+            class="filter-item"
+            size="mini"
+            type="success"
+            icon="el-icon-refresh"
+            :loading="syncLoading"
+            :disabled="crud.selections.length === 0"
+            @click="sync"
+          >同步</el-button>
+        </el-tooltip>
+      </crudOperation>
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="800px">
           <el-form ref="form" :model="form" :rules="rules" size="small" label-width="200px">
@@ -110,6 +122,7 @@
 </template>
 
 <script>
+import {  sync } from '@/api/yxWechatLive'
 import crudYxWechatLiveGoods from '@/api/yxWechatLiveGoods'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import rrOperation from '@crud/RR.operation'
@@ -128,6 +141,7 @@ export default {
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
+      syncLoading: false,
       grid: {
         xl: 8,
         lg: 12,
@@ -165,6 +179,22 @@ export default {
   watch: {
   },
   methods: {
+    sync() {
+      const ids = []
+      this.crud.selections.forEach(val => {
+        ids.push(val.goodsId)
+      })
+      this.crud.selections.forEach(val => {
+      })
+      this.syncLoading = true
+      sync(ids).then(() => {
+        this.crud.refresh()
+        this.crud.notify('同步成功', CRUD.NOTIFICATION_TYPE.SUCCESS)
+        this.syncLoading = false
+      }).then(() => {
+        this.syncLoading = false
+      })
+    },
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
       const query = this.query
