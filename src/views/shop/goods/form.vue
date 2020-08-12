@@ -138,7 +138,7 @@
               <el-table :data="oneFormValidate" border>
                 <el-table-column prop="pic" label="图片" align="center">
                   <template slot-scope="scope">
-                    <<single-pic v-model="scope.row.pic" type="image" :num="1" :width="60" :height="60" />
+                    <single-pic v-model="scope.row.pic" type="image" :num="1" :width="60" :height="60" />
                   </template>
                 </el-table-column>
                 <el-table-column prop="price" label="售价" align="center">
