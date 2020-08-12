@@ -4,7 +4,7 @@
     <div class="head-container">
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
       <crudOperation :permission="permission">
-        <el-tooltip slot="right" class="item" effect="dark" content="数据库中表字段变动时使用该功能" placement="top-start">
+        <el-tooltip slot="right" class="item" effect="dark" content="同步小程序控制台直播间数据" placement="top-start">
           <el-button
             class="filter-item"
             size="mini"
@@ -18,57 +18,64 @@
       </crudOperation>
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="800px">
-        <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+        <el-form ref="form" :model="form" :rules="rules" size="small" label-width="140px">
           <el-form-item label="直播间标题" prop="name">
-            <el-input v-model="form.name" style="width: 370px;" />
+            <el-input v-model="form.name" style="width: 370px;" :disabled="isDisabled" />
           </el-form-item>
-          <el-form-item label="背景图" prop="coverImg">
-            <MaterialList v-model="form.coverImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150" />
+          <el-form-item label="直播间背景图" prop="coverImg" >
+            <MaterialList v-model="form.coverImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150":disabled="isDisabled" />
           </el-form-item>
-          <el-form-item label="分享图片" prop="shareImg">
-            <MaterialList v-model="form.shareImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150" />
+          <el-form-item label="直播间分享图片" prop="shareImg" >
+            <MaterialList v-model="form.shareImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150":disabled="isDisabled" />
           </el-form-item>
-          <el-form-item label="开始时间" prop="startDate">
-            <el-date-picker v-model="form.startDate" type="datetime" style="width: 370px;" />
+          <el-form-item label="计划直播开始时间" prop="startDate" >
+            <el-date-picker v-model="form.startDate" type="datetime" style="width: 370px;" :disabled="isDisabled"/>
+            <p style="color: #cf0f0f">开播时间需要在当前时间的10分钟后,并且开始时间不能在6个月后</p>
           </el-form-item>
-          <el-form-item label="预计结束时间" prop="endDate">
-            <el-date-picker v-model="form.endDate" type="datetime" style="width: 370px;" />
+          <el-form-item label="计划直播结束时间" prop="endDate" >
+            <el-date-picker v-model="form.endDate" type="datetime" style="width: 370px;" :disabled="isDisabled"/>
+            <p style="color: #cf0f0f">开播时间和结束时间间隔不得短于30分钟,不得超过24小时</p>
           </el-form-item>
-          <el-form-item label="主播昵称" prop="anchorName">
-            <el-input v-model="form.anchorName" style="width: 370px;" />
+          <el-form-item label="主播昵称" prop="anchorName" :disabled="isDisabled">
+            <el-input v-model="form.anchorName" style="width: 370px;" :disabled="isDisabled"/>
           </el-form-item>
-          <el-form-item label="主播微信号" prop="anchorWechat">
-            <el-input v-model="form.anchorWechat" style="width: 370px;" />
+          <el-form-item label="主播微信号" prop="anchorWechat" :disabled="isDisabled">
+            <el-input v-model="form.anchorWechat" style="width: 370px;" :disabled="isDisabled"/>
+            <p style="color: #cf0f0f">主播微信号需要实名，扫描下面二维码认证</p>
+            <a :href="'https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg'" style="color: #42b983" target="_blank"><img :src="'https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg'" alt="点击打开" class="el-avatar"></a>
           </el-form-item>
-          <el-form-item label="主播头像" prop="anchorImg">
-            <MaterialList v-model="form.anchorImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150" />
+          <el-form-item label="主播头像" prop="anchorImg" >
+            <MaterialList v-model="form.anchorImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150" :disabled="isDisabled"/>
           </el-form-item>
-          <el-form-item label="直播间类型" prop="type">
-            <el-radio-group v-model="form.type" >
+          <el-form-item label="选择入库商品" >
+            <LiveGoods v-model="form.product"  @selectGoods="getGoods" > </LiveGoods>
+          </el-form-item>
+          <el-form-item label="直播间类型" prop="type" >
+            <el-radio-group v-model="form.type":disabled="isDisabled" >
               <el-radio :label="1" class="radio">推流</el-radio>
               <el-radio :label="0">手机直播</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="横屏、竖屏" prop="screenType">
-            <el-radio-group v-model="form.screenType" >
+          <el-form-item label="横屏、竖屏" prop="screenType" >
+            <el-radio-group v-model="form.screenType" :disabled="isDisabled">
               <el-radio :label="1" class="radio">横屏</el-radio>
               <el-radio :label="0">竖屏</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="是否关闭点赞" prop="closeLike">
-            <el-radio-group v-model="form.closeLike" >
+          <el-form-item label="是否关闭点赞" prop="closeLike" >
+            <el-radio-group v-model="form.closeLike" :disabled="isDisabled">
               <el-radio :label="1" class="radio">关闭</el-radio>
               <el-radio :label="0">开启</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="是否关闭货架" prop="closeLike">
-            <el-radio-group v-model="form.closeGoods" >
+          <el-form-item label="是否关闭货架" prop="closeGoods" >
+            <el-radio-group v-model="form.closeGoods" :disabled="isDisabled">
               <el-radio :label="1" class="radio">关闭</el-radio>
               <el-radio :label="0">开启</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="是否关闭评论" prop="closeComment">
-            <el-radio-group v-model="form.closeComment" >
+          <el-form-item label="是否关闭评论" prop="closeComment" >
+            <el-radio-group v-model="form.closeComment" :disabled="isDisabled">
               <el-radio :label="1" class="radio">关闭</el-radio>
               <el-radio :label="0">开启</el-radio>
             </el-radio-group>
@@ -76,7 +83,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button type="text" @click="crud.cancelCU">取消</el-button>
-          <el-button :loading="crud.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
+          <el-button :loading="crud.cu === 2" type="primary" @click="crud.submitCU" :disabled="isDisabled">确认</el-button>
         </div>
       </el-dialog>
       <!--表格渲染-->
@@ -141,7 +148,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('closeGoods')" prop="closeLike" label="货架" >
+        <el-table-column v-if="columns.visible('closeGoods')" prop="closeGoods" label="货架" >
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.closeGoods === 1" :type="''">关闭</el-tag>
@@ -149,7 +156,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('closeComment')" prop="closeLike" label="评论" >
+        <el-table-column v-if="columns.visible('closeComment')" prop="closeComment" label="评论" >
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.closeComment === 1" :type="''">关闭</el-tag>
@@ -178,19 +185,26 @@ import crudYxWechatLive from '@/api/yxWechatLive'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
-import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 import MaterialList from '@/components/material'
+import LiveGoods from '@/views/components/livegoods'
+import udOperation from '@crud/UD.operation'
 
 // crud交由presenter持有
-const defaultCrud = CRUD({ title: '直播房间', url: 'api/yxWechatLive', sort: 'roomId,desc', crudMethod: { ...crudYxWechatLive }})
-const defaultForm = { roomid: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: null, screenType: null, closeLike: null,closeGoods: null, closeComment: null }
+const defaultCrud = CRUD({ optShow: {
+    add: true,
+    edit: false,
+    del: false,
+    download: true
+  },title: '直播房间', url: 'api/yxWechatLive', sort: 'roomId,desc', crudMethod: { ...crudYxWechatLive }})
+const defaultForm = { product: [],roomid: null,productId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: null, screenType: null, closeLike: null,closeGoods: null, closeComment: null }
 export default {
   name: 'YxWechatLive',
-  components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList},
+  components: { pagination, crudOperation, rrOperation ,MaterialList,udOperation,LiveGoods},
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
+      disabled: false,
       syncLoading: false,
       permission: {
         add: ['admin', 'yxWechatLive:add'],
@@ -235,7 +249,23 @@ export default {
   },
   watch: {
   },
+  computed:{
+    isDisabled(){
+      if(this.disabled){
+        return this.isdisabled=true;
+      }else{
+        return this.isdisabled=false;
+      }
+    }
+  },
   methods: {
+    getGoods(p) {
+      var ids = []
+      p.forEach((item,index) => {
+        ids.push(item.id)
+      })
+      this.form.productId = ids.join(",")
+    },
     sync() {
       this.crud.selections.forEach(val => {
       })
@@ -264,6 +294,9 @@ export default {
       form.coverImgArr = [form.coverImge]
       form.shareImgArr = [form.shareImge]
       form.anchorImgArr = [form.anchorImge]
+      form.product = form.product
+      this.disabled = true;
+      console.log(form.product)
     }
   }
 }

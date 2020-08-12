@@ -26,52 +26,52 @@
       </crudOperation>
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="800px">
-          <el-form ref="form" :model="form" :rules="rules" size="small" label-width="200px">
-              <el-form-item label="选择商品" prop="coverImgeUrl" label-width="80px">
-                <cgood v-model="form.good" ></cgood>
+          <el-form ref="form" :model="form" :rules="rules" size="small" label-width="140px">
+              <el-form-item label="选择商品" prop="coverImgeUrl" >
+                <cgood v-model="form.good":disabled="disable" ></cgood>
               </el-form-item>
-              <el-form-item label="商品小程序路径" prop="url" label-width="80px">
-                <el-input v-model="form.url" style="width: 370px;" />
+              <el-form-item label="商品小程序路径" prop="url" >
+                <el-input v-model="form.url" style="width: 370px;" :disabled="disable"/>
               </el-form-item>
     <!--          1：一口价（只需要传入price，price2不传）-->
     <!--          2：价格区间（price字段为左边界，price2字段为右边界，price和price2必传）-->
     <!--          3：显示折扣价（price字段为原价，price2字段为现价， price和price2必传）-->
-
-              <el-form-item label="商品名称" prop="name" label-width="80px">
-                <el-input v-model="form.name" style="width: 370px;" />
+              <el-form-item label="商品名称" prop="name"  >
+                <el-input v-model="form.name" style="width: 370px;" :disabled="disable"/>
               </el-form-item>
-              <el-form-item label="价格类型" prop="priceType" label-width="80px">
+              <el-form-item label="价格类型" prop="priceType" >
                 <el-radio-group v-model="form.priceType" >
                   <el-radio :label="'1'" class="radio">一口价</el-radio>
                   <el-radio :label="'2'" class="radio">价格区间</el-radio>
                   <el-radio :label="'3'" class="radio">显示折扣价</el-radio>
                 </el-radio-group>
+                <p v-if="disable" style="color: #cf0f0f">商品审核通过已入库，只能修改价格</p>
+              </el-form-item>
+              <el-col v-if="form.priceType=='1'" v-bind="grid">
+                <el-form-item  label="一口价" prop="price" >
+                  <el-input v-model="form.price" style="width: 200px;" />
                 </el-form-item>
-                  <el-col v-if="form.priceType=='1'" v-bind="grid">
-                    <el-form-item  label="一口价" prop="price" label-width="80px">
-                      <el-input v-model="form.price" style="width: 200px;" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col v-if="form.priceType=='2'" v-bind="grid">
-                    <el-form-item label="最低价格" prop="price" label-width="80px">
-                      <el-input v-model="form.price"  style="width: 200px;"/>
-                    </el-form-item>
-                  </el-col>
-                  <el-col v-if="form.priceType=='2'" v-bind="grid">
-                    <el-form-item label="最高价格" prop="price2" label-width="80px" >
-                      <el-input v-model="form.price2"  style="width: 200px;"/>
-                    </el-form-item>
-                  </el-col>
-                  <el-col v-if="form.priceType=='3'" v-bind="grid">
-                    <el-form-item label="市场价" prop="price" label-width="80px">
-                      <el-input v-model="form.price" style="width: 200px;" />
-                    </el-form-item>
-                  </el-col>
-                  <el-col v-if="form.priceType=='3'" v-bind="grid">
-                    <el-form-item label="现价" prop="price2" label-width="80px">
-                      <el-input v-model="form.price2"  style="width: 200px;"/>
-                    </el-form-item>
-                  </el-col>
+              </el-col>
+              <el-col v-if="form.priceType=='2'" v-bind="grid">
+                <el-form-item label="最低价格" prop="price" >
+                  <el-input v-model="form.price"  style="width: 200px;"/>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="form.priceType=='2'" v-bind="grid">
+                <el-form-item label="最高价格" prop="price2"  >
+                  <el-input v-model="form.price2"  style="width: 200px;"/>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="form.priceType=='3'" v-bind="grid">
+                <el-form-item label="市场价" prop="price" >
+                  <el-input v-model="form.price" style="width: 200px;" />
+                </el-form-item>
+              </el-col>
+              <el-col v-if="form.priceType=='3'" v-bind="grid">
+                <el-form-item label="现价" prop="price2" >
+                  <el-input v-model="form.price2"  style="width: 200px;"/>
+                </el-form-item>
+              </el-col>
             </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button type="text" @click="crud.cancelCU">取消</el-button>
@@ -150,13 +150,14 @@ import cgood from '@/views/components/good'
 
 // crud交由presenter持有
 const defaultCrud = CRUD({ title: '直播商品', url: 'api/yxWechatLiveGoods', sort: 'goods_id,desc', crudMethod: { ...crudYxWechatLiveGoods }})
-const defaultForm = {   good: {productId: null,storeName: null,image: null}, goodsId: null, productId: null, coverImgeUrl: null, url: null, priceType: null, price: null, price2: null, name: null, thirdPartyTag: null, auditId: null, auditStatus: null }
+const defaultForm = {   good: {productId: null,storeName: null,image: null,price: null,otPrice: null}, goodsId: null, productId: null, coverImgeUrl: null, url: null, priceType: null, price: null, price2: null, name: null, thirdPartyTag: null, auditId: null, auditStatus: null }
 export default {
   name: 'YxWechatLiveGoods',
   components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList,cgood},
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
+      isdisable: false,
       syncLoading: false,
       grid: {
         xl: 8,
@@ -171,28 +172,51 @@ export default {
         del: ['admin', 'yxWechatLiveGoods:del']
       },
       rules: {
-        // coverImgUrl: [
-        //   { required: true, message: '商品图片不能为空', trigger: 'blur' }
-        // ],
-        // url: [
-        //   { required: true, message: '商品小程序路径不能为空', trigger: 'blur' }
-        // ],
-        // priceType: [
-        //   { required: true, message: '价格类型不能为空', trigger: 'blur' }
-        // ],
-        // price: [
-        //   { required: true, message: '不能为空', trigger: 'blur' }
-        // ],
-        // name: [
-        //   { required: true, message: '商品名称不能为空', trigger: 'blur' }
-        // ]
+        coverImgUrl: [
+          { required: true, message: '商品图片不能为空', trigger: 'blur' }
+        ],
+        url: [
+          { required: true, message: '商品小程序路径不能为空', trigger: 'blur' }
+        ],
+        priceType: [
+          { required: true, message: '价格类型不能为空', trigger: 'blur' }
+        ],
+        price: [
+          { required: true, message: '不能为空', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, message: '商品名称不能为空', trigger: 'blur' }
+        ]
       },
       queryTypeOptions: [
         { key: 'name', display_name: '商品名称' }
       ]
     }
   },
-  watch: {
+  watch:{
+    'form.good': {
+        handler(val,oldVal){
+        this.form.productId = val.productId
+        this.form.name = val.storeName
+        this.form.coverImgeUrl = val.image
+        this.form.price = val.price
+        this.form.price2 = val.otPrice
+        this.form.priceType = '3'
+        this.disable=true;
+      },
+      deep:true//对象内部的属性监听，也叫深度监听
+    },
+  },
+  computed:{
+    disable(){
+      if(this.form.auditStatus=="2"){
+        return this.isdisabled=true;
+      }else{
+        return this.isdisabled=false;
+
+      }
+
+    }
   },
   methods: {
     sync() {
@@ -262,12 +286,8 @@ export default {
       this.form.good.productId = form.productId
       this.form.good.storeName = form.name
       this.form.good.image = form.coverImgeUrl
-    },
-    [CRUD.HOOK.beforeSubmit]() {
-      console.log(this.form)
-      this.form.productId = this.form.good.productId
-      this.form.name = this.form.good.storeName
-      this.form.coverImgeUrl = this.form.good.image
+      this.form.good.price = form.price
+      this.form.good.otPrice = form.price2
     },
   }
 }

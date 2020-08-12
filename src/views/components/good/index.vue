@@ -116,12 +116,16 @@ export default {
         that.$set(that.value,"productId", null)
         that.$set(that.value,"storeName", null)
         that.$set(that.value,"image", null)
+        this.$set(this.value,"otPrice", null)
+        this.$set(this.value,"price", null)
       })
     },
     doSelect(data) {
       this.$set(this.value,"productId", data.id)
       this.$set(this.value,"storeName", data.storeName)
       this.$set(this.value,"image", data.image)
+      this.$set(this.value,"otPrice", data.otPrice)
+      this.$set(this.value,"price", data.price)
       this.dialog = false
     },
     toSelete() {
