@@ -41,8 +41,7 @@
           </el-form-item>
           <el-form-item label="主播微信号" prop="anchorWechat" :disabled="isDisabled">
             <el-input v-model="form.anchorWechat" style="width: 370px;" :disabled="isDisabled"/>
-            <p style="color: #cf0f0f">主播微信号需要实名，扫描下面二维码认证</p>
-            <a :href="'https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg'" style="color: #42b983" target="_blank"><img :src="'https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg'" alt="点击打开" class="el-avatar"></a>
+            <p style="color: #cf0f0f">主播微信号需要实名，搜索微信官方小程序【小程序直播】进行认证</p>
           </el-form-item>
           <el-form-item label="主播头像" prop="anchorImg" >
             <MaterialList v-model="form.anchorImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150" :disabled="isDisabled"/>
