@@ -87,12 +87,12 @@
       <el-table-column prop="payTypeName" label="支付状态" />
       <el-table-column prop="statusName" label="订单状态">
         <template slot-scope="scope">
-          <span v-html="scope.row.statusName">{{ scope.row.addTime }}</span>
+          <span v-html="scope.row.statusName"></span>
         </template>
       </el-table-column>
       <el-table-column prop="addTime" width="160" label="创建时间">
         <template slot-scope="scope">
-          <span>{{ formatTime(scope.row.addTime) }}</span>
+          <span>{{ formatTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT','YXSTOREORDER_DELETE'])" label="操作" width="200" align="center" fixed="right">
@@ -520,7 +520,7 @@ export default {
         paid: data.paid,
         payTime: data.payTime,
         payType: data.payType,
-        addTime: data.addTime,
+        createTime: data.createTime,
         status: data.status,
         refundStatus: data.refundStatus,
         refundReasonWapImg: data.refundReasonWapImg,
