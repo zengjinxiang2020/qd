@@ -5,22 +5,22 @@
         <el-row :gutter="24">
           <!-- 商品信息-->
           <el-col :span="24">
-            <el-form-item label="拼团名称">
-              <el-input v-model="formValidate.title" style="width: 500px;" />
+            <el-form-item label="拼团名称" prop="title">
+              <el-input v-model="formValidate.title" style="width: 500px;" placeholder="请输入拼团名称"/>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="拼团简介">
-              <el-input v-model="formValidate.info" style="width: 500px;" />
+            <el-form-item label="拼团简介" prop="info">
+              <el-input v-model="formValidate.info" style="width: 500px;" placeholder="请输入拼团简介"/>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="单位">
-              <el-input v-model="formValidate.unitName" style="width: 500px;" />
+            <el-form-item label="单位" prop="unitName">
+              <el-input v-model="formValidate.unitName" style="width: 500px;" placeholder="请输入单位"/>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="拼团开始时间">
+            <el-form-item label="拼团开始时间" prop="startTime">
               <template>
                 <el-date-picker
                   v-model="formValidate.startTime"
@@ -31,7 +31,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="拼团结束时间">
+            <el-form-item label="拼团结束时间" prop="stopTime">
               <template>
                 <el-date-picker
                   v-model="formValidate.stopTime"
@@ -42,38 +42,38 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="活动状态">
+            <el-form-item label="活动状态"  prop="isShow">
               <el-radio v-model="formValidate.isShow" :label="1">开启</el-radio>
               <el-radio v-model="formValidate.isShow" :label="0" style="width: 200px;">关闭</el-radio>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="产品主图片">
+            <el-form-item label="产品主图片" prop="image">
               <single-pic v-model="formValidate.image" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="产品轮播图">
+            <el-form-item label="产品轮播图" prop="slider_image">
               <MaterialList v-model="formValidate.slider_image" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="拼团时效(单位小时)">
+            <el-form-item label="拼团时效(单位小时)" prop="effectiveTime">
               <el-input-number v-model="formValidate.effectiveTime" style="width: 500px;" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="拼团价">
+            <el-form-item label="拼团价" prop="price">
               <el-input-number v-model="formValidate.price" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="拼团人数">
+            <el-form-item label="拼团人数" prop="people">
               <el-input-number v-model="formValidate.people" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="选择商品：" prop="image">
+            <el-form-item label="选择商品：" prop="good">
               <cgood v-model="form1.good":disabled="true" ></cgood>
             </el-form-item>
           </el-col>
@@ -534,29 +534,38 @@ export default {
       treeSelect: [],
       tableIndex: 0,
       ruleValidate: {
-        store_name: [
-          { required: true, message: '请输入商品名称', trigger: 'blur' }
+        title: [
+          { required: true, message: '请输入拼团名称', trigger: 'blur' }
         ],
-        cate_id: [
-          { required: true, message: '请选择商品分类', trigger: 'change' }
+        info: [
+          { required: true, message: '请输入拼团简介', trigger: 'blur' }
         ],
-        keyword: [
-          { required: true, message: '请输入商品关键字', trigger: 'blur' }
-        ],
-        unit_name: [
+        unitName: [
           { required: true, message: '请输入单位', trigger: 'blur' }
         ],
-        store_info: [
-          { required: true, message: '请输入商品简介', trigger: 'blur' }
+        startTime: [
+          { required: true, message: '请选择开团时间', trigger: 'blur' }
         ],
-        spec_type: [
-          { required: true, message: '请选择商品规格', trigger: 'change' }
+        stopTime: [
+          { required: true, message: '请选择开团结束时间', trigger: 'blur' }
         ],
-        selectRule: [
-          { required: true, message: '请选择商品规格属性', trigger: 'change' }
+        isShow: [
+          { required: true, message: '请选择活动状态', trigger: 'change' }
         ],
         temp_id: [
           { required: true, message: '请选择运费模板', trigger: 'change', type: 'number' }
+        ],
+        price: [
+          { required: true, message: '请输入拼团价格', trigger: 'blur' }
+        ],
+        people: [
+          { required: true, message: '请选择拼团人数', trigger: 'change', type: 'number' }
+        ],
+        spec_type: [
+          { required: true, message: '请选择商品规格', trigger: 'change'}
+        ],
+        effectiveTime: [
+          { required: true, message: '请选择拼团时效', trigger: 'blur'}
         ]
       },
       attrs: []
