@@ -46,6 +46,13 @@ export function isFormatAttr(id, data) {
   })
 }
 
+export function isFormatAttrForActivity(id, data) {
+  return request({
+    url: 'api/yxStoreProduct/isFormatAttrForActivity/' + id,
+    method: 'post',
+    data
+  })
+}
 export function setAttr(id, data) {
   return request({
     url: 'api/yxStoreProduct/setAttr/' + id,

@@ -1,101 +1,458 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '开启拼团'" width="900px">
-    <el-form ref="form" :model="form" :rules="rules" :inline="true" size="small" label-width="140px">
-      <el-form-item label="拼团名称">
-        <el-input v-model="form.title" style="width: 500px;" />
-      </el-form-item>
-      <el-form-item label="拼团简介">
-        <el-input v-model="form.info" style="width: 500px;" />
-      </el-form-item>
-      <el-form-item label="单位">
-        <el-input v-model="form.unitName" style="width: 500px;" />
-      </el-form-item>
-      <el-form-item label="拼团开始时间">
-        <template>
-          <el-date-picker
-            v-model="form.startTime"
-            type="datetime"
-            placeholder="选择日期时间"
-          />
-        </template>
-      </el-form-item>
-      <el-form-item label="拼团结束时间">
-        <template>
-          <el-date-picker
-            v-model="form.stopTime"
-            type="datetime"
-            placeholder="选择日期时间"
-          />
-        </template>
-      </el-form-item>
-      <el-form-item label="产品主图片">
-        <MaterialList v-model="form.imageArr" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
-      </el-form-item>
-      <el-form-item label="产品轮播图">
-        <MaterialList v-model="form.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
-      </el-form-item>
-      <el-form-item label="拼团时效(单位小时)">
-        <el-input-number v-model="form.effectiveTime" style="width: 500px;" />
-      </el-form-item>
-      <el-form-item label="拼团价">
-        <el-input-number v-model="form.price" />
-      </el-form-item>
-      <el-form-item label="拼团人数">
-        <el-input-number v-model="form.people" />
-      </el-form-item>
-      <el-form-item label="库存">
-        <el-input-number v-model="form.stock" />
-      </el-form-item>
-      <el-form-item label="销量">
-        <el-input-number v-model="form.sales" />
-      </el-form-item>
-      <el-form-item label="排序">
-        <el-input-number v-model="form.sort" />
-      </el-form-item>
-      <el-form-item label="邮费">
-        <el-input-number v-model="form.postage" />
-      </el-form-item>
-      <el-form-item label="是否包邮">
-        <el-radio v-model="form.isPostage" :label="1">是</el-radio>
-        <el-radio v-model="form.isPostage" :label="0" style="width: 110px;">否</el-radio>
-      </el-form-item>
-      <el-form-item label="活动状态">
-        <el-radio v-model="form.isShow" :label="1">开启</el-radio>
-        <el-radio v-model="form.isShow" :label="0" style="width: 200px;">关闭</el-radio>
-      </el-form-item>
-      <el-form-item label="详情">
-        <editor v-model="form.description" />
-      </el-form-item>
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button type="text" @click="cancel">取消</el-button>
-      <el-button :loading="loading" type="primary" @click="doSubmit">确认</el-button>
-    </div>
-  </el-dialog>
+  <div class="app-container">
+    <el-card :bordered="false">
+      <el-form  ref="formValidate" :rules="ruleValidate" :model="formValidate" label-width="130px" >
+        <el-row :gutter="24">
+          <!-- 商品信息-->
+          <el-col :span="24">
+            <el-form-item label="拼团名称">
+              <el-input v-model="formValidate.title" style="width: 500px;" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="拼团简介">
+              <el-input v-model="formValidate.info" style="width: 500px;" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="单位">
+              <el-input v-model="formValidate.unitName" style="width: 500px;" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="拼团开始时间">
+              <template>
+                <el-date-picker
+                  v-model="formValidate.startTime"
+                  type="datetime"
+                  placeholder="选择日期时间"
+                />
+              </template>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="拼团结束时间">
+              <template>
+                <el-date-picker
+                  v-model="formValidate.stopTime"
+                  type="datetime"
+                  placeholder="选择日期时间"
+                />
+              </template>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="活动状态">
+              <el-radio v-model="formValidate.isShow" :label="1">开启</el-radio>
+              <el-radio v-model="formValidate.isShow" :label="0" style="width: 200px;">关闭</el-radio>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="产品主图片">
+              <single-pic v-model="formValidate.image" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="产品轮播图">
+              <MaterialList v-model="formValidate.slider_image" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="拼团时效(单位小时)">
+              <el-input-number v-model="formValidate.effectiveTime" style="width: 500px;" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="拼团价">
+              <el-input-number v-model="formValidate.price" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="拼团人数">
+              <el-input-number v-model="formValidate.people" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="选择商品：" prop="image">
+              <cgood v-model="form1.good":disabled="true" ></cgood>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="商品规格：" props="spec_type">
+              <el-radio-group v-model="formValidate.spec_type"  @change="changeSpec" :disabled="true">
+                <el-radio :label="0" class="radio">单规格</el-radio>
+                <el-radio :label="1">多规格{{formValidate.spec_typ}}</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <!-- 多规格设置-->
+          <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24" v-if="manyFormValidate.length && formValidate.header.length!==0 && attrs.length!==0">
+            <!-- 多规格表格-->
+            <el-col :span="24">
+              <el-form-item label="商品属性：" class="labeltop">
+                <el-table :data="manyFormValidate"  border>
+                  <el-table-column type="myindex" v-for="(item,index) in formValidate.header" :key="index" :label="item.title" :property="item.slot" align="center">
+                    <template slot-scope="scope">
+                      <div v-if="scope.column.property == 'pic'">
+                        <single-pic v-model="scope.row[scope.column.property]" type="image" :num="1" :width="60" :height="60" />
+                      </div>
+                      <div v-else-if="scope.column.property.indexOf('value') != -1" >
+                       {{ scope.row[scope.column.property] }}
+                      </div>
+                      <div v-else-if="scope.column.property == 'pinkPrice'||scope.column.property == 'pinkStock'"  >
+                        <el-input  v-model="scope.row[scope.column.property]"/>
+                      </div>
+                      <div v-else-if="scope.column.property == 'action'"  >
+                        <a  :disabled="true">不可删除</a>
+                      </div>
+                      <div v-else>
+                        <el-input  v-model="scope.row[scope.column.property]" :disabled="true"/>
+                      </div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-form-item>
+          </el-col>
+          </el-col>
+          <!-- 单规格表格-->
+          <el-col :xl="23" :lg="24" :md="24" :sm="24" :xs="24" v-if="formValidate.spec_type === 0">
+            <el-form-item >
+              <el-table :data="oneFormValidate" border>
+                <el-table-column prop="pic" label="图片" align="center">
+                  <template slot-scope="scope">
+                    <single-pic v-model="scope.row.pic" type="image" :num="1" :width="60" :height="60" />
+                  </template>
+                </el-table-column>
+                <el-table-column prop="price" label="售价" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.price"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="cost" label="成本价" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.cost" :disabled="true"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="ot_price" label="原价" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.ot_price" :disabled="true"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="stock" label="库存" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.stock" :disabled="true"/>
+                  </template>
+                </el-table-column>
+
+                <el-table-column prop="stock" label="拼团价" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.pink_price" :disabled="true"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="stock" label="拼团库存" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.pink_stock" :disabled="true"/>
+                  </template>
+                </el-table-column>
+
+                <el-table-column prop="bar_code" label="商品编号" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.bar_code" :disabled="true"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="weight" label="重量（KG）" align="center ">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.weight" :disabled="true"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="volume" label="体积(m³" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.volume" :disabled="true"/>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="运费模板：" prop="temp_id">
+              <div class="acea-row">
+                <el-select v-model="formValidate.temp_id"  class="mr20" :disabled="true">
+                  <el-option v-for="(item,index) in templateList" :value="item.id" :key="index" :label="item.name">
+                  </el-option>
+                </el-select>
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="商品详情：">
+              <ueditor-wrap v-model="formValidate.description" :config="myConfig"  @beforeInit="addCustomDialog"  style="width: 90%;"></ueditor-wrap>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col v-bind="grid">
+            <el-form-item label="虚拟：">
+              <el-input-number  :min="0" v-model="formValidate.sales" placeholder="请输入销量"  :disabled="true"/>
+            </el-form-item>
+          </el-col>
+          <el-col v-bind="grid">
+            <el-form-item label="排序：">
+              <el-input-number :min="0"  v-model="formValidate.sort" placeholder="请输入排序" :disabled="true"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="佣金设置：">
+              <el-radio-group v-model="formValidate.is_sub" :disabled="true" >
+                <el-radio :label="1" class="radio">单独设置</el-radio>
+                <el-radio :label="0">默认设置</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24" v-if="formValidate.is_sub === 1">
+            <!--单规格返佣-->
+            <el-form-item label="商品属性：" v-if="formValidate.spec_type === 0">
+              <el-table :data="oneFormValidate"  border>
+                <el-table-column prop="imageArr" label="图片" align="center">
+                  <template slot-scope="scope">
+                    <el-image :src="scope.row.pic" fit="contain">
+                      <div slot="error" class="image-slot">
+                        <i class="el-icon-picture-outline"></i>
+                      </div>
+                    </el-image>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="price" label="售价" align="center" />
+                <el-table-column prop="cost" label="成本价" align="center" />
+                <el-table-column prop="ot_price" label="原价" align="center" />
+                <el-table-column prop="stock" label="库存" align="center" />
+                <el-table-column prop="pink_price" label="拼团价" align="center" />
+                <el-table-column prop="pink_stock" label="拼团库存" align="center" />
+                <el-table-column prop="bar_code" label="商品编号" align="center" />
+                <el-table-column prop="weight" label="重量（KG）" align="center" />
+                <el-table-column prop="volume" label="体积(m³" align="center" />
+                <el-table-column prop="volume" label="一级返佣" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.brokerage" :disabled="true"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="volume" label="二级返佣" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.brokerage_two" :disabled="true"/>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-form-item>
+            <el-form-item label="商品属性：" v-if="formValidate.spec_type === 1 && manyFormValidate.length">
+              <el-table :data="manyFormValidate" border>
+                <el-table-column prop="imageArr" label="图片" align="center">
+                  <template slot-scope="scope">
+                    <el-image :src="scope.row.pic" fit="contain">
+                      <div slot="error" class="image-slot">
+                        <i class="el-icon-picture-outline"></i>
+                      </div>
+                    </el-image>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="price" label="售价" align="center" />
+                <el-table-column prop="cost" label="成本价" align="center" />
+                <el-table-column prop="ot_price" label="原价" align="center" />
+                <el-table-column prop="stock" label="库存" align="center" />
+                <el-table-column prop="pink_price" label="拼团价" align="center" />
+                <el-table-column prop="pink_stock" label="拼团库存" align="center" />
+                <el-table-column prop="bar_code" label="商品编号" align="center" />
+                <el-table-column prop="weight" label="重量（KG）" align="center" />
+                <el-table-column prop="volume" label="体积(m³" align="center" />
+                <el-table-column prop="volume" label="一级返佣" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.brokerage":disabled="true"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="volume" label="二级返佣" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.brokerage_two":disabled="true"/>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item>
+          <el-button type="primary" class="submission" @click="handleSubmit('formValidate')">保存</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+  </div>
 </template>
 
 <script>
-import { add, edit } from '@/api/yxStoreCombination'
+import cgood from '@/views/components/good'
+import { getInfo, isFormatAttrForActivity } from '@/api/yxStoreProduct'
+import { add, edit,getCombinationInfo, onsaleCombination, delCombination } from '@/api/yxStoreCombination'
 import editor from '../../components/Editor'
+import picUpload from '@/components/pic-upload'
+import mulpicUpload from '@/components/mul-pic-upload'
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import MaterialList from '@/components/material'
+import singlePic from '@/components/singlematerial'
+import UeditorWrap from 'vue-ueditor-wrap';
 export default {
-  components: { editor,  MaterialList },
-  props: {
-    isAdd: {
-      type: Boolean,
-      required: true
-    }
-  },
+  components: { editor, picUpload, mulpicUpload, Treeselect, MaterialList, UeditorWrap, singlePic,cgood },
   data() {
     return {
-      loading: false, dialog: false,
-      form: {
-        id: '',
+      spinShow: false,
+      grid2: {
+        xl: 10,
+        lg: 12,
+        md: 12,
+        sm: 24,
+        xs: 24
+      },
+      grid3: {
+        xl: 18,
+        lg: 18,
+        md: 20,
+        sm: 24,
+        xs: 24
+      },
+      // 批量设置表格data
+      oneFormBatch: [
+        {
+          pic: '',
+          price: 0,
+          cost: 0,
+          ot_price: 0,
+          stock: 0,
+          bar_code: '',
+          pink_stock: 0,
+          pink_price: 0,
+          weight: 0,
+          volume: 0
+        }
+      ],
+      // 规格数据
+      formDynamic: {
+        attrsName: '',
+        attrsVal: ''
+      },
+      formDynamicNameData: [],
+      isBtn: false,
+      myConfig: {
+        autoHeightEnabled: false, // 编辑器不自动被内容撑高
+        initialFrameHeight: 500, // 初始容器高度
+        initialFrameWidth: '100%', // 初始容器宽度
+        UEDITOR_HOME_URL: '/UEditor/',
+        serverUrl: ''
+      },
+      columns2: [
+        {
+          title: '图片',
+          slot: 'pic',
+          align: 'center',
+          minWidth: 80
+        },
+        {
+          title: '售价',
+          slot: 'price',
+          align: 'center',
+          minWidth: 95,
+          disabled: true
+        },
+        {
+          title: '成本价',
+          slot: 'cost',
+          align: 'center',
+          minWidth: 95
+        },
+        {
+          title: '原价',
+          slot: 'ot_price',
+          align: 'center',
+          minWidth: 95
+        },
+        {
+          title: '库存',
+          slot: 'stock',
+          align: 'center',
+          minWidth: 95
+        },
+        {
+          title: '商品编号',
+          slot: 'bar_code',
+          align: 'center',
+          minWidth: 120
+        },
+        {
+          title: '重量（KG）',
+          slot: 'weight',
+          align: 'center',
+          minWidth: 95
+        },
+        {
+          title: '体积(m³)',
+          slot: 'volume',
+          align: 'center',
+          minWidth: 95
+        },
+        {
+          title: '操作',
+          slot: 'action',
+          fixed: 'right',
+          align: 'center',
+          minWidth: 140
+        }
+      ],
+      columns: [],
+      gridPic: {
+        xl: 6,
+        lg: 8,
+        md: 12,
+        sm: 12,
+        xs: 12
+      },
+      gridBtn: {
+        xl: 4,
+        lg: 8,
+        md: 8,
+        sm: 8,
+        xs: 8
+      },
+      form1: {
+        good:{
+
+        }
+      },
+      formValidate: {
+        // imageArr:[],
+        // sliderImageArr: [],
+        // store_name: '',
+        // cate_id: '',
+        // keyword: '',
+        // unit_name: '',
+        // store_info: '',
+        // image: '',
+        slider_image: [],
+        // description: '',
+        // ficti: 0,
+        // give_integral: 0,
+        // sort: 0,
+        // is_show: 1,
+        // is_hot: 0,
+        // is_benefit: 0,
+        // is_best: 0,
+        // is_new: 0,
+        // is_good: 0,
+        // is_postage: 0,
+        // is_sub: 0,
+        id: 0,
+        combinationId: 0,
         productId: '',
         merId: '',
         image: '',
         images: '',
-        imageArr: [],
+        imageArr:[],
         sliderImageArr: [],
         title: '',
         attr: '',
@@ -117,109 +474,443 @@ export default {
         stopTime: '',
         effectiveTime: '',
         cost: '',
-        browse: '',
         unitName: '',
         combination: 1,
         browse: 0,
         startTimeDate: '',
-        endTimeDate: ''
+        endTimeDate: '',
+
+
+        spec_type: 0,
+        temp_id: '',
+        attrs: [],
+        items: [
+          {
+            pic: '',
+            price: 0,
+            pink_stock: 0,
+            pink_price: 0,
+            cost: 0,
+            ot_price: 0,
+            stock: 0,
+            bar_code: ''
+          }
+        ],
+        header: [],
+        selectRule: ''
       },
-      rules: {
-      }
+      ruleList: [],
+      templateList: [],
+      createBnt: false,
+      showIput: false,
+      manyFormValidate: [],
+      // 单规格表格data
+      oneFormValidate: [
+        {
+          imageArr: [],
+          pic: '',
+          price: 0,
+          cost: 0,
+          ot_price: 0,
+          stock: 0,
+          pink_stock: 0,
+          pink_Price: 0,
+          bar_code: '',
+          weight: 0,
+          volume: 0,
+          brokerage: 0,
+          brokerage_two: 0
+        }
+      ],
+      images: [],
+      grid: {
+        xl: 8,
+        lg: 8,
+        md: 12,
+        sm: 24,
+        xs: 24
+      },
+      loading: false,
+      treeSelect: [],
+      tableIndex: 0,
+      ruleValidate: {
+        store_name: [
+          { required: true, message: '请输入商品名称', trigger: 'blur' }
+        ],
+        cate_id: [
+          { required: true, message: '请选择商品分类', trigger: 'change' }
+        ],
+        keyword: [
+          { required: true, message: '请输入商品关键字', trigger: 'blur' }
+        ],
+        unit_name: [
+          { required: true, message: '请输入单位', trigger: 'blur' }
+        ],
+        store_info: [
+          { required: true, message: '请输入商品简介', trigger: 'blur' }
+        ],
+        spec_type: [
+          { required: true, message: '请选择商品规格', trigger: 'change' }
+        ],
+        selectRule: [
+          { required: true, message: '请选择商品规格属性', trigger: 'change' }
+        ],
+        temp_id: [
+          { required: true, message: '请选择运费模板', trigger: 'change', type: 'number' }
+        ]
+      },
+      attrs: []
     }
   },
   watch: {
-    'form.imageArr': function(val) {
+    // 'formValidate.imageArr': function(val) {
+    //   if (val) {
+    //     this.form.image = val.join(',')
+    //   }
+    // },
+
+    'formValidate.slider_image': function(val) {
       if (val) {
-        this.form.image = val.join(',')
+        this.formValidate.images = val.join(',')
       }
     },
-    'form.sliderImageArr': function(val) {
-      if (val) {
-        this.form.images = val.join(',')
-      }
-    }
+    'form1.good': {
+      handler(val,oldVal){
+        this.formValidate = val.cform
+        this.getInfoChooseGood (val.cform.id)
+      },
+      deep:true//对象内部的属性监听，也叫深度监听
+    },
+  },
+  mounted () {
+    this.getInfo();
   },
   methods: {
+    confirm () {
+      let that = this;
+      that.createBnt = true;
+      if (that.formValidate.selectRule.trim().length <= 0) {
+        return this.$message({
+          message:'请选择属性',
+          type: 'error'
+        });
+      }
+      that.ruleList.forEach(function (item, index) {
+        if (item.ruleName === that.formValidate.selectRule) {
+          that.attrs = item.ruleValue;
+        }
+      });
+    },
+    // 删除表格中的属性
+    delAttrTable (index) {
+      this.manyFormValidate.splice(index, 1);
+    },
+
+    // 添加按钮
+    addBtn () {
+      this.clearAttr();
+      this.createBnt = false;
+      this.showIput = true;
+    },
+    // 立即生成
+    generate (data) {
+      isFormatAttrForActivity(data===null?this.formValidate.id:data, { attrs: this.attrs }).then(res => {
+        this.manyFormValidate = res.value;
+        let headerdel = {
+          title: '操作',
+          slot: 'action',
+          fixed: 'right',
+          width: 220
+        };
+        res.header.push(headerdel);
+        this.formValidate.header = res.header;
+        //this.formValidate.attrs = res.attr;
+        let header = res.header;
+        header.pop();
+        if (!this.$route.params.id && this.formValidate.spec_type === 1) {
+          this.manyFormValidate.map((item) => {
+            item.pic = this.formValidate.image
+          });
+          this.oneFormBatch[0].pic = this.formValidate.image;
+        }
+      }).catch(res => {
+        // this.$message({
+        //   message:res.msg,
+        //   type: 'error'
+        // });
+      })
+    },
+    // 取消
+    offAttrName () {
+      this.showIput = false;
+      this.createBnt = true;
+    },
+    clearAttr () {
+      this.formDynamic.attrsName = '';
+      this.formDynamic.attrsVal = '';
+    },
+    // 删除规格
+    handleRemoveRole (index) {
+      this.attrs.splice(index, 1);
+      this.manyFormValidate.splice(index, 1);
+    },
+    // 删除属性
+    handleRemove2 (item, index) {
+      item.splice(index, 1);
+    },
+    // 添加规则名称
+    createAttrName () {
+      if (this.formDynamic.attrsName && this.formDynamic.attrsVal) {
+        let data = {
+          value: this.formDynamic.attrsName,
+          detail: [
+            this.formDynamic.attrsVal
+          ]
+        };
+        this.attrs.push(data);
+        var hash = {};
+        this.attrs = this.attrs.reduce(function (item, next) {
+          hash[next.value] ? '' : hash[next.value] = true && item.push(next);
+          return item
+        }, [])
+        this.clearAttr();
+        this.showIput = false;
+        this.createBnt = true;
+      } else {
+        this.$message.warning('请添加完整的规格！');
+      }
+    },
+    // 添加属性
+    createAttr (num, idx) {
+      if (num) {
+        this.attrs[idx].detail.push(num);
+        var hash = {};
+        this.attrs[idx].detail = this.attrs[idx].detail.reduce(function (item, next) {
+          hash[next] ? '' : hash[next] = true && item.push(next);
+          return item
+        }, [])
+      } else {
+        this.$message.warning('请添加属性！');
+      }
+    },
+
+    // 改变规格
+    changeSpec () {
+    },
+
+    // 详情选择商品生成规格用
+    getInfoChooseGood (id) {
+      let that = this;
+      getInfo(id).then(async res => {
+        let data = res.productInfo;
+        console.log('data:'+data)
+        if(data){
+          let cate_id = parseInt(data.cate_id) || 0;
+          that.attrs = data.items || [];
+          that.formValidate = data;
+          that.id  = that.combinationId
+          that.formValidate.productId = data.id
+          that.formValidate.cate_id = cate_id;
+          that.oneFormValidate = [data.attr];
+          that.formValidate.header = [];
+          that.generate(null);
+          that.manyFormValidate = data.attrs;
+          if(data.spec_type === 0){
+            that.manyFormValidate = [];
+          }else {
+            that.createBnt = true;
+            that.oneFormValidate = [
+              {
+                pic: '',
+                price: 0,
+                pink_stock: 0,
+                pink_price: 0,
+                cost: 0,
+                ot_price: 0,
+                stock: 0,
+                bar_code: '',
+                weight:0,
+                volume:0,
+                brokerage:0,
+                brokerage_two:0
+              }
+            ]
+          }
+        }
+
+        that.treeSelect = res.cateList;
+        that.ruleList = res.ruleList;
+        that.templateList = res.tempList;
+
+      }).catch(res => {
+        console.log('err:'+res)
+        return this.$message({
+          message:res.msg,
+          type: 'error'
+        });
+      })
+    },
+
+    // 详情
+    getInfo () {
+      let that = this;
+      let id = that.$route.params.id || 0;
+      getCombinationInfo(id).then(async res => {
+        let data = res.productInfo;
+        console.log('data:'+data)
+        if(data){
+          let cate_id = parseInt(data.cate_id) || 0;
+          this.attrs = data.items || [];
+          that.formValidate = data;
+          that.formValidate.cate_id = cate_id;
+          that.oneFormValidate = [data.attr];
+          that.formValidate.header = [];
+          that.generate(data.productId);
+          that.manyFormValidate = data.attrs;
+          if(data.spec_type === 0){
+            that.manyFormValidate = [];
+          }else {
+            that.createBnt = true;
+            that.oneFormValidate = [
+              {
+                pic: '',
+                price: 0,
+                pink_stock: 0,
+                pink_price: 0,
+                cost: 0,
+                ot_price: 0,
+                stock: 0,
+                bar_code: '',
+                weight:0,
+                volume:0,
+                brokerage:0,
+                brokerage_two:0
+              }
+            ]
+          }
+        }
+
+        that.treeSelect = res.cateList;
+        that.ruleList = res.ruleList;
+        that.templateList = res.tempList;
+
+      }).catch(res => {
+        console.log('err:'+res)
+        return this.$message({
+          message:res.msg,
+          type: 'error'
+        });
+      })
+    },
+
+
+    // 提交
+    handleSubmit (name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          if(this.formValidate.spec_type ===0 ){
+            this.formValidate.attrs = this.oneFormValidate;
+            this.formValidate.header = [];
+            this.formValidate.items = [];
+          }else{
+            this.formValidate.items = this.attrs;
+            this.formValidate.attrs = this.manyFormValidate;
+          }
+          if(this.formValidate.spec_type === 1 && this.manyFormValidate.length===0){
+            return this.$message.warning('请点击生成规格！');
+          }
+          add(this.formValidate).then(async res => {
+            this.$message({
+              message:'操作成功',
+              type: 'success'
+            });
+            setTimeout(() => {
+              this.$router.push({ path: '/activity/combination' });
+            }, 500);
+          }).catch(res => {
+            // this.$message({
+            //   message:res.message,
+            //   type: 'error'
+            // });
+          })
+        } else {
+          if(!this.formValidate.store_name || !this.formValidate.cate_id || !this.formValidate.keyword
+            || !this.formValidate.unit_name || !this.formValidate.store_info
+            || !this.formValidate.image || !this.formValidate.slider_image){
+            this.$message.warning("请填写完整商品信息！");
+          }
+        }
+      })
+    },
+
+    // 表单验证
+    validate (prop, status, error) {
+      if (status === false) {
+        this.$message.warning(error);
+      }
+    },
+    addCustomDialog () {
+      window.UE.registerUI('yshop', function (editor, uiName) {
+        let dialog = new window.UE.ui.Dialog({
+          iframeUrl: '/yshop/materia/index',
+          editor: editor,
+          name: uiName,
+          title: '上传图片',
+          cssRules: 'width:1200px;height:500px;padding:20px;'
+        });
+        this.dialog = dialog;
+
+        var btn = new window.UE.ui.Button({
+          name: 'dialog-button',
+          title: '上传图片',
+          cssRules: `background-image: url(../../../assets/images/icons.png);background-position: -726px -77px;`,
+          onclick: function () {
+            dialog.render();
+            dialog.open();
+          }
+        });
+
+        return btn;
+      }, 37);
+    },
+
+
     cancel() {
       this.resetForm()
-    },
-    doSubmit() {
-      this.loading = true
-      if (this.isAdd) {
-        this.doAdd()
-      } else this.doEdit()
-    },
-    doAdd() {
-      add(this.form).then(res => {
-        this.resetForm()
-        this.$notify({
-          title: '添加成功',
-          type: 'success',
-          duration: 2500
-        })
-        this.loading = false
-        this.$parent.init()
-      }).catch(err => {
-        this.loading = false
-        console.log(err.response.data.message)
-      })
-    },
-    doEdit() {
-      edit(this.form).then(res => {
-        this.resetForm()
-        this.$notify({
-          title: '操作成功',
-          type: 'success',
-          duration: 2500
-        })
-        this.loading = false
-        this.$parent.init()
-      }).catch(err => {
-        this.loading = false
-        console.log(err.response.data.message)
-      })
-    },
-    resetForm() {
-      this.dialog = false
-      this.$refs['form'].resetFields()
-      this.form = {
-        id: '',
-        productId: '',
-        merId: '',
-        image: '',
-        images: '',
-        imageArr: [],
-        sliderImageArr: [],
-        title: '',
-        attr: '',
-        people: 0,
-        info: '',
-        price: 0,
-        sort: '',
-        sales: '',
-        stock: '',
-        addTime: '',
-        isHost: '',
-        isShow: '',
-        isDel: '',
-        combination: '',
-        merUse: '',
-        isPostage: '',
-        postage: '',
-        description: '',
-        startTimeDate: '',
-        endTimeDate: '',
-        effectiveTime: 24,
-        cost: '',
-        browse: '',
-        unitName: ''
-      }
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="stylus">
+  .submission
+    margin-left 10px;
+  .color-list .tip{
+    color: #c9c9c9;
+  }
+  .color-list .color-item{
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    color:#fff;
+    margin-right :10px;
+  }
+  .color-list .color-item.blue{
+    background-color: #1E9FFF;
+  }
+  .color-list .color-item.yellow{
+    background-color: rgb(254, 185, 0);
+  }
+  .color-list .color-item.green{
+    background-color: #009688;
+  }
+  .columnsBox
+    margin-right 10px
+  .priceBox
+    width 100%
+  .rulesBox
+    display flex
+    flex-wrap: wrap;
+  .curs
+    cursor pointer
 </style>

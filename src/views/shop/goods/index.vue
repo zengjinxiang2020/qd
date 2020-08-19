@@ -7,8 +7,8 @@
       <el-select v-model="query.type" clearable placeholder="搜索类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
-      <el-select v-model="cateId"  clearable placeholder="商品分类" class="filter-item" style="width: 130px">
-        <el-option v-for="item in cateList" :disabled="item.disabled === 0"
+      <el-select v-model="cateId"  clearable placeholder="商品分类" class="filter-item" filterable :filter-method="dataFilter" style="width: 130px">
+        <el-option v-for="item in optionsMetaShow" :disabled="item.disabled === 0"
                    :value="item.value"
                    :key="item.id"
                    :label="item.label"></el-option>
@@ -36,7 +36,6 @@
       </div>
     </div>
     <!--表单组件-->
-    <comForm ref="form3" :is-add="isAdd" />
     <killForm ref="form4" :is-add="isAdd" />
     <bargainForm ref="form5" :is-add="isAdd" />
     <!--表格渲染-->
@@ -89,13 +88,6 @@
               <el-dropdown-item>
                 <el-button
                   size="mini"
-                  type="success"
-                  @click="editC(scope.row)"
-                >开启拼团</el-button>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <el-button
-                  size="mini"
                   type="primary"
                   @click="editD(scope.row)"
                 >开启秒杀</el-button>
@@ -130,15 +122,16 @@ import initData from '@/mixins/crud'
 import { del, onsale } from '@/api/yxStoreProduct'
 import eForm from './form'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import comForm from '@/views/activity/combination/form'
 import killForm from '@/views/activity/seckill/form'
 import bargainForm from '@/views/activity/bargain/form'
 import Treeselect from '@riophae/vue-treeselect'
 export default {
-  components: { eForm, comForm, Treeselect,killForm, bargainForm },
+  components: { eForm, Treeselect,killForm, bargainForm },
   mixins: [initData],
   data() {
     return {
+      dropDownValue: '',
+      optionsMetaShow: [],
       delLoading: false,
       visible: false,
       queryTypeOptions: [
@@ -150,10 +143,24 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      this.init()
+      this.init().then(() =>{
+        this.optionsMetaShow = this.cateList
+      })
     })
   },
   methods: {
+    dataFilter(val){
+      this.value=val
+      if(val){
+        this.optionsMetaShow=this.cateList.filter((item=>{
+          if (!!~item.label.indexOf(val) || !!~item.label.toUpperCase().indexOf(val.toUpperCase())) {
+            return true
+          }
+        }))
+      }else{
+        this.optionsMetaShow=this.cateList
+      }
+    },
     checkPermission,
     beforeInit() {
       this.url = 'api/yxStoreProduct'

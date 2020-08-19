@@ -126,6 +126,7 @@ export default {
       this.$set(this.value,"image", data.image)
       this.$set(this.value,"otPrice", data.otPrice)
       this.$set(this.value,"price", data.price)
+      this.$set(this.value,"cform",data)
       this.dialog = false
     },
     toSelete() {

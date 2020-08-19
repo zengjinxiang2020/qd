@@ -16,7 +16,11 @@
           type="primary"
           icon="el-icon-plus"
           @click="add"
-        >新增</el-button>
+        >
+          <router-link :to="'/activity/combinationAdd'">
+          新增
+          </router-link>
+        </el-button>
       </div>
       <el-button
         type="danger"
@@ -27,7 +31,7 @@
       >刷新</el-button>
     </div>
     <!--表单组件-->
-    <eForm ref="form" :is-add="isAdd" />
+<!--    <eForm ref="form" :is-add="isAdd" />-->
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="id" label="id" />
@@ -61,7 +65,15 @@
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT','YXSTORECOMBINATION_DELETE'])" label="操作" width="150px" align="center" fixed="right">
         <template slot-scope="scope">
-          <el-button v-permission="['admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" />
+          <el-button
+            size="mini"
+            type="primary"
+            icon="el-icon-edit"
+          >
+            <router-link :to="'/activity/combinationEdit/'+scope.row.id">
+              编辑
+            </router-link>
+          </el-button>
           <el-popover
             :ref="scope.row.id"
             v-permission="['admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE']"
@@ -94,10 +106,9 @@
 import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
 import { del, onsale } from '@/api/yxStoreCombination'
-import eForm from './form'
 import { formatTimeTwo, parseTime } from '@/utils/index'
 export default {
-  components: { eForm },
+  components: { },
   mixins: [initData],
   data() {
     return {

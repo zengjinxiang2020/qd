@@ -11,9 +11,9 @@
           </el-col>
           <el-col v-bind="grid2">
             <el-form-item label="商品分类：" prop="cate_id">
-              <el-select v-model="formValidate.cate_id">
-                <el-option v-for="item in treeSelect" :disabled="item.disabled === 0"
-                :value="item.value" :key="item.id" :label="item.label"></el-option>
+              <el-select v-model="formValidate.cate_id" filterable :filter-method="dataFilter" clearable>
+                <el-option v-for="item in optionsMetaShow" :disabled="item.disabled === 0"
+                :value="item.value" :key="item.id" :label="item.label" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -532,6 +532,7 @@ export default {
       },
       loading: false,
       treeSelect: [],
+      optionsMetaShow: [],
       tableIndex: 0,
       ruleValidate: {
         store_name: [
@@ -578,6 +579,18 @@ export default {
     this.getInfo();
   },
   methods: {
+    dataFilter(val){
+      this.value=val
+      if(val){
+        this.optionsMetaShow=this.treeSelect.filter((item=>{
+          if (!!~item.label.indexOf(val) || !!~item.label.toUpperCase().indexOf(val.toUpperCase())) {
+            return true
+          }
+        }))
+      }else{
+        this.optionsMetaShow=this.treeSelect
+      }
+    },
     confirm () {
       let that = this;
       that.createBnt = true;
@@ -729,6 +742,7 @@ export default {
         that.treeSelect = res.cateList;
         that.ruleList = res.ruleList;
         that.templateList = res.tempList;
+        that.optionsMetaShow  = that.treeSelect
 
       }).catch(res => {
         console.log('err:'+res)
