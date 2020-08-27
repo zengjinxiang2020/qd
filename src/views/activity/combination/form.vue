@@ -99,7 +99,7 @@
                       <div v-else-if="scope.column.property.indexOf('value') != -1" >
                        {{ scope.row[scope.column.property] }}
                       </div>
-                      <div v-else-if="scope.column.property == 'pinkPrice'||scope.column.property == 'pinkStock'"  >
+                      <div v-else-if="scope.column.property == 'pink_price'||scope.column.property == 'pink_stock'"  >
                         <el-input  v-model="scope.row[scope.column.property]"/>
                       </div>
                       <div v-else-if="scope.column.property == 'action'"  >
@@ -125,7 +125,7 @@
                 </el-table-column>
                 <el-table-column prop="price" label="售价" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.price"/>
+                    <el-input type="text" v-model="scope.row.price" :disabled="true"/>
                   </template>
                 </el-table-column>
                 <el-table-column prop="cost" label="成本价" align="center">
@@ -140,18 +140,18 @@
                 </el-table-column>
                 <el-table-column prop="stock" label="库存" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.stock" :disabled="true"/>
+                    <el-input type="text" v-model="scope.row.stock" :disabled="false"/>
                   </template>
                 </el-table-column>
 
                 <el-table-column prop="stock" label="拼团价" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.pink_price" :disabled="true"/>
+                    <el-input type="text" v-model="scope.row.pink_price" />
                   </template>
                 </el-table-column>
                 <el-table-column prop="stock" label="拼团库存" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.pink_stock" :disabled="true"/>
+                    <el-input type="text" v-model="scope.row.pink_stock" />
                   </template>
                 </el-table-column>
 
