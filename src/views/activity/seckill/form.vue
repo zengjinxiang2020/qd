@@ -3,66 +3,90 @@
     <el-card :bordered="false">
       <el-form  ref="formValidate" :rules="ruleValidate" :model="formValidate" label-width="130px" >
         <el-row :gutter="24">
-          <!-- 商品信息-->
-          <el-form-item label="秒杀名称">
-            <el-input v-model="formValidate.title" style="width: 500px;" />
-          </el-form-item>
-          <el-form-item label="秒杀简介">
-            <el-input v-model="formValidate.info" style="width: 500px;" />
-          </el-form-item>
-          <el-form-item label="单位">
-            <el-input v-model="formValidate.unitName" style="width: 500px;" />
-          </el-form-item>
-          <el-form-item label="秒杀开始时间">
-            <template>
-              <el-date-picker
-                v-model="formValidate.startTime"
-                type="date"
-                placeholder="选择日期时间"
-              />
-            </template>
-          </el-form-item>
-          <el-form-item label="秒杀结束时间">
-            <template>
-              <el-date-picker
-                v-model="formValidate.stopTime"
-                type="date"
-                placeholder="选择日期时间"
-              />
-            </template>
-          </el-form-item>
-          <el-form-item label="开始时间" prop="storeId">
-            <el-select v-model="formValidate.timeId" style="width: 178px" placeholder="请先选择开始时间">
-              <el-option
-                v-for="(item, index) in myTimes"
-                :key="index"
-                :label="item.map.time + '点开始，持续' + item.map.continued + '小时'"
-                :value="item.id"
-              />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="产品主图片">
-            <MaterialList v-model="formValidate.imageArr" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
-          </el-form-item>
-          <el-form-item label="产品轮播图">
-            <MaterialList v-model="formValidate.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
-          </el-form-item>
-          <el-form-item label="秒杀价">
-            <el-input-number v-model="formValidate.price" />
-          </el-form-item>
-          <el-form-item label="返积分">
-            <el-input-number v-model="formValidate.giveIntegral" />
-          </el-form-item>
-          <el-form-item label="活动状态">
-            <el-radio v-model="formValidate.status" :label="1">开启</el-radio>
-            <el-radio v-model="formValidate.status" :label="0" style="width: 200px;">关闭</el-radio>
-          </el-form-item>
-          <el-form-item label="限购">
-            <el-input-number v-model="formValidate.num" />
-          </el-form-item>
+            <!-- 商品信息-->
           <el-col :span="24">
-            <el-form-item label="选择商品：" prop="image">
+            <el-form-item label="选择商品：" prop="good">
               <cgood v-model="form1.good":disabled="true" ></cgood>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="秒杀名称">
+              <el-input v-model="formValidate.title" style="width: 500px;" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="秒杀简介">
+              <el-input v-model="formValidate.info" style="width: 500px;" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="单位">
+              <el-input v-model="formValidate.unitName" style="width: 500px;" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="秒杀开始时间">
+              <template>
+                <el-date-picker
+                  v-model="formValidate.startTime"
+                  type="date"
+                  placeholder="选择日期时间"
+                />
+              </template>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="秒杀结束时间">
+              <template>
+                <el-date-picker
+                  v-model="formValidate.stopTime"
+                  type="date"
+                  placeholder="选择日期时间"
+                />
+              </template>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="开始时间" prop="storeId">
+              <el-select v-model="formValidate.timeId" style="width: 178px" placeholder="请先选择开始时间">
+                <el-option
+                  v-for="(item, index) in myTimes"
+                  :key="index"
+                  :label="item.map.time + '点开始，持续' + item.map.continued + '小时'"
+                  :value="item.id"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="产品主图片">
+              <single-pic v-model="formValidate.imageArr" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="产品轮播图">
+              <MaterialList v-model="formValidate.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="秒杀价">
+              <el-input-number v-model="formValidate.price" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="返积分">
+              <el-input-number v-model="formValidate.giveIntegral" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="活动状态">
+              <el-radio v-model="formValidate.status" :label="1">开启</el-radio>
+              <el-radio v-model="formValidate.status" :label="0" style="width: 200px;">关闭</el-radio>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="限购">
+              <el-input-number v-model="formValidate.num" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -413,34 +437,10 @@ export default {
         }
       },
       formValidate: {
-        // id: '',
-        // productId: '',
-        // image: '',
-        // images: '',
-        // imageArr: [],
-        // sliderImageArr: [],
-        // title: '',
-        // info: '',
-        // price: '',
-        // cost: '',
         otPrice: '',
         giveIntegral: '',
-        // sort: '',
-        // stock: '',
-        // sales: '',
-        // unitName: '',
-        // postage: '',
-        // description: '',
-        // startTime: '',
-        // stopTime: '',
-        // addTime: '',
         status: '',
-        // isPostage: '',
-        // isHot: '',
-        // isDel: '',
         num: '',
-        // isShow: ''
-
         id: 0,
         timeId: null,
         seckillId: 0,
@@ -709,10 +709,15 @@ export default {
           let cate_id = parseInt(data.cate_id) || 0;
           that.attrs = data.items || [];
           that.formValidate = data;
-          that.id  = that.combinationId
           that.formValidate.productId = data.id
           that.formValidate.cate_id = cate_id;
           that.oneFormValidate = [data.attr];
+          that.formValidate.title = data.store_name
+          that.formValidate.info = data.store_info
+          that.formValidate.unitName = data.unit_name
+          that.formValidate.imageArr = data.image
+          that.formValidate.sliderImageArr = data.slider_image
+          that.formValidate.status = 1
           that.formValidate.header = [];
           that.generate(null);
           that.manyFormValidate = data.attrs;

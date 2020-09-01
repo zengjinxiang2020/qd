@@ -5,6 +5,11 @@
         <el-row :gutter="24">
           <!-- 商品信息-->
           <el-col :span="24">
+            <el-form-item label="选择商品：" prop="good">
+              <cgood v-model="form1.good":disabled="true" ></cgood>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
             <el-form-item label="拼团名称" prop="title">
               <el-input v-model="formValidate.title" style="width: 500px;" placeholder="请输入拼团名称"/>
             </el-form-item>
@@ -63,20 +68,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="拼团价" prop="price">
-              <el-input-number v-model="formValidate.price" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
             <el-form-item label="拼团人数" prop="people">
               <el-input-number v-model="formValidate.people" />
             </el-form-item>
           </el-col>
-          <el-col :span="24">
-            <el-form-item label="选择商品：" prop="good">
-              <cgood v-model="form1.good":disabled="true" ></cgood>
-            </el-form-item>
-          </el-col>
+
           <el-col :span="24">
             <el-form-item label="商品规格：" props="spec_type">
               <el-radio-group v-model="formValidate.spec_type"  @change="changeSpec" :disabled="true">
@@ -464,7 +460,7 @@ export default {
         stock: '',
         addTime: '',
         isHost: '',
-        isShow: '',
+        isShow: 1,
         isDel: 0,
         merUse: '',
         isPostage: '',
@@ -720,6 +716,10 @@ export default {
           that.id  = that.combinationId
           that.formValidate.productId = data.id
           that.formValidate.cate_id = cate_id;
+          that.formValidate.title = data.store_name
+          that.formValidate.info = data.store_info
+          that.formValidate.unitName = data.unit_name
+          that.formValidate.isShow = 1
           that.oneFormValidate = [data.attr];
           that.formValidate.header = [];
           that.generate(null);

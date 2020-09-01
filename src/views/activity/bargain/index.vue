@@ -2,6 +2,15 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container" >
+      <div style="display: inline-block;margin: 0px 2px;">
+        <el-button
+          class="filter-item"
+          size="mini"
+          type="primary"
+          icon="el-icon-plus"
+          @click="add"
+        >新增</el-button>
+      </div>
       <el-button
         type="danger"
         class="filter-item"

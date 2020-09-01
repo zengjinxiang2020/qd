@@ -1,6 +1,11 @@
 <template>
   <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '开启砍价'" width="900px">
     <el-form ref="form" :model="form" :rules="rules" :inline="true" size="small" label-width="140px">
+      <el-col :span="24">
+        <el-form-item label="选择商品：" prop="good">
+          <cgood v-model="form1.good":disabled="true" ></cgood>
+        </el-form-item>
+      </el-col>
       <el-form-item label="砍价名称">
         <el-input v-model="form.title" style="width: 500px;" />
       </el-form-item>
@@ -10,7 +15,6 @@
       <el-form-item label="单位">
         <el-input v-model="form.unitName" style="width: 500px;" />
       </el-form-item>
-
       <el-form-item label="活动开始时间">
         <template>
           <el-date-picker
@@ -30,7 +34,7 @@
         </template>
       </el-form-item>
       <el-form-item label="砍价产品主图片">
-        <MaterialList v-model="form.imageArr" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
+        <single-pic v-model="form.imageArr" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
       </el-form-item>
       <el-form-item label="砍价产品轮播图">
         <MaterialList v-model="form.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
@@ -69,13 +73,16 @@
       <el-form-item label="排序">
         <el-input-number v-model="form.sort" />
       </el-form-item>
-      <el-form-item label="是否包邮">
-        <el-radio v-model="form.isPostage" :label="1">是</el-radio>
-        <el-radio v-model="form.isPostage" :label="0" style="width: 110px;">否</el-radio>
-      </el-form-item>
-      <el-form-item v-if="form.isPostage ===0" label="邮费">
-        <el-input-number v-model="form.postage" />
-      </el-form-item>
+      <el-col :span="24">
+        <el-form-item label="运费模板：" prop="temp_id">
+          <div class="acea-row">
+            <el-select v-model="form.temp_id"  class="mr20" :disabled="true">
+              <el-option v-for="(item,index) in templateList" :value="item.id" :key="index" :label="item.name">
+              </el-option>
+            </el-select>
+          </div>
+        </el-form-item>
+      </el-col>
       <el-form-item label="砍价规则">
         <editor v-model="form.rule" />
       </el-form-item>
@@ -91,11 +98,14 @@
 </template>
 
 <script>
+import cgood from '@/views/components/good'
 import { add, edit } from '@/api/yxStoreBargain'
 import editor from '../../components/Editor'
 import MaterialList from '@/components/material'
+import singlePic from '@/components/singlematerial'
+import { getInfo } from '@/api/yxStoreProduct'
 export default {
-  components: { editor, MaterialList },
+  components: { editor, MaterialList,cgood,singlePic },
   props: {
     isAdd: {
       type: Boolean,
@@ -105,6 +115,11 @@ export default {
   data() {
     return {
       loading: false, dialog: false,
+      templateList: [],
+      form1: {
+        good:{
+        }
+      },
       form: {
         id: '',
         productId: '',
@@ -125,7 +140,7 @@ export default {
         bargainMaxPrice: '',
         bargainMinPrice: '',
         bargainNum: '',
-        status: '',
+        status: 1,
         description: '',
         giveIntegral: '',
         info: '',
@@ -140,7 +155,8 @@ export default {
         look: '',
         share: '',
         startTimeDate: '',
-        endTimeDate: ''
+        endTimeDate: '',
+        temp_id: ''
       },
       rules: {
       }
@@ -156,9 +172,43 @@ export default {
       if (val) {
         this.form.images = val.join(',')
       }
-    }
+    },
+    'form1.good': {
+      handler(val,oldVal){
+        this.getInfoChooseGood (val.cform.id)
+      },
+      deep:true//对象内部的属性监听，也叫深度监听
+    },
   },
   methods: {
+    // 详情选择商品生成规格用
+    getInfoChooseGood (id) {
+      let that = this;
+      getInfo(id).then(async res => {
+        let data = res.productInfo;
+        console.log('data:'+data)
+        if(data){
+          let cate_id = parseInt(data.cate_id) || 0;
+          that.form = data;
+          that.form.productId = data.id
+          that.form.cate_id = cate_id;
+          that.form.title = data.store_name
+          that.form.info = data.store_info
+          that.form.unitName = data.unit_name
+          that.form.imageArr = data.image
+          that.form.sliderImageArr = data.slider_image
+          that.form.status = 1
+        }
+        that.templateList = res.tempList;
+
+      }).catch(res => {
+        console.log('err:'+res)
+        return this.$message({
+          message:res.msg,
+          type: 'error'
+        });
+      })
+    },
     cancel() {
       this.resetForm()
     },
@@ -221,7 +271,7 @@ export default {
         bargainMaxPrice: '',
         bargainMinPrice: '',
         bargainNum: '',
-        status: '',
+        status: 1,
         description: '',
         giveIntegral: '',
         info: '',
@@ -234,7 +284,8 @@ export default {
         postage: '',
         rule: '',
         look: '',
-        share: ''
+        share: '',
+        temp_id: '',
       }
     }
   }
