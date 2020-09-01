@@ -50,6 +50,9 @@
           <el-form-item label="秒杀价">
             <el-input-number v-model="formValidate.price" />
           </el-form-item>
+          <el-form-item label="返积分">
+            <el-input-number v-model="formValidate.giveIntegral" />
+          </el-form-item>
           <el-form-item label="活动状态">
             <el-radio v-model="formValidate.status" :label="1">开启</el-radio>
             <el-radio v-model="formValidate.status" :label="0" style="width: 200px;">关闭</el-radio>
@@ -139,7 +142,6 @@
                     <el-input type="text" v-model="scope.row.sekill_stock" />
                   </template>
                 </el-table-column>
-
                 <el-table-column prop="bar_code" label="商品编号" align="center">
                   <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.bar_code" :disabled="true"/>
