@@ -69,11 +69,6 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="秒杀价">
-              <el-input-number v-model="formValidate.price" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
             <el-form-item label="返积分">
               <el-input-number v-model="formValidate.giveIntegral" />
             </el-form-item>
