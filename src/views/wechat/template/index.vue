@@ -18,6 +18,14 @@
     <eForm ref="form" :is-add="isAdd" />
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
+      <el-table-column prop="status" label="消息类型">
+        <template slot-scope="scope">
+          <div>
+            <el-tag v-if="scope.row.type == 'template'" :type="''">模板消息</el-tag>
+            <el-tag v-else :type=" 'info' ">订阅消息</el-tag>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="id" label="模板id" />
       <el-table-column prop="tempkey" label="模板编号" />
       <el-table-column prop="name" label="模板名" />

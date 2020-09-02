@@ -1,6 +1,10 @@
 <template>
   <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="500px">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+      <el-form-item label="状态">
+        <el-radio v-model="form.type" :label="'template'">模板消息</el-radio>
+        <el-radio v-model="form.type" :label="'subscribe'">订阅消息</el-radio>
+      </el-form-item>
       <el-form-item label="模板编号">
         <el-input v-model="form.tempkey" style="width: 370px;" />
       </el-form-item>
