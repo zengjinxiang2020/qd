@@ -85,7 +85,7 @@ import pagination from '@crud/Pagination'
 import MaterialList from "@/components/material";
 
 // crud交由presenter持有
-const defaultCrud = CRUD({ title: 'ProductRelation', url: 'api/yxStoreProductRelation', sort: 'creat_time,desc', crudMethod: { ...crudYxStoreProductRelation }})
+const defaultCrud = CRUD({ title: 'ProductRelation', url: 'api/yxStoreProductRelation', type:'collect',sort: 'creat_time,desc', crudMethod: { ...crudYxStoreProductRelation }})
 const defaultForm = { id: null, uid: null, productId: null, type: null, category: null, createTime: null, updateTime: null, isDel: null }
 export default {
   name: 'YxStoreProductRelation',
@@ -116,8 +116,6 @@ export default {
   methods: {
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
-      const query = this.query
-      this.crud.params[query.type] = 'collect'
       return true
     }, // 新增与编辑前做的操作
     [CRUD.HOOK.afterToCU](crud, form) {
