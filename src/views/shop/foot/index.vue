@@ -41,15 +41,15 @@
         <el-table-column type="selection" width="55" />
         <el-table-column v-if="columns.visible('id')" prop="id" label="id" />
         <el-table-column v-if="columns.visible('uid')" prop="uid" label="用户ID" />
-        <el-table-column v-if="columns.visible('userName')" prop="uid" label="用户名" />
+        <el-table-column v-if="columns.visible('userName')" prop="userName" label="用户名" />
         <el-table-column v-if="columns.visible('productId')" prop="productId" label="商品ID" />
-        <el-table-column v-if="columns.visible('product')" prop="product.name" label="商品名称" />
+        <el-table-column v-if="columns.visible('product')" prop="product.storeName" label="商品名称" />
         <el-table-column ref="table" prop="product.image" label="商品图片">
           <template slot-scope="scope">
             <a :href="scope.row.image" style="color: #42b983" target="_blank"><img :src="scope.row.image" alt="点击打开" class="el-avatar"></a>
           </template>
         </el-table-column>
-        <el-table-column prop="type" label="消息类型">
+        <el-table-column prop="type" label="类型">
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.type == 'collect'" :type="''">收藏</el-tag>
@@ -57,17 +57,11 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="添加时间">
+        <el-table-column v-if="columns.visible('创建时间')" prop="createTime" label="添加时间">
           <template slot-scope="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('updateTime')" prop="updateTime" label="updateTime">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.updateTime) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column v-if="columns.visible('isDel')" prop="isDel" label="isDel" />
       </el-table>
       <!--分页组件-->
       <pagination />
