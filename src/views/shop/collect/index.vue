@@ -94,7 +94,7 @@ export default {
   data() {
     return {
       query: {
-        type: 'collect',
+        type: 'type',
       },
       permission: {
         add: ['admin', 'yxStoreProductRelation:add'],
