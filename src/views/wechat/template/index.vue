@@ -128,7 +128,8 @@ export default {
         content: data.content,
         tempid: data.tempid,
         addTime: data.addTime,
-        status: data.status
+        status: data.status,
+        type: data.type
       }
       _this.dialog = true
     }

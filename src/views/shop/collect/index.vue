@@ -116,7 +116,7 @@ export default {
   methods: {
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
-      this.crud.params[query.type] = 'foot'
+      this.crud.params[query.type] = 'collect'
       return true
     }, // 新增与编辑前做的操作
     [CRUD.HOOK.afterToCU](crud, form) {
