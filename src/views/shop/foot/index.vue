@@ -93,7 +93,9 @@ export default {
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
-
+      query:{
+        type: 'foot',
+      },
       permission: {
         add: ['admin', 'yxStoreProductRelation:add'],
         edit: ['admin', 'yxStoreProductRelation:edit'],
@@ -116,6 +118,8 @@ export default {
   methods: {
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
+      const query = this.query
+      this.crud.params[query.type] = 'foot'
       return true
     }, // 新增与编辑前做的操作
     [CRUD.HOOK.afterToCU](crud, form) {
