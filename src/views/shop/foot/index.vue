@@ -94,7 +94,7 @@ export default {
   data() {
     return {
       query:{
-        type: 'foot',
+        type: 'type',
       },
       permission: {
         add: ['admin', 'yxStoreProductRelation:add'],
