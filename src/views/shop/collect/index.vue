@@ -116,6 +116,7 @@ export default {
   methods: {
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
+      const query = this.query
       this.crud.params[query.type] = 'collect'
       return true
     }, // 新增与编辑前做的操作
