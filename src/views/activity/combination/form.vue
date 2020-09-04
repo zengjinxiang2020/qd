@@ -774,6 +774,8 @@ export default {
           that.formValidate.header = [];
           that.generate(data.productId);
           that.manyFormValidate = data.attrs;
+          that.form1.good.productId = data.productId;
+          that.form1.good.image = data.image
           if(data.spec_type === 0){
             that.manyFormValidate = [];
           }else {
@@ -796,12 +798,10 @@ export default {
             ]
           }
         }
-
         that.treeSelect = res.cateList;
         that.ruleList = res.ruleList;
         that.templateList = res.tempList;
-        that.form1.good.productId = data.productId;
-        that.form1.good.image = data.image
+
       }).catch(res => {
         console.log('err:'+res)
         return this.$message({

@@ -730,11 +730,9 @@ export default {
             ]
           }
         }
-
         that.treeSelect = res.cateList;
         that.ruleList = res.ruleList;
         that.templateList = res.tempList;
-
       }).catch(res => {
         console.log('err:'+res)
         return this.$message({
@@ -759,6 +757,8 @@ export default {
           that.formValidate.header = [];
           that.formValidate.image = data.image
           that.formValidate.sliderImageArr = data.slider_image
+          that.form1.good.productId = data.productId
+          that.form1.good.image = data.image
           that.generate(data.productId);
           that.manyFormValidate = data.attrs;
           if(data.spec_type === 0){
@@ -783,8 +783,7 @@ export default {
             ]
           }
         }
-        that.form1.good.productId = data.productId
-        that.form1.good.image = data.image
+
         that.treeSelect = res.cateList;
         that.ruleList = res.ruleList;
         that.templateList = res.tempList;
@@ -797,8 +796,6 @@ export default {
         });
       })
     },
-
-
     // 提交
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
