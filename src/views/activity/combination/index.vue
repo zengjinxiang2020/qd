@@ -15,7 +15,6 @@
           size="mini"
           type="primary"
           icon="el-icon-plus"
-          @click="add"
         >
           <router-link :to="'/activity/combinationAdd'">
           新增
@@ -174,49 +173,6 @@ export default {
           })
         })
         .catch(() => { })
-    },
-    add() {
-      this.isAdd = true
-      this.$refs.form.dialog = true
-    },
-    edit(data) {
-      this.isAdd = false
-      const _this = this.$refs.form
-      _this.form = {
-        id: data.id,
-        productId: data.productId,
-        merId: data.merId,
-        image: data.image,
-        images: data.images,
-        imageArr: data.image.split(','),
-        sliderImageArr: data.images.split(','),
-        title: data.title,
-        attr: data.attr,
-        people: data.people,
-        info: data.info,
-        price: data.price,
-        sort: data.sort,
-        sales: data.sales,
-        stock: data.stock,
-        addTime: data.addTime,
-        isHost: data.isHost,
-        isShow: data.isShow,
-        isDel: data.isDel,
-        combination: data.combination,
-        merUse: data.merUse,
-        isPostage: data.isPostage,
-        postage: data.postage,
-        description: data.description,
-        startTime: data.startTime,
-        stopTime: data.stopTime,
-        startTimeDate: new Date(data.startTimeDate),
-        endTimeDate: new Date(data.endTimeDate),
-        effectiveTime: data.effectiveTime,
-        cost: data.cost,
-        browse: data.browse,
-        unitName: data.unitName
-      }
-      _this.dialog = true
     }
   }
 }

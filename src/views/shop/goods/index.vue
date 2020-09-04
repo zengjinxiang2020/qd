@@ -36,7 +36,6 @@
       </div>
     </div>
     <!--表单组件-->
-    <bargainForm ref="form5" :is-add="isAdd" />
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="id" label="商品id" />
@@ -100,13 +99,10 @@
 import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
 import { del, onsale } from '@/api/yxStoreProduct'
-import eForm from './form'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import killForm from '@/views/activity/seckill/form'
-import bargainForm from '@/views/activity/bargain/form'
 import Treeselect from '@riophae/vue-treeselect'
 export default {
-  components: { eForm, Treeselect,killForm, bargainForm },
+  components: {  Treeselect },
   mixins: [initData],
   data() {
     return {
@@ -238,37 +234,6 @@ export default {
         browse: data.browse,
         codePath: data.codePath,
         soureLink: data.soureLink
-      }
-      _this.dialog = true
-    },
-    editC(data) {
-      this.isAdd = false
-      const _this = this.$refs.form3
-      _this.form = {
-        productId: data.id,
-        merId: data.merId,
-        image: data.image,
-        images: data.sliderImage,
-        imageArr: data.image.split(','),
-        sliderImageArr: data.sliderImage.split(','),
-        title: data.storeName,
-        info: data.storeInfo,
-        postage: data.postage,
-        unitName: data.unitName,
-        sort: data.sort,
-        sales: data.sales,
-        stock: data.stock,
-        isShow: data.isShow,
-        isHost: data.isHot,
-        description: data.description,
-        isPostage: data.isPostage,
-        people: 0,
-        price: 0,
-        effectiveTime: 24,
-        combination: 1,
-        cost: data.cost,
-        isDel: 0,
-        browse: 0
       }
       _this.dialog = true
     },

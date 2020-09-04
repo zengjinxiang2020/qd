@@ -15,7 +15,6 @@
           size="mini"
           type="primary"
           icon="el-icon-plus"
-          @click="add"
         >
           <router-link :to="'/activity/secKillAdd'">
             新增
@@ -24,7 +23,6 @@
       </div>
     </div>
     <!--表单组件-->
-    <eForm ref="form" :is-add="isAdd" />
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="id" label="id" />
@@ -88,15 +86,12 @@
     />
   </div>
 </template>
-
 <script>
 import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
 import { del } from '@/api/yxStoreSeckill'
-import eForm from './form1'
 import { formatTimeTwo, parseTime } from '@/utils/index'
 export default {
-  components: { eForm },
   mixins: [initData],
   data() {
     return {
@@ -142,45 +137,6 @@ export default {
         this.$refs[id].doClose()
         console.log(err.response.data.message)
       })
-    },
-    add() {
-      this.isAdd = true
-      this.$refs.form.dialog = true
-    },
-    edit(data) {
-      this.isAdd = false
-      const _this = this.$refs.form
-      _this.form = {
-        id: data.id,
-        productId: data.productId,
-        image: data.image,
-        images: data.images,
-        imageArr: data.image.split(','),
-        sliderImageArr: data.images.split(','),
-        title: data.title,
-        info: data.info,
-        price: data.price,
-        cost: data.cost,
-        otPrice: data.otPrice,
-        giveIntegral: data.giveIntegral,
-        sort: data.sort,
-        stock: data.stock,
-        sales: data.sales,
-        unitName: data.unitName,
-        postage: data.postage,
-        description: data.description,
-        startTime: data.startTime,
-        stopTime: data.stopTime,
-        addTime: data.addTime,
-        status: data.status,
-        isPostage: data.isPostage,
-        isHot: data.isHot,
-        isDel: data.isDel,
-        num: data.num,
-        isShow: data.isShow,
-        timeId: data.timeId
-      }
-      _this.dialog = true
     }
   }
 }

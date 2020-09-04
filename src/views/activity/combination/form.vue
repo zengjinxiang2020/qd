@@ -208,7 +208,7 @@
           </el-col>
           <el-col :span="24" v-if="formValidate.is_sub === 1">
             <!--单规格返佣-->
-            <el-form-item label="商品属性：" v-if="formValidate.spec_type === 0">
+            <el-form-item label="" v-if="formValidate.spec_type === 0">
               <el-table :data="oneFormValidate"  border>
                 <el-table-column prop="imageArr" label="图片" align="center">
                   <template slot-scope="scope">
@@ -240,7 +240,7 @@
                 </el-table-column>
               </el-table>
             </el-form-item>
-            <el-form-item label="商品属性：" v-if="formValidate.spec_type === 1 && manyFormValidate.length">
+            <el-form-item label="" v-if="formValidate.spec_type === 1 && manyFormValidate.length">
               <el-table :data="manyFormValidate" border>
                 <el-table-column prop="imageArr" label="图片" align="center">
                   <template slot-scope="scope">
@@ -441,7 +441,7 @@ export default {
         // is_new: 0,
         // is_good: 0,
         // is_postage: 0,
-        // is_sub: 0,
+        is_sub: 0,
         id: 0,
         combinationId: 0,
         productId: '',
@@ -746,7 +746,6 @@ export default {
             ]
           }
         }
-
         that.treeSelect = res.cateList;
         that.ruleList = res.ruleList;
         that.templateList = res.tempList;
@@ -766,7 +765,6 @@ export default {
       let id = that.$route.params.id || 0;
       getCombinationInfo(id).then(async res => {
         let data = res.productInfo;
-        console.log('data:'+data)
         if(data){
           let cate_id = parseInt(data.cate_id) || 0;
           this.attrs = data.items || [];
@@ -802,7 +800,8 @@ export default {
         that.treeSelect = res.cateList;
         that.ruleList = res.ruleList;
         that.templateList = res.tempList;
-
+        that.form1.good.productId = data.productId;
+        that.form1.good.image = data.image
       }).catch(res => {
         console.log('err:'+res)
         return this.$message({

@@ -60,17 +60,12 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="产品主图片">
-              <single-pic v-model="formValidate.imageArr" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
+              <single-pic v-model="formValidate.image" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="产品轮播图">
               <MaterialList v-model="formValidate.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="返积分">
-              <el-input-number v-model="formValidate.giveIntegral" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -218,7 +213,7 @@
           </el-col>
           <el-col :span="24" v-if="formValidate.is_sub === 1">
             <!--单规格返佣-->
-            <el-form-item label="商品属性：" v-if="formValidate.spec_type === 0">
+            <el-form-item label="" v-if="formValidate.spec_type === 0">
               <el-table :data="oneFormValidate"  border>
                 <el-table-column prop="imageArr" label="图片" align="center">
                   <template slot-scope="scope">
@@ -250,7 +245,7 @@
                 </el-table-column>
               </el-table>
             </el-form-item>
-            <el-form-item label="商品属性：" v-if="formValidate.spec_type === 1 && manyFormValidate.length">
+            <el-form-item label="" v-if="formValidate.spec_type === 1 && manyFormValidate.length">
               <el-table :data="manyFormValidate" border>
                 <el-table-column prop="imageArr" label="图片" align="center">
                   <template slot-scope="scope">
@@ -470,8 +465,7 @@ export default {
         browse: 0,
         startTimeDate: '',
         endTimeDate: '',
-
-
+        is_sub: '',
         spec_type: 0,
         temp_id: '',
         attrs: [],
@@ -567,7 +561,6 @@ export default {
     },
     'form1.good': {
       handler(val,oldVal){
-        this.formValidate = val.cform
         this.getInfoChooseGood (val.cform.id)
       },
       deep:true//对象内部的属性监听，也叫深度监听
@@ -710,7 +703,6 @@ export default {
           that.formValidate.title = data.store_name
           that.formValidate.info = data.store_info
           that.formValidate.unitName = data.unit_name
-          that.formValidate.imageArr = data.image
           that.formValidate.sliderImageArr = data.slider_image
           that.formValidate.status = 1
           that.formValidate.header = [];
@@ -758,7 +750,6 @@ export default {
       let id = that.$route.params.id || 0;
       getSecKillInfo(id).then(async res => {
         let data = res.productInfo;
-        console.log('data:'+data)
         if(data){
           let cate_id = parseInt(data.cate_id) || 0;
           this.attrs = data.items || [];
@@ -766,6 +757,8 @@ export default {
           that.formValidate.cate_id = cate_id;
           that.oneFormValidate = [data.attr];
           that.formValidate.header = [];
+          that.formValidate.image = data.image
+          that.formValidate.sliderImageArr = data.slider_image
           that.generate(data.productId);
           that.manyFormValidate = data.attrs;
           if(data.spec_type === 0){
@@ -790,7 +783,8 @@ export default {
             ]
           }
         }
-
+        that.form1.good.productId = data.productId
+        that.form1.good.image = data.image
         that.treeSelect = res.cateList;
         that.ruleList = res.ruleList;
         that.templateList = res.tempList;
@@ -826,7 +820,7 @@ export default {
               type: 'success'
             });
             setTimeout(() => {
-              this.$router.push({ path: '/activity/combination' });
+              this.$router.push({ path: '/activity/seckill' });
             }, 500);
           }).catch(res => {
             // this.$message({
