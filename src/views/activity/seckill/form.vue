@@ -499,7 +499,9 @@ export default {
           ot_price: 0,
           stock: 0,
           pink_stock: 0,
-          pink_Price: 0,
+          pink_price: 0,
+          seckill_stock: 0,
+          seckill_price: 0,
           bar_code: '',
           weight: 0,
           volume: 0,
@@ -716,6 +718,8 @@ export default {
               {
                 pic: '',
                 price: 0,
+                seckill_stock: 0,
+                seckill_price: 0,
                 pink_stock: 0,
                 pink_price: 0,
                 cost: 0,
@@ -769,6 +773,8 @@ export default {
               {
                 pic: '',
                 price: 0,
+                seckill_stock: 0,
+                seckill_price: 0,
                 pink_stock: 0,
                 pink_price: 0,
                 cost: 0,
