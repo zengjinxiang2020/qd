@@ -205,7 +205,7 @@ export default {
         this.form.price = val.price
         this.form.price2 = val.otPrice
         this.form.priceType = '3'
-        this.isdisabled=true;
+        this.isdisabled=false;
       },
       deep:true//对象内部的属性监听，也叫深度监听
     },
