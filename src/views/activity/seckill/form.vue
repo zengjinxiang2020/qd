@@ -125,6 +125,11 @@
                     <single-pic v-model="scope.row.pic" type="image" :num="1" :width="60" :height="60" />
                   </template>
                 </el-table-column>
+                <el-table-column prop="bar_code" label="商品编号" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.bar_code" :disabled="true"/>
+                  </template>
+                </el-table-column>
                 <el-table-column prop="price" label="售价" align="center">
                   <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.price":disabled="true"/>
@@ -148,17 +153,12 @@
 
                 <el-table-column prop="stock" label="秒杀价" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.sekill_price" />
+                    <el-input type="text" v-model="scope.row.seckill_price" />
                   </template>
                 </el-table-column>
                 <el-table-column prop="stock" label="秒杀库存" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.sekill_stock" />
-                  </template>
-                </el-table-column>
-                <el-table-column prop="bar_code" label="商品编号" align="center">
-                  <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.bar_code" :disabled="true"/>
+                    <el-input type="text" v-model="scope.row.seckill_stock" />
                   </template>
                 </el-table-column>
                 <el-table-column prop="weight" label="重量（KG）" align="center ">
@@ -228,7 +228,7 @@
                 <el-table-column prop="cost" label="成本价" align="center" />
                 <el-table-column prop="ot_price" label="原价" align="center" />
                 <el-table-column prop="stock" label="库存" align="center" />
-                <el-table-column prop="pink_price" label="m秒杀价" align="center" />
+                <el-table-column prop="pink_price" label="秒杀价" align="center" />
                 <el-table-column prop="pink_stock" label="秒杀库存" align="center" />
                 <el-table-column prop="bar_code" label="商品编号" align="center" />
                 <el-table-column prop="weight" label="重量（KG）" align="center" />
