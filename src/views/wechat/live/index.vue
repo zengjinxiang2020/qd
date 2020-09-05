@@ -88,7 +88,7 @@
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
-        <el-table-column v-if="columns.visible('roomid')" prop="roomid" label="直播间id" />
+        <el-table-column v-if="columns.visible('roomId')" prop="roomId" label="直播间id" />
         <el-table-column v-if="columns.visible('name')" prop="name" label="直播间标题" />
         <el-table-column v-if="columns.visible('coverImge')" prop="coverImge" label="背景图">
           <template slot-scope="scope">
@@ -114,8 +114,16 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('startTime')" prop="startTime" label="开始时间" />
-        <el-table-column v-if="columns.visible('endTime')" prop="endTime" label="预计结束时间" />
+        <el-table-column :show-overflow-tooltip="true" prop="startTime" label="开始时间"  width="200" >
+          <template slot-scope="scope" width="200">
+            <span>{{ formatTimeThree(scope.row.startTime) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :show-overflow-tooltip="true" prop="endTime" label="预计结束时间"  width="200">
+          <template slot-scope="scope"  width="200">
+            <span>{{ formatTimeThree(scope.row.endTime) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column v-if="columns.visible('anchorName')" prop="anchorName" label="主播昵称" />
         <el-table-column v-if="columns.visible('anchorWechat')" prop="anchorWechat" label="主播微信号" />
         <el-table-column v-if="columns.visible('anchorImge')" prop="anchorImge" label="主播头像" >
@@ -188,15 +196,15 @@ import pagination from '@crud/Pagination'
 import MaterialList from '@/components/material'
 import LiveGoods from '@/views/components/livegoods'
 import udOperation from '@crud/UD.operation'
-
+import {formatTimeThree} from '@/utils/index'
 // crud交由presenter持有
 const defaultCrud = CRUD({ optShow: {
     add: true,
     edit: false,
     del: false,
     download: true
-  },title: '直播房间', url: 'api/yxWechatLive', sort: 'roomId,desc', crudMethod: { ...crudYxWechatLive }})
-const defaultForm = { product: [],roomid: null,productId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: null, screenType: null, closeLike: null,closeGoods: null, closeComment: null }
+  },title: '直播房间', url: 'api/yxWechatLive', sort: 'room_id,desc', crudMethod: { ...crudYxWechatLive }})
+const defaultForm = { product: [],roomId: null,productId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: null, screenType: null, closeLike: null,closeGoods: null, closeComment: null }
 export default {
   name: 'YxWechatLive',
   components: { pagination, crudOperation, rrOperation ,MaterialList,udOperation,LiveGoods},
@@ -258,6 +266,7 @@ export default {
     }
   },
   methods: {
+    formatTimeThree,
     getGoods(p) {
       var ids = []
       p.forEach((item,index) => {
