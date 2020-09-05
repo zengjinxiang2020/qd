@@ -28,21 +28,21 @@
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="800px">
           <el-form ref="form" :model="form" :rules="rules" size="small" label-width="140px">
               <el-form-item label="选择商品" prop="coverImgeUrl" >
-                <cgood v-model="form.good":disabled="disable" ></cgood>
+                <cgood v-model="form.good":disabled="isdisabled" ></cgood>
               </el-form-item>
-              <el-form-item label="商品封面图：" prop="image">
+              <el-form-item label="商品封面图：" prop="coverImgeUrl">
                 <single-pic v-model="form.coverImgeUrl"  type="image" :num="1" :width="150" :height="150" />
                 <p  style="color: #cf0f0f">图片规则：图片尺寸最大300像素*300像素；</p>
               </el-form-item>
 
               <el-form-item label="商品小程序路径" prop="url" >
-                <el-input v-model="form.url" style="width: 370px;" :disabled="disable"/>
+                <el-input v-model="form.url" style="width: 370px;" :disabled="isdisabled"/>
               </el-form-item>
     <!--          1：一口价（只需要传入price，price2不传）-->
     <!--          2：价格区间（price字段为左边界，price2字段为右边界，price和price2必传）-->
     <!--          3：显示折扣价（price字段为原价，price2字段为现价， price和price2必传）-->
               <el-form-item label="商品名称" prop="name"  >
-                <el-input v-model="form.name" style="width: 370px;" :disabled="disable"/>
+                <el-input v-model="form.name" style="width: 370px;" :disabled="isdisabled"/>
               </el-form-item>
               <el-form-item label="价格类型" prop="priceType" >
                 <el-radio-group v-model="form.priceType" >
@@ -50,7 +50,7 @@
                   <el-radio :label="'2'" class="radio">价格区间</el-radio>
                   <el-radio :label="'3'" class="radio">显示折扣价</el-radio>
                 </el-radio-group>
-                <p v-if="disable" style="color: #cf0f0f">商品审核通过已入库，只能修改价格</p>
+                <p v-if="isdisabled" style="color: #cf0f0f">商品审核通过已入库，只能修改价格</p>
               </el-form-item>
               <el-col v-if="form.priceType=='1'" v-bind="grid">
                 <el-form-item  label="一口价" prop="price" >
@@ -150,19 +150,18 @@ import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
-import MaterialList from "@/components/material";
 import cgood from '@/views/components/good'
 import singlePic from '@/components/singlematerial'
 // crud交由presenter持有
 const defaultCrud = CRUD({ title: '直播商品', url: 'api/yxWechatLiveGoods', sort: 'goods_id,desc', crudMethod: { ...crudYxWechatLiveGoods }})
-const defaultForm = {   good: {productId: null,storeName: null,image: null,price: null,otPrice: null}, goodsId: null, productId: null, coverImgeUrl: null, url: null, priceType: null, price: null, price2: null, name: null, thirdPartyTag: null, auditId: null, auditStatus: null }
+const defaultForm = {   good: {productId: null,storeName: null,image: null,price: null,otPrice: null}, goodsId: null, productId: null, coverImgeUrl: '', url: null, priceType: null, price: null, price2: null, name: null, thirdPartyTag: null, auditId: null, auditStatus: null }
 export default {
   name: 'YxWechatLiveGoods',
-  components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList,cgood,singlePic},
+  components: { pagination, crudOperation, rrOperation, udOperation ,cgood,singlePic},
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
-      isdisable: false,
+      isdisabled: false,
       syncLoading: false,
       grid: {
         xl: 8,
@@ -206,7 +205,7 @@ export default {
         this.form.price = val.price
         this.form.price2 = val.otPrice
         this.form.priceType = '3'
-        this.disable=true;
+        this.isdisabled=true;
       },
       deep:true//对象内部的属性监听，也叫深度监听
     },
