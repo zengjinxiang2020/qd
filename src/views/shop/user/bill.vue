@@ -85,11 +85,7 @@
           <span>{{ scope.row.number }}</span>
         </template>
       </el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="addTime" label="创建日期">
-        <template slot-scope="scope">
-          <span>{{ formatTime(scope.row.addTime) }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" />
     </el-table>
     <!--分页组件-->
     <el-pagination
