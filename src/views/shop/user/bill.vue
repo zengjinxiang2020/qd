@@ -4,6 +4,54 @@
     <div class="head-container">
       <!-- 搜索 -->
       <el-input v-model="nickname" clearable placeholder="输入用户昵称" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+      <el-select v-model="category" clearable placeholder="明细种类" class="filter-item" style="width: 130px">
+        <el-option
+          v-for="item in categoryOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+      <el-select v-model="type" clearable placeholder="明细类型" class="filter-item" style="width: 130px">
+        <el-option
+          v-for="item in typeOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+      <el-select v-model="inOuttype" clearable placeholder="进出账" class="filter-item" style="width: 130px">
+        <el-option
+          v-for="item in inOutOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+      <el-select v-model="shibai" clearable placeholder="账单标题" class="filter-item" style="width: 130px">
+        <el-option
+          v-for="item in shibais"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+      <el-date-picker
+        class="filter-item"
+        v-model="startTime"
+        type="date"
+        placeholder="开始日期"
+        value-format="yyyy-MM-dd"
+        style="width: 180px">
+      </el-date-picker>
+      <el-date-picker
+        class="filter-item"
+        v-model="endTime"
+        type="date"
+        placeholder="结束日期"
+        value-format="yyyy-MM-dd"
+        style="width: 180px">
+      </el-date-picker>
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
       <el-button
@@ -39,7 +87,7 @@
       </el-table-column>
       <el-table-column :show-overflow-tooltip="true" prop="addTime" label="创建日期">
         <template slot-scope="scope">
-          <span>{{ scope.row.createTime }}</span>
+          <span>{{ formatTime(scope.row.addTime) }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -58,16 +106,17 @@
 <script>
 import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
-import { del, onStatus } from '@/api/yxUser'
+import {del, onStatus} from '@/api/yxUser'
 import eForm from './form'
 import pForm from './formp'
-import { formatTime } from '@/utils/index'
+import {formatTime} from '@/utils/index'
+
 export default {
   components: { eForm, pForm },
   mixins: [initData],
   data() {
     return {
-      delLoading: false, nickname: '', category: '', type: '',
+      delLoading: false, nickname: '', category: '', type: '',inOuttype:'',startTime: '',endTime: '',shibai: '',
       queryTypeOptions: [
         { key: 'nickname', display_name: '用户昵称' },
         { key: 'phone', display_name: '手机号码' }
@@ -79,7 +128,20 @@ export default {
       typeOptions: [
         { value: 'brokerage', label: '佣金' },
         { value: 'sign', label: '签到' }
-      ]
+      ],
+      inOutOptions: [
+        { value: 0, label: '支出' },
+        { value: 1, label: '获得' }
+      ],
+      shibais: [
+        { value: "获得推广佣金", label: '获得推广佣金' },
+        { value: "系统增加余额", label: '增加余额' },
+        { value: "系统减少余额", label: '减少余额' },
+        { value: "佣金提现", label: '佣金提现' },
+        { value: "佣金提现", label: '佣金提现' },
+        { value: "购买商品", label: '购买商品' },
+        { value: "商品退款", label: '商品退款' },
+      ],
     }
   },
   created() {
@@ -117,12 +179,17 @@ export default {
         page: this.page,
         size: this.size,
         nickname: this.nickname,
-        category: 'now_money',
-        type: ''
+        category: this.category,
+        type: this.type,
+        pm : this.inOuttype,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        title: this.shibai
       }
       const query = this.query
       const type = query.type
       const value = query.value
+      const pm = query.inOuttype
       if (type && value) { this.params[type] = value }
       return true
     },
