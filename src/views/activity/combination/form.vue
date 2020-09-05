@@ -119,6 +119,11 @@
                     <single-pic v-model="scope.row.pic" type="image" :num="1" :width="60" :height="60" />
                   </template>
                 </el-table-column>
+                <el-table-column prop="bar_code" label="商品编号" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.bar_code" :disabled="true"/>
+                  </template>
+                </el-table-column>
                 <el-table-column prop="price" label="售价" align="center">
                   <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.price" :disabled="true"/>
@@ -136,7 +141,7 @@
                 </el-table-column>
                 <el-table-column prop="stock" label="库存" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.stock" :disabled="false"/>
+                    <el-input type="text" v-model="scope.row.stock" :disabled="true"/>
                   </template>
                 </el-table-column>
 
@@ -148,12 +153,6 @@
                 <el-table-column prop="stock" label="拼团库存" align="center">
                   <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.pink_stock" />
-                  </template>
-                </el-table-column>
-
-                <el-table-column prop="bar_code" label="商品编号" align="center">
-                  <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.bar_code" :disabled="true"/>
                   </template>
                 </el-table-column>
                 <el-table-column prop="weight" label="重量（KG）" align="center ">
