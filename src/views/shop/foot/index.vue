@@ -1,5 +1,14 @@
 <template>
   <div class="app-container">
+    <div class="head-container">
+      <el-button
+        type="danger"
+        class="filter-item"
+        size="mini"
+        icon="el-icon-refresh"
+        @click="toQuery"
+      >刷新</el-button>
+    </div>
     <!--工具栏-->
     <div class="head-container">
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
@@ -70,6 +79,7 @@
 </template>
 
 <script>
+import initData from '@/mixins/crud'
 import crudYxStoreProductRelation from '@/api/yxStoreProductRelation'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import rrOperation from '@crud/RR.operation'
@@ -84,7 +94,7 @@ const defaultForm = { id: null, uid: null, productId: null, type: null, category
 export default {
   name: 'YxStoreProductRelation',
   components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList},
-  mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
+  mixins: [presenter(defaultCrud), header(), form(defaultForm), crud(),initData],
   data() {
     return {
       query:{
@@ -110,6 +120,14 @@ export default {
   watch: {
   },
   methods: {
+    beforeInit() {
+      this.url = 'api/yxStoreProductRelation'
+      const sort = 'create_time,desc'
+      this.params = { page: this.page, size: this.size, sort: sort }
+      const query = this.query
+      this.params[query.type] = 'foot'
+      return true
+    },
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
       const query = this.query
