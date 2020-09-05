@@ -30,6 +30,11 @@
               <el-form-item label="选择商品" prop="coverImgeUrl" >
                 <cgood v-model="form.good":disabled="disable" ></cgood>
               </el-form-item>
+              <el-form-item label="商品封面图：" prop="image">
+                <single-pic v-model="form.coverImgeUrl"  type="image" :num="1" :width="150" :height="150" />
+                <p  style="color: #cf0f0f">图片规则：图片尺寸最大300像素*300像素；</p>
+              </el-form-item>
+
               <el-form-item label="商品小程序路径" prop="url" >
                 <el-input v-model="form.url" style="width: 370px;" :disabled="disable"/>
               </el-form-item>
@@ -147,13 +152,13 @@ import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 import MaterialList from "@/components/material";
 import cgood from '@/views/components/good'
-
+import singlePic from '@/components/singlematerial'
 // crud交由presenter持有
 const defaultCrud = CRUD({ title: '直播商品', url: 'api/yxWechatLiveGoods', sort: 'goods_id,desc', crudMethod: { ...crudYxWechatLiveGoods }})
 const defaultForm = {   good: {productId: null,storeName: null,image: null,price: null,otPrice: null}, goodsId: null, productId: null, coverImgeUrl: null, url: null, priceType: null, price: null, price2: null, name: null, thirdPartyTag: null, auditId: null, auditStatus: null }
 export default {
   name: 'YxWechatLiveGoods',
-  components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList,cgood},
+  components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList,cgood,singlePic},
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
@@ -198,7 +203,6 @@ export default {
         handler(val,oldVal){
         this.form.productId = val.productId
         this.form.name = val.storeName
-        this.form.coverImgeUrl = val.image
         this.form.price = val.price
         this.form.price2 = val.otPrice
         this.form.priceType = '3'
