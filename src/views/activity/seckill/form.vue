@@ -515,7 +515,6 @@ export default {
           that.formValidate = data;
           that.formValidate.id = 0;
           that.formValidate.productId = id
-          that.formValidate.productId = data.id
           that.formValidate.cate_id = cate_id;
           that.oneFormValidate = [data.attr];
           that.formValidate.title = data.store_name
