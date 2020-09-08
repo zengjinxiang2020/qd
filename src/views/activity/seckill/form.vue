@@ -6,22 +6,22 @@
             <!-- 商品信息-->
           <el-col :span="24">
             <el-form-item label="选择商品：" prop="good">
-              <cgood v-model="form1.good":disabled="true" ></cgood>
+              <cgood v-model="form1.good" ></cgood>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="秒杀名称">
-              <el-input v-model="formValidate.title" style="width: 500px;" />
+              <el-input v-model="formValidate.title" @input="onInput()" style="width: 500px;" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="秒杀简介">
-              <el-input v-model="formValidate.info" style="width: 500px;" />
+              <el-input v-model="formValidate.info" @input="onInput()" style="width: 500px;" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="单位">
-              <el-input v-model="formValidate.unitName" style="width: 500px;" />
+              <el-input v-model="formValidate.unitName" @input="onInput()" style="width: 500px;" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -394,6 +394,9 @@ export default {
     })
   },
   methods: {
+    onInput(){
+      this.$forceUpdate();
+    },
     confirm () {
       let that = this;
       that.createBnt = true;

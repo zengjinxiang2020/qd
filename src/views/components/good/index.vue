@@ -116,8 +116,9 @@ export default {
         that.$set(that.value,"productId", null)
         that.$set(that.value,"storeName", null)
         that.$set(that.value,"image", null)
-        this.$set(this.value,"otPrice", null)
-        this.$set(this.value,"price", null)
+        that.$set(that.value,"otPrice", null)
+        that.$set(that.value,"price", null)
+        that.$set(that.value,"cform",null)
       })
     },
     doSelect(data) {
