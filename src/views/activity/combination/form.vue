@@ -384,7 +384,6 @@ export default {
       handler(val,oldVal){
         this.getInfoChooseGood (val.cform.id)
       },
-      deep:true//对象内部的属性监听，也叫深度监听
     },
   },
   mounted () {
@@ -419,7 +418,7 @@ export default {
     },
     // 立即生成
     generate (data) {
-      isFormatAttrForActivity(data===null?this.formValidate.id:data, { attrs: this.attrs }).then(res => {
+      isFormatAttrForActivity(data===null?this.formValidate.productId:data, { attrs: this.attrs }).then(res => {
         this.manyFormValidate = res.value;
         let headerdel = {
           title: '操作',
@@ -506,13 +505,10 @@ export default {
       getInfo(id).then(async res => {
         let data = res.productInfo;
         if(data){
-          let cate_id = parseInt(data.cate_id) || 0;
           that.attrs = data.items || [];
           that.formValidate = data;
-          that.id  = that.combinationId
-          that.formValidate.id  = 0;
-          that.formValidate.productId = data.id
-          that.formValidate.cate_id = cate_id;
+          that.formValidate.id = 0;
+          that.formValidate.productId = id
           that.formValidate.title = data.store_name
           that.formValidate.info = data.store_info
           that.formValidate.unitName = data.unit_name
