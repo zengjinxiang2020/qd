@@ -618,10 +618,7 @@ export default {
           this.oneFormBatch[0].pic = this.formValidate.image;
         }
       }).catch(res => {
-        // this.$message({
-        //   message:res.msg,
-        //   type: 'error'
-        // });
+        this.$message.error(res.msg);
       })
     },
     // 取消
@@ -732,10 +729,7 @@ export default {
         that.templateList = res.tempList;
       }).catch(res => {
         console.log('err:'+res)
-        return this.$message({
-          message:res.msg,
-          type: 'error'
-        });
+        this.$message.error(res.msg);
       })
     },
 
@@ -788,11 +782,7 @@ export default {
         that.templateList = res.tempList;
 
       }).catch(res => {
-        console.log('err:'+res)
-        return this.$message({
-          message:res.msg,
-          type: 'error'
-        });
+        this.$message.error(res.msg);
       })
     },
     // 提交
@@ -819,10 +809,7 @@ export default {
               this.$router.push({ path: '/activity/seckill' });
             }, 500);
           }).catch(res => {
-            // this.$message({
-            //   message:res.message,
-            //   type: 'error'
-            // });
+            this.$message.error(res.msg);
           })
         } else {
           if(!this.formValidate.store_name || !this.formValidate.cate_id || !this.formValidate.keyword

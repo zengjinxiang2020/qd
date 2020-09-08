@@ -186,93 +186,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-<!--          <el-col v-bind="grid">-->
-<!--            <el-form-item label="虚拟：">-->
-<!--              <el-input-number  :min="0" v-model="formValidate.sales" placeholder="请输入销量"  :disabled="true"/>-->
-<!--            </el-form-item>-->
-<!--          </el-col>-->
-<!--          <el-col v-bind="grid">-->
-<!--            <el-form-item label="排序：">-->
-<!--              <el-input-number :min="0"  v-model="formValidate.sort" placeholder="请输入排序" :disabled="true"/>-->
-<!--            </el-form-item>-->
-<!--          </el-col>-->
-<!--          <el-col :span="24">-->
-<!--            <el-form-item label="佣金设置：">-->
-<!--              <el-radio-group v-model="formValidate.is_sub" :disabled="true" >-->
-<!--                <el-radio :label="1" class="radio">单独设置</el-radio>-->
-<!--                <el-radio :label="0">默认设置</el-radio>-->
-<!--              </el-radio-group>-->
-<!--            </el-form-item>-->
-<!--          </el-col>-->
-<!--          <el-col :span="24" v-if="formValidate.is_sub === 1">-->
-<!--            &lt;!&ndash;单规格返佣&ndash;&gt;-->
-<!--            <el-form-item label="" v-if="formValidate.spec_type === 0">-->
-<!--              <el-table :data="oneFormValidate"  border>-->
-<!--                <el-table-column prop="imageArr" label="图片" align="center">-->
-<!--                  <template slot-scope="scope">-->
-<!--                    <el-image :src="scope.row.pic" fit="contain">-->
-<!--                      <div slot="error" class="image-slot">-->
-<!--                        <i class="el-icon-picture-outline"></i>-->
-<!--                      </div>-->
-<!--                    </el-image>-->
-<!--                  </template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column prop="price" label="售价" align="center" />-->
-<!--                <el-table-column prop="cost" label="成本价" align="center" />-->
-<!--                <el-table-column prop="ot_price" label="原价" align="center" />-->
-<!--                <el-table-column prop="stock" label="库存" align="center" />-->
-<!--                <el-table-column prop="pink_price" label="拼团价" align="center" />-->
-<!--                <el-table-column prop="pink_stock" label="拼团库存" align="center" />-->
-<!--                <el-table-column prop="bar_code" label="商品编号" align="center" />-->
-<!--                <el-table-column prop="weight" label="重量（KG）" align="center" />-->
-<!--                <el-table-column prop="volume" label="体积(m³" align="center" />-->
-<!--                <el-table-column prop="volume" label="一级返佣" align="center">-->
-<!--                  <template slot-scope="scope">-->
-<!--                    <el-input type="text" v-model="scope.row.brokerage" :disabled="true"/>-->
-<!--                  </template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column prop="volume" label="二级返佣" align="center">-->
-<!--                  <template slot-scope="scope">-->
-<!--                    <el-input type="text" v-model="scope.row.brokerage_two" :disabled="true"/>-->
-<!--                  </template>-->
-<!--                </el-table-column>-->
-<!--              </el-table>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="" v-if="formValidate.spec_type === 1 && manyFormValidate.length">-->
-<!--              <el-table :data="manyFormValidate" border>-->
-<!--                <el-table-column prop="imageArr" label="图片" align="center">-->
-<!--                  <template slot-scope="scope">-->
-<!--                    <el-image :src="scope.row.pic" fit="contain">-->
-<!--                      <div slot="error" class="image-slot">-->
-<!--                        <i class="el-icon-picture-outline"></i>-->
-<!--                      </div>-->
-<!--                    </el-image>-->
-<!--                  </template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column prop="price" label="售价" align="center" />-->
-<!--                <el-table-column prop="cost" label="成本价" align="center" />-->
-<!--                <el-table-column prop="ot_price" label="原价" align="center" />-->
-<!--                <el-table-column prop="stock" label="库存" align="center" />-->
-<!--                <el-table-column prop="pink_price" label="拼团价" align="center" />-->
-<!--                <el-table-column prop="pink_stock" label="拼团库存" align="center" />-->
-<!--                <el-table-column prop="bar_code" label="商品编号" align="center" />-->
-<!--                <el-table-column prop="weight" label="重量（KG）" align="center" />-->
-<!--                <el-table-column prop="volume" label="体积(m³" align="center" />-->
-<!--                <el-table-column prop="volume" label="一级返佣" align="center">-->
-<!--                  <template slot-scope="scope">-->
-<!--                    <el-input type="text" v-model="scope.row.brokerage":disabled="true"/>-->
-<!--                  </template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column prop="volume" label="二级返佣" align="center">-->
-<!--                  <template slot-scope="scope">-->
-<!--                    <el-input type="text" v-model="scope.row.brokerage_two":disabled="true"/>-->
-<!--                  </template>-->
-<!--                </el-table-column>-->
-<!--              </el-table>-->
-<!--            </el-form-item>-->
-<!--          </el-col>-->
-        </el-row>
         <el-form-item>
           <el-button type="primary" class="submission" @click="handleSubmit('formValidate')">保存</el-button>
         </el-form-item>
@@ -620,10 +533,7 @@ export default {
           this.oneFormBatch[0].pic = this.formValidate.image;
         }
       }).catch(res => {
-        this.$message({
-          message:res.msg,
-          type: 'error'
-        });
+        this.$message.error(res.msg);
       })
     },
     // 取消
@@ -733,11 +643,7 @@ export default {
         that.templateList = res.tempList;
 
       }).catch(res => {
-        console.log('err:'+res)
-        return this.$message({
-          message:res.msg,
-          type: 'error'
-        });
+        this.$message.error(res.msg);
       })
     },
 
@@ -787,11 +693,7 @@ export default {
         that.templateList = res.tempList;
 
       }).catch(res => {
-        console.log('err:'+res)
-        return this.$message({
-          message:res.msg,
-          type: 'error'
-        });
+        this.$message.error(res.msg);
       })
     },
 
@@ -820,10 +722,7 @@ export default {
               this.$router.push({ path: '/activity/combination' });
             }, 500);
           }).catch(res => {
-            this.$message({
-              message:res.message,
-              type: 'error'
-            });
+            this.$message.error(res.msg);
           })
         } else {
           if(!this.formValidate.store_name || !this.formValidate.cate_id || !this.formValidate.keyword
