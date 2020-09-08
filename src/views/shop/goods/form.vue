@@ -107,22 +107,20 @@
               <!-- 多规格表格-->
               <el-col :span="24">
                 <el-form-item label="商品属性：" class="labeltop">
-
-
-                  <el-table :data="manyFormValidate"  border>
+                  <el-table :data="manyFormValidate" size="small" style="width: 90%;">
                     <el-table-column type="myindex" v-for="(item,index) in formValidate.header" :key="index" :label="item.title" :property="item.slot" align="center">
                       <template slot-scope="scope">
-                        <div v-if="scope.column.property == 'pic'">
+                        <div v-if="scope.column.property == 'pic'" align="center">
                           <single-pic v-model="scope.row[scope.column.property]" type="image" :num="1" :width="60" :height="60" />
                         </div>
-                        <div v-else-if="scope.column.property.indexOf('value') != -1">
+                        <div v-else-if="scope.column.property.indexOf('value') != -1" align="center">
                          {{ scope.row[scope.column.property] }}
                         </div>
-                        <div v-else-if="scope.column.property == 'action'"  >
-                          <a @click="delAttrTable(scope.$index)">删除</a>
+                        <div v-else-if="scope.column.property == 'action'" align="center" >
+                          <a @click="delAttrTable(scope.$index)" align="center">删除</a>
                         </div>
-                        <div v-else>
-                          <el-input  v-model="scope.row[scope.column.property]" />
+                        <div v-else align="center">
+                          <el-input  v-model="scope.row[scope.column.property]" align="center" />
                         </div>
                       </template>
                     </el-table-column>
@@ -135,7 +133,7 @@
           <!-- 单规格表格-->
           <el-col :xl="23" :lg="24" :md="24" :sm="24" :xs="24" v-if="formValidate.spec_type === 0">
             <el-form-item >
-              <el-table :data="oneFormValidate" border>
+              <el-table :data="oneFormValidate"  size="small" style="width: 90%;">
                 <el-table-column prop="pic" label="图片" align="center">
                   <template slot-scope="scope">
                     <single-pic v-model="scope.row.pic" type="image" :num="1" :width="60" :height="60" />
@@ -224,10 +222,10 @@
           <el-col :span="24" v-if="formValidate.is_sub === 1">
             <!--单规格返佣-->
             <el-form-item label="商品属性：" v-if="formValidate.spec_type === 0">
-              <el-table :data="oneFormValidate"  border>
+              <el-table :data="oneFormValidate"  size="small" style="width: 90%;">
                 <el-table-column prop="imageArr" label="图片" align="center">
                   <template slot-scope="scope">
-                    <el-image :src="scope.row.pic" fit="contain">
+                    <el-image :src="scope.row.pic" class="el-avatar">
                       <div slot="error" class="image-slot">
                         <i class="el-icon-picture-outline"></i>
                       </div>
@@ -254,10 +252,10 @@
               </el-table>
             </el-form-item>
             <el-form-item label="商品属性：" v-if="formValidate.spec_type === 1 && manyFormValidate.length">
-              <el-table :data="manyFormValidate" border>
+              <el-table :data="manyFormValidate" size="small" style="width: 90%;">
                 <el-table-column prop="imageArr" label="图片" align="center">
                   <template slot-scope="scope">
-                    <el-image :src="scope.row.pic" fit="contain">
+                    <el-image :src="scope.row.pic" :width="60" :height="60" >
                       <div slot="error" class="image-slot">
                         <i class="el-icon-picture-outline"></i>
                       </div>
@@ -394,78 +392,7 @@ export default {
         UEDITOR_HOME_URL: '/UEditor/',
         serverUrl: ''
       },
-      columns2: [
-        {
-          title: '图片',
-          slot: 'pic',
-          align: 'center',
-          minWidth: 80
-        },
-        {
-          title: '售价',
-          slot: 'price',
-          align: 'center',
-          minWidth: 95
-        },
-        {
-          title: '成本价',
-          slot: 'cost',
-          align: 'center',
-          minWidth: 95
-        },
-        {
-          title: '原价',
-          slot: 'ot_price',
-          align: 'center',
-          minWidth: 95
-        },
-        {
-          title: '库存',
-          slot: 'stock',
-          align: 'center',
-          minWidth: 95
-        },
-        {
-          title: '商品编号',
-          slot: 'bar_code',
-          align: 'center',
-          minWidth: 120
-        },
-        {
-          title: '重量（KG）',
-          slot: 'weight',
-          align: 'center',
-          minWidth: 95
-        },
-        {
-          title: '体积(m³)',
-          slot: 'volume',
-          align: 'center',
-          minWidth: 95
-        },
-        {
-          title: '操作',
-          slot: 'action',
-          fixed: 'right',
-          align: 'center',
-          minWidth: 140
-        }
-      ],
       columns: [],
-      gridPic: {
-        xl: 6,
-        lg: 8,
-        md: 12,
-        sm: 12,
-        xs: 12
-      },
-      gridBtn: {
-        xl: 4,
-        lg: 8,
-        md: 8,
-        sm: 8,
-        xs: 8
-      },
       formValidate: {
         imageArr:[],
         sliderImageArr: [],
