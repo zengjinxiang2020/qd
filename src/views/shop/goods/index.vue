@@ -21,10 +21,9 @@
           size="mini"
           type="primary"
           icon="el-icon-plus"
+          @click="toAddURL"
         >
-          <router-link :to="'/shop/goodsAdd'">
             新增
-          </router-link>
         </el-button>
         <el-button
           type="danger"
@@ -63,10 +62,9 @@
             size="mini"
             type="primary"
             icon="el-icon-edit"
+            @click="toUpdateURL(scope.row.id)"
           >
-          <router-link :to="'/shop/goodsEdit/'+scope.row.id">
             编辑
-          </router-link>
           </el-button>
           <el-popover
             :ref="scope.row.id"
@@ -125,6 +123,12 @@ export default {
     })
   },
   methods: {
+    toAddURL(){
+      this.$router.push({ path: '/shop/goodsAdd' })
+    },
+    toUpdateURL(id){
+      this.$router.push({ path: '/shop/goodsEdit/'+id })
+    },
     dataFilter(val){
       this.value=val
       if(val){

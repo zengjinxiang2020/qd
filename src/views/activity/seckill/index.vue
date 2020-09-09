@@ -15,10 +15,9 @@
           size="mini"
           type="primary"
           icon="el-icon-plus"
+          @click="toAddURL"
         >
-          <router-link :to="'/activity/secKillAdd'">
             新增
-          </router-link>
         </el-button>
       </div>
     </div>
@@ -54,10 +53,9 @@
             size="mini"
             type="primary"
             icon="el-icon-edit"
+            @click="toUpdateURL(scope.row.id)"
           >
-            <router-link :to="'/activity/secKillEdit/'+scope.row.id">
               编辑
-            </router-link>
           </el-button>
           <el-popover
             :ref="scope.row.id"
@@ -107,6 +105,12 @@ export default {
     })
   },
   methods: {
+    toAddURL(){
+      this.$router.push({ path: '/activity/secKillAdd' })
+    },
+    toUpdateURL(id){
+      this.$router.push({ path: '/activity/secKillEdit/'+id })
+    },
     parseTime,
     formatTimeTwo,
     checkPermission,

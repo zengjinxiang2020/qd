@@ -15,10 +15,9 @@
           size="mini"
           type="primary"
           icon="el-icon-plus"
+          @click="toAddURL"
         >
-          <router-link :to="'/activity/combinationAdd'">
           新增
-          </router-link>
         </el-button>
       </div>
       <el-button
@@ -68,10 +67,9 @@
             size="mini"
             type="primary"
             icon="el-icon-edit"
+            @click="toUpdateURL(scope.row.id)"
           >
-            <router-link :to="'/activity/combinationEdit/'+scope.row.id">
               编辑
-            </router-link>
           </el-button>
           <el-popover
             :ref="scope.row.id"
@@ -123,6 +121,12 @@ export default {
     })
   },
   methods: {
+    toAddURL(){
+      this.$router.push({ path: '/activity/combinationAdd' })
+    },
+    toUpdateURL(id){
+      this.$router.push({ path: '/activity/combinationEdit/'+id })
+    },
     parseTime,
     formatTimeTwo,
     checkPermission,
