@@ -135,7 +135,7 @@
               v-permission="['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT']"
               size="mini"
               type="primary"
-              @click="detail(scope.row)"
+              @click="toDetailURL(scope.row.id)"
             >
               订单详情</el-button>
             <el-dropdown size="mini" split-button type="primary" trigger="click">
@@ -240,7 +240,7 @@
   import initData from '@/mixins/crud'
   import { del } from '@/api/yxStoreOrder'
   import eForm from './form'
-  import eDetail from './detail'
+  import eDetail from './detail1'
   import eRefund from './refund'
   import editOrder from './edit'
   import eRemark from './remark'
@@ -300,6 +300,9 @@
       })
     },
     methods: {
+      toDetailURL(id){
+        this.$router.push({ path: '/order/detail/'+id })
+      },
       formatTime,
       checkPermission,
       handleOrder(tab, event) {

@@ -31,7 +31,6 @@ export function editT(data) {
   })
 }
 
-
 export function refund(data) {
   return request({
     url: 'api/yxStoreOrder/refund',
@@ -68,6 +67,13 @@ export function express(data) {
     url: 'api/yxStoreOrder/express',
     method: 'post',
     data
+  })
+}
+
+export function getOrderDetail(id) {
+  return request({
+    url: 'api/getStoreOrderDetail/' + id,
+    method: 'get'
   })
 }
 
