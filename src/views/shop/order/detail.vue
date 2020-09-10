@@ -17,22 +17,20 @@
           <el-button size="mini" @click="showUpdateReceiverDialog">修改收货人信息</el-button>
           <el-button size="mini">修改商品信息</el-button>
           <el-button size="mini" @click="showUpdateMoneyDialog">修改费用信息</el-button>
-          <el-button size="mini" @click="showMessageDialog">发送站内信</el-button>
           <el-button size="mini" @click="showCloseOrderDialog">关闭订单</el-button>
           <el-button size="mini" @click="showMarkOrderDialog">备注订单</el-button>
         </div>
         <div class="operate-button-container" v-show="order._status===2">
           <el-button size="mini" @click="showUpdateReceiverDialog">修改收货人信息</el-button>
-          <el-button size="mini" @click="showMessageDialog">发送站内信</el-button>
           <el-button size="mini">取消订单</el-button>
           <el-button size="mini" @click="showMarkOrderDialog">备注订单</el-button>
         </div>
         <div class="operate-button-container" v-show="order._status===4">
           <el-button size="mini" @click="showLogisticsDialog">订单跟踪</el-button>
-          <el-button size="mini" @click="showMessageDialog">发送站内信</el-button>
           <el-button size="mini" @click="showMarkOrderDialog">备注订单</el-button>
         </div>
         <div class="operate-button-container" v-show="order._status===6||order._status===7 ">
+          <el-button size="mini" @click="showLogisticsDialog">订单跟踪</el-button>
           <el-button size="mini" @click="handleDeleteOrder">删除订单</el-button>
           <el-button size="mini" @click="showMarkOrderDialog">备注订单</el-button>
         </div>
@@ -56,18 +54,18 @@
           <el-col :span="4" class="table-cell">{{order.userDTO.nickname}}</el-col>
           <el-col :span="4" class="table-cell">{{order.payTypeName }}</el-col>
           <el-col :span="4" class="table-cell">{{order.isChannel | formatSourceType}}</el-col>
-          <el-col :span="4" class="table-cell">{{order.shippingType | formatOrderType}}</el-col>
+          <el-col :span="4" class="table-cell">{{order.pinkName }}</el-col>
         </el-row>
         <el-row>
           <el-col :span="4" class="table-cell-title">配送方式</el-col>
           <el-col :span="4" class="table-cell-title">物流单号</el-col>
           <el-col :span="4" class="table-cell-title">自动确认收货时间</el-col>
           <el-col :span="4" class="table-cell-title">订单可得积分</el-col>
-          <el-col :span="4" class="table-cell-title">订单可得成长值</el-col>
+          <el-col :span="4" class="table-cell-title">填空待补充。。</el-col>
           <el-col :span="4" class="table-cell-title">活动信息</el-col>
         </el-row>
         <el-row>
-          <el-col :span="4" class="table-cell">{{order.shippingType | formatNull}}</el-col>
+          <el-col :span="4" class="table-cell">{{order.shippingType | formatShippingType}}</el-col>
           <el-col :span="4" class="table-cell">{{order.deliverySn | formatNull}}</el-col>
           <el-col :span="4" class="table-cell">7天</el-col>
           <el-col :span="4" class="table-cell">{{order.gainIntegral}}</el-col>
@@ -90,16 +88,47 @@
       </div>
       <div class="table-layout">
         <el-row>
-          <el-col :span="6" class="table-cell-title">用户昵称</el-col>
-          <el-col :span="6" class="table-cell-title">收货人</el-col>
-          <el-col :span="6" class="table-cell-title">手机号码</el-col>
-          <el-col :span="6" class="table-cell-title">收货地址</el-col>
+          <el-col :span="4" class="table-cell-title">用户昵称</el-col>
+          <el-col :span="4" class="table-cell-title">收货人</el-col>
+          <el-col :span="4" class="table-cell-title">手机号码</el-col>
+          <el-col :span="4" class="table-cell-title">收货地址</el-col>
+          <el-col :span="4" class="table-cell-title">用户备注</el-col>
+          <el-col :span="4" class="table-cell-title">管理员备注</el-col>
         </el-row>
         <el-row>
-          <el-col :span="6" class="table-cell">{{ order.userDTO.nickname}}</el-col>
-          <el-col :span="6" class="table-cell">{{order.realName}}</el-col>
-          <el-col :span="6" class="table-cell">{{order.userPhone}}</el-col>
-          <el-col :span="6" class="table-cell">{{order.userAddress }}</el-col>
+          <el-col :span="4" class="table-cell">{{ order.userDTO.nickname}}</el-col>
+          <el-col :span="4" class="table-cell">{{order.realName}}</el-col>
+          <el-col :span="4" class="table-cell">{{order.userPhone}}</el-col>
+          <el-col :span="4" class="table-cell">
+            <el-popover
+              placement="top-start"
+              title="收货地址"
+              width="300"
+              trigger="hover"
+              :content="order.userAddress">
+              <span slot="reference">{{order.userAddress | formatLongText}}</span>
+            </el-popover>
+          </el-col>
+          <el-col :span="4" class="table-cell">
+            <el-popover
+              placement="top-start"
+              title="用户备注"
+              width="300"
+              trigger="hover"
+              :content="order.mark">
+              <span slot="reference">{{order.mark | formatLongText}}</span>
+            </el-popover>
+          </el-col>
+          <el-col :span="4" class="table-cell">
+            <el-popover
+              placement="top-start"
+              title="管理员备注"
+              width="200"
+              trigger="hover"
+              :content="order.remark">
+              <span slot="reference">{{order.remark | formatLongText}}</span>
+            </el-popover>
+          </el-col>
         </el-row>
       </div>
       <div style="margin-top: 20px">
@@ -107,15 +136,15 @@
         <span class="font-small">商品信息</span>
       </div>
       <el-table
-        ref="orderItemTable"
         :data="order.cartInfoList"
-        style="width: 100%;margin-top: 20px" border>
-        <el-table-column label="商品图片" width="240" align="center">
+        size="small"
+        style="width: 100%;margin-top: 20px" >
+        <el-table-column label="商品图片" width="150" align="center">
           <template slot-scope="scope">
             <img :src="scope.row.cartInfoMap.productInfo.attrInfo.image" style="height: 80px">
           </template>
         </el-table-column>
-        <el-table-column label="商品名称" width="240" align="center">
+        <el-table-column label="商品名称" width="300" align="center">
           <template slot-scope="scope">
             <p>{{scope.row.cartInfoMap.productInfo.storeName}}</p>
           </template>
@@ -131,7 +160,7 @@
             {{scope.row.cartInfoMap.productInfo.attrInfo.sku}}
           </template>
         </el-table-column>
-        <el-table-column label="数量" width="240" align="center">
+        <el-table-column label="数量" width="180" align="center">
           <template slot-scope="scope">
             {{scope.row.cartInfoMap.cartNum}}
           </template>
@@ -186,31 +215,31 @@
       <el-table style="margin-top: 20px;width: 100%"
                 ref="orderHistoryTable"
                 :data="order.storeOrderStatusList" border>
-        <el-table-column label="操作者"  width="120" align="center">
-          <template slot-scope="scope">
-           <!-- {{scope.row.operateMan}}-->
-          </template>
-        </el-table-column>
+<!--        <el-table-column label="操作者"  width="120" align="center">-->
+<!--          <template slot-scope="scope">-->
+<!--           &lt;!&ndash; {{scope.row.operateMan}}&ndash;&gt;-->
+<!--          </template>-->
+<!--        </el-table-column>-->
         <el-table-column label="操作时间"  width="160" align="center">
           <template slot-scope="scope">
             {{scope.row.changeTime}}
           </template>
         </el-table-column>
-        <el-table-column label="订单状态"  width="120" align="center">
-          <template slot-scope="scope">
-            {{scope.row.changeType | formatStatus}}
-          </template>
-        </el-table-column>
-        <el-table-column label="付款状态"  width="120" align="center">
-          <template slot-scope="scope">
-            {{scope.row.changeType | formatPayStatus}}
-          </template>
-        </el-table-column>
-        <el-table-column label="发货状态"  width="120" align="center">
-          <template slot-scope="scope">
-            {{scope.row.changeType | formatDeliverStatus}}
-          </template>
-        </el-table-column>
+<!--        <el-table-column label="订单状态"  width="120" align="center">-->
+<!--          <template slot-scope="scope">-->
+<!--            {{scope.row.changeType | formatStatus}}-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+<!--        <el-table-column label="付款状态"  width="120" align="center">-->
+<!--          <template slot-scope="scope">-->
+<!--            {{scope.row.changeType | formatPayStatus}}-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+<!--        <el-table-column label="发货状态"  width="120" align="center">-->
+<!--          <template slot-scope="scope">-->
+<!--            {{scope.row.changeType | formatDeliverStatus}}-->
+<!--          </template>-->
+<!--        </el-table-column>-->
         <el-table-column label="备注" align="center">
           <template slot-scope="scope">
             {{scope.row.changeMessage}}
@@ -293,25 +322,6 @@
       <el-button type="primary" @click="handleUpdateMoneyInfo">确 定</el-button>
       </span>
     </el-dialog>
-<!--    <el-dialog title="发送站内信"-->
-<!--               :visible.sync="messageDialogVisible"-->
-<!--               width="40%">-->
-<!--      <el-form :model="message"-->
-<!--               ref="receiverInfoForm"-->
-<!--               label-width="150px">-->
-<!--        <el-form-item label="标题：">-->
-<!--          <el-input v-model="message.title" style="width: 200px"></el-input>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="内容：">-->
-<!--          <el-input v-model="message.content" type="textarea" rows="3">-->
-<!--          </el-input>-->
-<!--        </el-form-item>-->
-<!--      </el-form>-->
-<!--      <span slot="footer" class="dialog-footer">-->
-<!--        <el-button @click="messageDialogVisible = false">取 消</el-button>-->
-<!--        <el-button type="primary" @click="handleSendMessage">确 定</el-button>-->
-<!--      </span>-->
-<!--    </el-dialog>-->
 <!--    <el-dialog title="关闭订单"-->
 <!--               :visible.sync="closeDialogVisible"-->
 <!--               width="40%">-->
@@ -343,12 +353,13 @@
       </span>
     </el-dialog>
     <!--订单跟踪信息-->
-<!--    <logistics-dialog v-model="logisticsDialogVisible"></logistics-dialog>-->
+    <eForm ref="form" v-if="logisticsDialogVisible" :is-add="isAdd"></eForm>
   </div>
 </template>
 <script>
 import {getOrderDetail} from '@/api/yxStoreOrder';
 import {formatTimeTwo} from '@/utils/index';
+import eForm from './form';
 
   const defaultReceiverInfo = {
     orderId:null,
@@ -362,8 +373,10 @@ import {formatTimeTwo} from '@/utils/index';
     status:null
   };
   export default {
+    components: {eForm},
     data() {
       return {
+        isAdd: false,
         id: null,
         order: {
 
@@ -422,6 +435,13 @@ import {formatTimeTwo} from '@/utils/index';
           return '秒杀订单';
         } else {
           return '正常订单';
+        }
+      },
+      formatShippingType(value){
+        if (value === 1) {
+          return '快递';
+        } else {
+          return '门店自提';
         }
       },
       formatAddress(order) {
@@ -665,9 +685,9 @@ import {formatTimeTwo} from '@/utils/index';
           // });
         })
       },
-      // showLogisticsDialog(){
-      //   this.logisticsDialogVisible=true;
-      // }
+      showLogisticsDialog(){
+        this.logisticsDialogVisible=true;
+      }
     }
   }
 </script>
