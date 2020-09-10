@@ -337,6 +337,19 @@
 <!--        <el-button type="primary" @click="handleCloseOrder">确 定</el-button>-->
 <!--      </span>-->
 <!--    </el-dialog>-->
+    <el-dialog title="订单跟踪"
+               :visible.sync="kuaidiDialogVisible"
+               width="40%">
+      <el-steps direction="vertical"
+                :active="90"
+                finish-status="success"
+                space="50px">
+        <el-step  v-for="item in logisticsList"
+                  :key="item.acceptStation"
+                  :title="item.acceptStation"
+                  :description="item.acceptTime"></el-step>
+      </el-steps>
+    </el-dialog>
     <el-dialog title="备注订单"
                :visible.sync="markOrderDialogVisible"
                width="40%">
@@ -352,15 +365,11 @@
         <el-button type="primary" @click="handleMarkOrder">确 定</el-button>
       </span>
     </el-dialog>
-    <!--订单跟踪信息-->
-    <eForm ref="form" v-if="logisticsDialogVisible" :is-add="isAdd"></eForm>
   </div>
 </template>
 <script>
-import {getOrderDetail} from '@/api/yxStoreOrder';
+import { express, getOrderDetail } from '@/api/yxStoreOrder'
 import {formatTimeTwo} from '@/utils/index';
-import eForm from './form';
-
   const defaultReceiverInfo = {
     orderId:null,
     receiverName:null,
@@ -373,7 +382,7 @@ import eForm from './form';
     status:null
   };
   export default {
-    components: {eForm},
+    components: {},
     data() {
       return {
         isAdd: false,
@@ -384,6 +393,7 @@ import eForm from './form';
         user:{
 
         },
+        logisticsList:[],
         receiverDialogVisible:false,
         receiverInfo:Object.assign({},defaultReceiverInfo),
         moneyDialogVisible:false,
@@ -391,10 +401,14 @@ import eForm from './form';
         messageDialogVisible:false,
         message: {title:null, content:null},
         closeDialogVisible:false,
+        kuaidiDialogVisible:false,
         closeInfo:{note:null,id:null},
         markOrderDialogVisible:false,
         markInfo:{note:null},
-        logisticsDialogVisible:false
+        logisticsDialogVisible: {
+          visible: false,
+          list: []
+        }
       }
     },
     filters: {
@@ -504,6 +518,22 @@ import eForm from './form';
       this.getInfo();
     },
     methods: {
+      express() {
+        let params ={
+          "orderCode": this.order.id,
+          "shipperCode": this.order.deliverySn,
+          "logisticCode": this.order.deliveryId
+        }
+
+        express(params).then(res=>{
+          console.log(res,89888)
+          this.expressInfo = res.Traces
+          this.kuaidiDialogVisible=true;
+          this.logisticsList = this.expressInfo
+        }).catch(err => {
+        })
+
+      },
       getInfo(){
         let that = this;
         let id = that.$route.params.id || 0;
@@ -619,6 +649,7 @@ import eForm from './form';
         this.closeInfo.note=null;
         this.closeInfo.id=this.id;
       },
+
       // handleCloseOrder(){
       //   this.$confirm('是否要关闭?', '提示', {
       //     confirmButtonText: '确定',
@@ -686,7 +717,8 @@ import eForm from './form';
         })
       },
       showLogisticsDialog(){
-        this.logisticsDialogVisible=true;
+        this.express();
+
       }
     }
   }
