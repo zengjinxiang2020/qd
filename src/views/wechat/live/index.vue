@@ -46,9 +46,9 @@
           <el-form-item label="主播头像" prop="anchorImg" >
             <MaterialList v-model="form.anchorImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150" :disabled="isDisabled"/>
           </el-form-item>
-          <el-form-item label="选择入库商品" >
-            <LiveGoods v-model="form.product"  @selectGoods="getGoods" > </LiveGoods>
-          </el-form-item>
+<!--          <el-form-item label="选择入库商品" >-->
+<!--            <LiveGoods v-model="form.product"  @selectGoods="getGoods" > </LiveGoods>-->
+<!--          </el-form-item>-->
           <el-form-item label="直播间类型" prop="type" >
             <el-radio-group v-model="form.type":disabled="isDisabled" >
               <el-radio :label="1" class="radio">推流</el-radio>
@@ -189,6 +189,7 @@
               <el-tag v-else :type=" '' ">开启</el-tag>
             </div>
           </template>
+        </el-table-column>
           <el-table-column v-if="columns.visible('closeReplay')" prop="closeReplay" label="回放" >
             <template slot-scope="scope">
               <div>
