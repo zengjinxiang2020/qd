@@ -79,6 +79,25 @@
               <el-radio :label="0">开启</el-radio>
             </el-radio-group>
           </el-form-item>
+
+          <el-form-item label="是否关闭回放" prop="closeLike" >
+            <el-radio-group v-model="form.closeReplay" :disabled="isDisabled">
+              <el-radio :label="1" class="radio">关闭</el-radio>
+              <el-radio :label="0">开启</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="是否关闭分享" prop="closeGoods" >
+            <el-radio-group v-model="form.closeShare" :disabled="isDisabled">
+              <el-radio :label="1" class="radio">关闭</el-radio>
+              <el-radio :label="0">开启</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="是否关闭客服" prop="closeComment" >
+            <el-radio-group v-model="form.closeKf" :disabled="isDisabled">
+              <el-radio :label="1" class="radio">关闭</el-radio>
+              <el-radio :label="0">开启</el-radio>
+            </el-radio-group>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button type="text" @click="crud.cancelCU">取消</el-button>
@@ -170,6 +189,29 @@
               <el-tag v-else :type=" '' ">开启</el-tag>
             </div>
           </template>
+          <el-table-column v-if="columns.visible('closeReplay')" prop="closeReplay" label="回放" >
+            <template slot-scope="scope">
+              <div>
+                <el-tag v-if="scope.row.closeReplay === 1" :type="''">关闭</el-tag>
+                <el-tag v-else :type=" '' ">开启</el-tag>
+              </div>
+            </template>
+        </el-table-column>
+        <el-table-column v-if="columns.visible('closeShare')" prop="closeShare" label="分享" >
+          <template slot-scope="scope">
+            <div>
+              <el-tag v-if="scope.row.closeShare === 1" :type="''">关闭</el-tag>
+              <el-tag v-else :type=" '' ">开启</el-tag>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column v-if="columns.visible('closeKf')" prop="closeKf" label="客服" >
+          <template slot-scope="scope">
+            <div>
+              <el-tag v-if="scope.row.closeKf === 1" :type="''">关闭</el-tag>
+              <el-tag v-else :type=" '' ">开启</el-tag>
+            </div>
+          </template>
         </el-table-column>
         <el-table-column v-permission="['admin','yxWechatLive:edit','yxWechatLive:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
@@ -204,7 +246,7 @@ const defaultCrud = CRUD({ optShow: {
     del: false,
     download: true
   },title: '直播房间', url: 'api/yxWechatLive', sort: 'room_id,desc', crudMethod: { ...crudYxWechatLive }})
-const defaultForm = { product: [],roomId: null,productId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: null, screenType: null, closeLike: null,closeGoods: null, closeComment: null }
+const defaultForm = { product: [],roomId: null,productId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: 1, screenType: 0, closeLike: 0,closeGoods: 0, closeComment: 0,closeReplay: 0,closeShare:0,closeKf:0 }
 export default {
   name: 'YxWechatLive',
   components: { pagination, crudOperation, rrOperation ,MaterialList,udOperation,LiveGoods},
