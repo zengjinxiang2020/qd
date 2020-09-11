@@ -46,9 +46,7 @@
           <el-form-item label="主播头像" prop="anchorImg" >
             <MaterialList v-model="form.anchorImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150" :disabled="isDisabled"/>
           </el-form-item>
-<!--          <el-form-item label="选择入库商品" >-->
-<!--            <LiveGoods v-model="form.product"  @selectGoods="getGoods" > </LiveGoods>-->
-<!--          </el-form-item>-->
+
           <el-form-item label="直播间类型" prop="type" >
             <el-radio-group v-model="form.type":disabled="isDisabled" >
               <el-radio :label="1" class="radio">推流</el-radio>
@@ -104,6 +102,20 @@
           <el-button :loading="crud.cu === 2" type="primary" @click="crud.submitCU" :disabled="isDisabled">确认</el-button>
         </div>
       </el-dialog>
+      <el-dialog title="修改直播间商品信息"
+                 :visible.sync="closeDialogVisible"
+                 width="40%">
+        <el-form :model="form"
+                 label-width="150px">
+              <el-form-item label="选择入库商品" >
+                <LiveGoods :product="form.product"  @selectGoods="getGoods" > </LiveGoods>
+              </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+        <el-button @click="closeDialog()">取 消</el-button>
+        <el-button type="primary" @click="handleCloseOrder">确 定</el-button>
+      </span>
+      </el-dialog>
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
@@ -158,38 +170,6 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('screenType')" prop="screenType" label="横屏、竖屏" >
-          <template slot-scope="scope">
-            <div>
-              <el-tag v-if="scope.row.screenType === 1" :type="''">横屏</el-tag>
-              <el-tag v-else :type="''">竖屏</el-tag>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column v-if="columns.visible('closeLike')" prop="closeLike" label="点赞" >
-          <template slot-scope="scope">
-            <div>
-              <el-tag v-if="scope.row.closeLike === 1" :type="''">关闭</el-tag>
-              <el-tag v-else :type="''">开启</el-tag>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column v-if="columns.visible('closeGoods')" prop="closeGoods" label="货架" >
-          <template slot-scope="scope">
-            <div>
-              <el-tag v-if="scope.row.closeGoods === 1" :type="''">关闭</el-tag>
-              <el-tag v-else :type=" '' ">开启</el-tag>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column v-if="columns.visible('closeComment')" prop="closeComment" label="评论" >
-          <template slot-scope="scope">
-            <div>
-              <el-tag v-if="scope.row.closeComment === 1" :type="''">关闭</el-tag>
-              <el-tag v-else :type=" '' ">开启</el-tag>
-            </div>
-          </template>
-        </el-table-column>
           <el-table-column v-if="columns.visible('closeReplay')" prop="closeReplay" label="回放" >
             <template slot-scope="scope">
               <div>
@@ -198,28 +178,21 @@
               </div>
             </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('closeShare')" prop="closeShare" label="分享" >
-          <template slot-scope="scope">
-            <div>
-              <el-tag v-if="scope.row.closeShare === 1" :type="''">关闭</el-tag>
-              <el-tag v-else :type=" '' ">开启</el-tag>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column v-if="columns.visible('closeKf')" prop="closeKf" label="客服" >
-          <template slot-scope="scope">
-            <div>
-              <el-tag v-if="scope.row.closeKf === 1" :type="''">关闭</el-tag>
-              <el-tag v-else :type=" '' ">开启</el-tag>
-            </div>
-          </template>
-        </el-table-column>
         <el-table-column v-permission="['admin','yxWechatLive:edit','yxWechatLive:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
+
             <udOperation
               :data="scope.row"
               :permission="permission"
-            />
+            >
+            </udOperation>
+            <el-button
+              size="mini"
+              type="success"
+              @click="showCloseOrderDialog(scope.row)"
+            >
+              添加商品
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -240,6 +213,7 @@ import MaterialList from '@/components/material'
 import LiveGoods from '@/views/components/livegoods'
 import udOperation from '@crud/UD.operation'
 import {formatTimeThree} from '@/utils/index'
+import { addGoods } from '@/api/yxWechatLive'
 // crud交由presenter持有
 const defaultCrud = CRUD({ optShow: {
     add: true,
@@ -247,13 +221,14 @@ const defaultCrud = CRUD({ optShow: {
     del: false,
     download: true
   },title: '直播房间', url: 'api/yxWechatLive', sort: 'room_id,desc', crudMethod: { ...crudYxWechatLive }})
-const defaultForm = { product: [],roomId: null,productId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: 1, screenType: 0, closeLike: 0,closeGoods: 0, closeComment: 0,closeReplay: 0,closeShare:0,closeKf:0 }
+const defaultForm = { product: [],roomId: null,productId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: 0, screenType: 0, closeLike: 0,closeGoods: 0, closeComment: 0,closeReplay: 0,closeShare:0,closeKf:0 }
 export default {
   name: 'YxWechatLive',
   components: { pagination, crudOperation, rrOperation ,MaterialList,udOperation,LiveGoods},
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
+      closeDialogVisible:false,
       disabled: false,
       syncLoading: false,
       permission: {
@@ -309,6 +284,33 @@ export default {
     }
   },
   methods: {
+    closeDialog(){
+      this.form.product = []
+      this.closeDialogVisible=false;
+    },
+    showCloseOrderDialog(row){
+      this.closeDialogVisible=true;
+      this.form.roomId = row.id;
+      this.form.product = row.product
+    },
+    handleCloseOrder(){
+        this.$confirm('是否提交?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            let params ={
+              "roomId": this.form.roomId,
+              "productId": this.form.productId
+            }
+          addGoods(params).then(res=>{
+              console.log(res,89888)
+              this.closeDialogVisible=true;
+            }).catch(err => {
+
+          })
+        });
+      },
     formatTimeThree,
     getGoods(p) {
       var ids = []

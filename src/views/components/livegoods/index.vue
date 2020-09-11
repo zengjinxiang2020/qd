@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <ul v-for="(item,index) in newValue" :key="index" class="el-upload-list el-upload-list--picture-card">
+      <ul v-for="(item,index) in product" :key="index" class="el-upload-list el-upload-list--picture-card">
         <li tabindex="0" class="el-upload-list__item is-ready" :style="'width: '+width+'px;height: '+height+'px'">
           <div>
             <img :src="item.coverImgeUrl" alt="" class="el-upload-list__item-thumbnail">
@@ -105,12 +105,7 @@ export default {
   components: { },
   mixins: [initData],
   props: {
-    value: {
-      type: Array,
-      default() {
-        return []
-      }
-    },
+    product : Array,
     // 宽度
     width: {
       type: Number,
@@ -128,7 +123,7 @@ export default {
   },
   data() {
     return {
-      newValue:this.value,
+      product:this.product,
       delLoading: false,
       visible: false,
       queryTypeOptions: [
@@ -151,13 +146,13 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function() {
-        that.newValue.splice(index, 1)
+        that.product.splice(index, 1)
         that.url = []
       })
     },
     doSelect() {
-      this.newValue = this.multipleSelection
-      this.$emit("selectGoods", this.newValue)
+      this.product = this.multipleSelection
+      this.$emit("selectGoods", this.product)
       this.dialog = false
     },
     handleSelectionChange(val) {

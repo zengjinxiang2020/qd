@@ -30,4 +30,12 @@ export function sync() {
     method: 'get'
   })
 }
-export default { add, edit, del, sync }
+
+export function addGoods(data) {
+  return request({
+    url: 'api/yxWechatLive/addGoods',
+    method: 'post',
+    data
+  })
+}
+export default { add, edit, del, sync, addGoods }
