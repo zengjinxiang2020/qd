@@ -525,6 +525,7 @@ export default {
           that.formValidate.unitName = data.unit_name
           that.formValidate.sliderImageArr = data.slider_image
           that.formValidate.status = 1
+          that.formValidate.num = 1
           that.formValidate.header = [];
           that.generate(null);
           that.manyFormValidate = data.attrs;

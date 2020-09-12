@@ -198,6 +198,12 @@ export default {
           that.form.imageArr = data.image
           that.form.sliderImageArr = data.slider_image
           that.form.status = 1
+          that.form.minPrice = 0
+          that.form.num = 1
+          that.form.bargainMaxPrice = 0
+          that.form.bargainMinPrice = 0
+          that.form.bargainNum = 1
+
         }
         that.templateList = res.tempList;
 

@@ -63,7 +63,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="拼团时效(单位小时)" prop="effectiveTime">
+            <el-form-item label="拼团时效(小时)" prop="effectiveTime">
               <el-input-number v-model="formValidate.effectiveTime" style="width: 500px;" />
             </el-form-item>
           </el-col>
@@ -258,7 +258,7 @@ export default {
         sliderImageArr: [],
         title: '',
         attr: '',
-        people: '',
+        people: '1',
         info: '',
         price: '',
         sort: '',
@@ -517,6 +517,8 @@ export default {
           that.formValidate.info = data.store_info
           that.formValidate.unitName = data.unit_name
           that.formValidate.isShow = 1
+          that.formValidate.people = 1
+          that.formValidate.effectiveTime = 1
           that.oneFormValidate = [data.attr];
           that.formValidate.header = [];
           that.generate(null);
