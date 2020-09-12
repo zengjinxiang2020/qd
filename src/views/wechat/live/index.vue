@@ -304,10 +304,10 @@ export default {
               "productId": this.form.productId
             }
           addGoods(params).then(res=>{
-              console.log(res,89888)
-              this.closeDialogVisible=true;
+              this.closeDialogVisible=false;
+            this.$message.success("添加成功");
             }).catch(err => {
-
+            this.$message.error(res.msg);
           })
         });
       },
