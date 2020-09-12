@@ -12,26 +12,26 @@
     <el-card shadow="never" style="margin-top: 15px">
       <div class="operate-container">
         <i class="el-icon-warning color-danger" style="margin-left: 20px"></i>
-        <span class="color-danger">当前订单状态：{{order.statusName}}</span>
+        <span class="color-danger">当前订单状态：<span v-html="order.statusName"></span></span>
         <div class="operate-button-container" v-show="order._status===1">
-          <el-button size="mini" @click="showUpdateReceiverDialog">修改收货人信息</el-button>
-          <el-button size="mini" @click="showUpdateMoneyDialog">修改费用信息</el-button>
-          <el-button size="mini" @click="showCloseOrderDialog">关闭订单</el-button>
-          <el-button size="mini" @click="showMarkOrderDialog">备注订单</el-button>
+          <el-button size="mini" @click="editOrder(order)">修改订单</el-button>
+          <el-button size="mini" @click="remark(order)">备注订单</el-button>
+        </div>
+        <div class="operate-button-container" v-show="order._status===3">
+          <el-button size="mini" @click="refund(order)">立即退款</el-button>
+          <el-button size="mini" @click="remark(order)">备注订单</el-button>
         </div>
         <div class="operate-button-container" v-show="order._status===2">
-          <el-button size="mini" @click="showUpdateReceiverDialog">修改收货人信息</el-button>
-          <el-button size="mini">取消订单</el-button>
-          <el-button size="mini" @click="showMarkOrderDialog">备注订单</el-button>
+          <el-button size="mini" @click="edit(order)">去发货</el-button>
+          <el-button size="mini" @click="remark(order)">备注订单</el-button>
         </div>
         <div class="operate-button-container" v-show="order._status===4">
           <el-button size="mini" @click="showLogisticsDialog">订单跟踪</el-button>
-          <el-button size="mini" @click="showMarkOrderDialog">备注订单</el-button>
+          <el-button size="mini" @click="remark(order)">备注订单</el-button>
         </div>
         <div class="operate-button-container" v-show="order._status===6||order._status===7 ">
           <el-button size="mini" @click="showLogisticsDialog">订单跟踪</el-button>
-          <el-button size="mini" @click="handleDeleteOrder">删除订单</el-button>
-          <el-button size="mini" @click="showMarkOrderDialog">备注订单</el-button>
+          <el-button size="mini" @click="remark(order)">备注订单</el-button>
         </div>
       </div>
       <div style="margin-top: 20px">
@@ -188,7 +188,7 @@
           <el-col :span="6" class="table-cell">￥{{order.totalPrice}}</el-col>
           <el-col :span="6" class="table-cell">￥{{order.payPostage}}</el-col>
           <el-col :span="6" class="table-cell">-￥{{order.couponPrice}}</el-col>
-          <el-col :span="6" class="table-cell">-￥{{order.useIntegral}}</el-col>
+          <el-col :span="6" class="table-cell">-￥{{order.deductionPrice}}</el-col>
         </el-row>
         <el-row>
           <el-col :span="6" class="table-cell-title">活动优惠</el-col>
@@ -197,8 +197,8 @@
           <el-col :span="6" class="table-cell-title">应付款金额</el-col>
         </el-row>
         <el-row>
-          <el-col :span="6" class="table-cell">-￥{{order.promotionAmount}}</el-col>
-          <el-col :span="6" class="table-cell">-￥{{order.deductionPrice}}</el-col>
+          <el-col :span="6" class="table-cell">-￥0</el-col>
+          <el-col :span="6" class="table-cell">-￥0</el-col>
           <el-col :span="6" class="table-cell">
             <span class="color-danger">￥{{order.totalPrice}}</span>
           </el-col>
@@ -279,7 +279,7 @@
 <!--      <el-button type="primary" @click="handleUpdateReceiverInfo">确 定</el-button>-->
 <!--      </span>-->
 <!--    </el-dialog>-->
-    <el-dialog title="修改费用信息"
+    <!-- <el-dialog title="修改费用信息"
                :visible.sync="moneyDialogVisible"
                width="80%">
       <div class="table-layout">
@@ -363,12 +363,21 @@
         <el-button @click="markOrderDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleMarkOrder">确 定</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
+
+      <eForm ref="form" :is-add="isAdd" />
+      <eRefund ref="form2" :is-add="isAdd" />
+      <editOrder ref="form3" :is-add="isAdd" />
+      <eRemark ref="form4" :is-add="isAdd" />
   </div>
 </template>
 <script>
 import { express, getOrderDetail } from '@/api/yxStoreOrder'
 import {formatTimeTwo} from '@/utils/index';
+import eForm from './form'
+import eRefund from './refund'
+import editOrder from './edit'
+import eRemark from './remark'
   const defaultReceiverInfo = {
     orderId:null,
     receiverName:null,
@@ -381,7 +390,7 @@ import {formatTimeTwo} from '@/utils/index';
     status:null
   };
   export default {
-    components: {},
+    components: {eForm, eRefund, editOrder, eRemark},
     data() {
       return {
         isAdd: false,
@@ -499,9 +508,243 @@ import {formatTimeTwo} from '@/utils/index';
       }
     },
     mounted () {
-      this.getInfo();
+      this.init();
     },
     methods: {
+       refund(data) {
+        this.isAdd = false
+        const _this = this.$refs.form2
+        _this.form = {
+          id: data.id,
+          orderId: data.orderId,
+          uid: data.uid,
+          realName: data.realName,
+          userPhone: data.userPhone,
+          userAddress: data.userAddress,
+          cartId: data.cartId,
+          freightPrice: data.freightPrice,
+          totalNum: data.totalNum,
+          totalPrice: data.totalPrice,
+          totalPostage: data.totalPostage,
+          payPrice: data.payPrice,
+          payPostage: data.payPostage,
+          deductionPrice: data.deductionPrice,
+          couponId: data.couponId,
+          couponPrice: data.couponPrice,
+          paid: data.paid,
+          payTime: data.payTime,
+          payType: data.payType,
+          addTime: data.addTime,
+          status: data.status,
+          refundStatus: data.refundStatus,
+          refundReasonWapImg: data.refundReasonWapImg,
+          refundReasonWapExplain: data.refundReasonWapExplain,
+          refundReasonTime: data.refundReasonTime,
+          refundReasonWap: data.refundReasonWap,
+          refundReason: data.refundReason,
+          refundPrice: data.refundPrice,
+          deliveryName: data.deliveryName,
+          deliveryType: data.deliveryType,
+          deliveryId: data.deliveryId,
+          gainIntegral: data.gainIntegral,
+          useIntegral: data.useIntegral,
+          backIntegral: data.backIntegral,
+          mark: data.mark,
+          isDel: data.isDel,
+          unique: data.unique,
+          remark: data.remark,
+          merId: data.merId,
+          isMerCheck: data.isMerCheck,
+          combinationId: data.combinationId,
+          pinkId: data.pinkId,
+          cost: data.cost,
+          seckillId: data.seckillId,
+          bargainId: data.bargainId,
+          verifyCode: data.verifyCode,
+          storeId: data.storeId,
+          shippingType: data.shippingType,
+          isChannel: data.isChannel,
+          isRemind: data.isRemind,
+          isSystemDel: data.isSystemDel
+        }
+        _this.dialog = true
+      },
+       edit(data) {
+        this.isAdd = false
+        const _this = this.$refs.form
+        _this.form = {
+          id: data.id,
+          orderId: data.orderId,
+          uid: data.uid,
+          realName: data.realName,
+          userPhone: data.userPhone,
+          userAddress: data.userAddress,
+          cartId: data.cartId,
+          freightPrice: data.freightPrice,
+          totalNum: data.totalNum,
+          totalPrice: data.totalPrice,
+          totalPostage: data.totalPostage,
+          payPrice: data.payPrice,
+          payPostage: data.payPostage,
+          deductionPrice: data.deductionPrice,
+          couponId: data.couponId,
+          couponPrice: data.couponPrice,
+          paid: data.paid,
+          payTime: data.payTime,
+          payType: data.payType,
+          addTime: data.addTime,
+          status: data.status,
+          refundStatus: data.refundStatus,
+          refundReasonWapImg: data.refundReasonWapImg,
+          refundReasonWapExplain: data.refundReasonWapExplain,
+          refundReasonTime: data.refundReasonTime,
+          refundReasonWap: data.refundReasonWap,
+          refundReason: data.refundReason,
+          refundPrice: data.refundPrice,
+          deliveryName: data.deliveryName,
+          deliverySn: data.deliverySn,
+          deliveryType: data.deliveryType,
+          deliveryId: data.deliveryId,
+          gainIntegral: data.gainIntegral,
+          useIntegral: data.useIntegral,
+          backIntegral: data.backIntegral,
+          mark: data.mark,
+          isDel: data.isDel,
+          unique: data.unique,
+          remark: data.remark,
+          merId: data.merId,
+          isMerCheck: data.isMerCheck,
+          combinationId: data.combinationId,
+          pinkId: data.pinkId,
+          cost: data.cost,
+          seckillId: data.seckillId,
+          bargainId: data.bargainId,
+          verifyCode: data.verifyCode,
+          storeId: data.storeId,
+          shippingType: data.shippingType,
+          isChannel: data.isChannel,
+          isRemind: data.isRemind,
+          isSystemDel: data.isSystemDel
+        }
+        _this.dialog = true
+      },
+       editOrder(data) {
+        this.isAdd = false
+        const _this = this.$refs.form3
+        _this.form = {
+          id: data.id,
+          orderId: data.orderId,
+          uid: data.uid,
+          realName: data.realName,
+          userPhone: data.userPhone,
+          userAddress: data.userAddress,
+          cartId: data.cartId,
+          freightPrice: data.freightPrice,
+          totalNum: data.totalNum,
+          totalPrice: data.totalPrice,
+          totalPostage: data.totalPostage,
+          payPrice: data.payPrice,
+          payPostage: data.payPostage,
+          deductionPrice: data.deductionPrice,
+          couponId: data.couponId,
+          couponPrice: data.couponPrice,
+          paid: data.paid,
+          payTime: data.payTime,
+          payType: data.payType,
+          addTime: data.addTime,
+          status: data.status,
+          refundStatus: data.refundStatus,
+          refundReasonWapImg: data.refundReasonWapImg,
+          refundReasonWapExplain: data.refundReasonWapExplain,
+          refundReasonTime: data.refundReasonTime,
+          refundReasonWap: data.refundReasonWap,
+          refundReason: data.refundReason,
+          refundPrice: data.refundPrice,
+          deliveryName: data.deliveryName,
+          deliveryType: data.deliveryType,
+          deliveryId: data.deliveryId,
+          gainIntegral: data.gainIntegral,
+          useIntegral: data.useIntegral,
+          backIntegral: data.backIntegral,
+          mark: data.mark,
+          isDel: data.isDel,
+          unique: data.unique,
+          remark: data.remark,
+          merId: data.merId,
+          isMerCheck: data.isMerCheck,
+          combinationId: data.combinationId,
+          pinkId: data.pinkId,
+          cost: data.cost,
+          seckillId: data.seckillId,
+          bargainId: data.bargainId,
+          verifyCode: data.verifyCode,
+          storeId: data.storeId,
+          shippingType: data.shippingType,
+          isChannel: data.isChannel,
+          isRemind: data.isRemind,
+          isSystemDel: data.isSystemDel
+        }
+        _this.dialog = true
+      },
+       remark(data) {
+        this.isAdd = false
+        const _this = this.$refs.form4
+        _this.form = {
+          id: data.id,
+          orderId: data.orderId,
+          uid: data.uid,
+          realName: data.realName,
+          userPhone: data.userPhone,
+          userAddress: data.userAddress,
+          cartId: data.cartId,
+          freightPrice: data.freightPrice,
+          totalNum: data.totalNum,
+          totalPrice: data.totalPrice,
+          totalPostage: data.totalPostage,
+          payPrice: data.payPrice,
+          payPostage: data.payPostage,
+          deductionPrice: data.deductionPrice,
+          couponId: data.couponId,
+          couponPrice: data.couponPrice,
+          paid: data.paid,
+          payTime: data.payTime,
+          payType: data.payType,
+          addTime: data.addTime,
+          status: data.status,
+          refundStatus: data.refundStatus,
+          refundReasonWapImg: data.refundReasonWapImg,
+          refundReasonWapExplain: data.refundReasonWapExplain,
+          refundReasonTime: data.refundReasonTime,
+          refundReasonWap: data.refundReasonWap,
+          refundReason: data.refundReason,
+          refundPrice: data.refundPrice,
+          deliveryName: data.deliveryName,
+          deliveryType: data.deliveryType,
+          deliveryId: data.deliveryId,
+          gainIntegral: data.gainIntegral,
+          useIntegral: data.useIntegral,
+          backIntegral: data.backIntegral,
+          mark: data.mark,
+          isDel: data.isDel,
+          unique: data.unique,
+          remark: data.remark,
+          merId: data.merId,
+          isMerCheck: data.isMerCheck,
+          combinationId: data.combinationId,
+          pinkId: data.pinkId,
+          cost: data.cost,
+          seckillId: data.seckillId,
+          bargainId: data.bargainId,
+          verifyCode: data.verifyCode,
+          storeId: data.storeId,
+          shippingType: data.shippingType,
+          isChannel: data.isChannel,
+          isRemind: data.isRemind,
+          isSystemDel: data.isSystemDel
+        }
+        _this.dialog = true
+      },
+  
       express() {
         let params ={
           "orderCode": this.order.id,
@@ -518,7 +761,7 @@ import {formatTimeTwo} from '@/utils/index';
         })
 
       },
-      getInfo(){
+      init(){
         let that = this;
         let id = that.$route.params.id || 0;
         getOrderDetail(id).then(response => {
