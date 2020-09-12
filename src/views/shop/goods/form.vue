@@ -499,9 +499,11 @@ export default {
     }
   },
   watch: {
-    'form.imageArr': function(val) {
+    'formValidate.image': function(val) {
+      console.log('aaaa:'+val)
       if (val) {
-        this.form.image = val.join(',')
+        this.oneFormValidate[0].pic = val
+        console.log('bbbbbb:'+this.oneFormValidate.pic)
       }
     },
     'form.sliderImageArr': function(val) {
