@@ -342,6 +342,10 @@ export default {
       this.form.shareImge = this.form.shareImgArr.join(',')
       this.form.anchorImge = this.form.anchorImgArr.join(',')
     },
+    // 新增与编辑前做的操作
+    [CRUD.HOOK.beforeToAdd](crud, form) {
+      this.disabled = false;
+    },
     // 编辑前
     [CRUD.HOOK.beforeToEdit](crud, form) {
       form.coverImgArr = [form.coverImge]
@@ -349,7 +353,6 @@ export default {
       form.anchorImgArr = [form.anchorImge]
       form.product = form.product
       this.disabled = true;
-      console.log(form.product)
     }
   }
 }
