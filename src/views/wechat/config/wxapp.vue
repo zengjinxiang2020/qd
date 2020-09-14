@@ -10,7 +10,6 @@
       <el-form-item label="">
         <el-button type="primary" @click="doSubmit">提交</el-button>
       </el-form-item>
-
     </el-form>
 
   </div>

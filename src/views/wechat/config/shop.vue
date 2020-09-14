@@ -18,6 +18,10 @@
         <el-input v-model="form.store_free_postage" style="width: 370px;" />
         <p style="color: red">如果设置满包邮0 表示全局包邮，如果设置大于0表示满这价格包邮，否则走运费模板算法</p>
       </el-form-item>
+      <el-form-item label="隐藏充值按钮">
+        <el-radio v-model="form.yshop_show_recharge" :label="0">显示</el-radio>
+        <el-radio v-model="form.yshop_show_recharge" :label="1">隐藏</el-radio>
+      </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="doSubmit">提交</el-button>
       </el-form-item>
@@ -39,6 +43,7 @@ export default {
     return {
       delLoading: false,
       form: {
+        yshop_show_recharge: 1,
         file_store_mode: 2,
         site_url: '',
         api_url: '',

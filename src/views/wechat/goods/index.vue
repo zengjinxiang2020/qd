@@ -291,6 +291,7 @@ export default {
       this.form.good.image = form.coverImgeUrl
       this.form.good.price = form.price
       this.form.good.otPrice = form.price2
+      this.form.good.auditStatus = form.auditStatus
     },
   }
 }
