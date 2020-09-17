@@ -246,6 +246,19 @@
         </el-table-column>
       </el-table>
     </el-card>
+    <el-dialog title="订单跟踪"
+               :visible.sync="kuaidiDialogVisible"
+               width="40%">
+      <el-steps direction="vertical"
+                :active="90"
+                finish-status="success"
+                space="50px">
+        <el-step  v-for="item in logisticsList"
+                  :key="item.acceptStation"
+                  :title="item.acceptStation"
+                  :description="item.acceptTime"></el-step>
+      </el-steps>
+    </el-dialog>
 <!--    <el-dialog title="修改收货人信息"-->
 <!--               :visible.sync="receiverDialogVisible"-->
 <!--               width="40%">-->
@@ -336,19 +349,7 @@
         <el-button type="primary" @click="handleCloseOrder">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="订单跟踪"
-               :visible.sync="kuaidiDialogVisible"
-               width="40%">
-      <el-steps direction="vertical"
-                :active="90"
-                finish-status="success"
-                space="50px">
-        <el-step  v-for="item in logisticsList"
-                  :key="item.acceptStation"
-                  :title="item.acceptStation"
-                  :description="item.acceptTime"></el-step>
-      </el-steps>
-    </el-dialog>
+
     <el-dialog title="备注订单"
                :visible.sync="markOrderDialogVisible"
                width="40%">
@@ -744,7 +745,7 @@ import eRemark from './remark'
         }
         _this.dialog = true
       },
-  
+
       express() {
         let params ={
           "orderCode": this.order.id,
