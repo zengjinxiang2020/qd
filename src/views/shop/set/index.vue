@@ -130,7 +130,7 @@ export default {
         imageArr: data.map.pic ? data.map.pic.split(',') : [],
         sort: data.sort,
         status: data.status,
-        color: data.color
+        color: data.map.color
       }
       _this.dialog = true
     }

@@ -57,7 +57,8 @@ export default {
         pic: '',
         imageArr: [],
         sort: 0,
-        status: 1
+        status: 1,
+        color: ''
       },
       rules: {
       }
