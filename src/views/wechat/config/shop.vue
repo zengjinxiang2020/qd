@@ -4,6 +4,10 @@
       <el-form-item label="移动端H5地址">
         <el-input v-model="form.site_url" style="width: 370px;" />
       </el-form-item>
+      <el-form-item label="uniapp-H5地址">
+        <el-input v-model="form.uni_site_url" style="width: 370px;" />
+        <span style="color: red">主要用于兼容单独h5</span>
+      </el-form-item>
       <el-form-item label="移动端API地址">
         <el-input v-model="form.api_url" style="width: 370px;" />
       </el-form-item>
@@ -47,6 +51,7 @@ export default {
         file_store_mode: 2,
         site_url: '',
         api_url: '',
+        uni_site_url: '',
         admin_api_url: '',
         store_free_postage: ''
       },
