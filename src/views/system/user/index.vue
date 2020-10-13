@@ -93,7 +93,7 @@
               />
             </el-form-item>
             <el-form-item label="岗位" prop="job.id">
-              <el-select v-model="form.job.id" style="width: 178px" placeholder="请先选择部门">
+              <el-select v-model="form.job.id" style="width: 178px" placeholder="请先选择岗位">
                 <el-option
                   v-for="(item, index) in jobs"
                   :key="item.name + index"
@@ -122,7 +122,7 @@
                 v-model="form.roles"
                 style="width: 437px"
                 multiple
-                placeholder="请选择"
+                placeholder="请选择角色"
                 @remove-tag="deleteTag"
                 @change="changeRole"
               >
@@ -317,11 +317,12 @@ export default {
       this.getDepts()
       this.getRoles()
       this.getRoleLevel()
+      this.getJobs(null)
       form.enabled = form.enabled.toString()
     },
     // 打开编辑弹窗前做的操作
     [CRUD.HOOK.beforeToEdit](crud, form) {
-      this.getJobs(this.form.dept.id)
+      this.getJobs()
       userRoles = []
       const roles = []
       form.roles.forEach(function(role, index) {
