@@ -34,7 +34,7 @@
         </template>
       </el-form-item>
       <el-form-item label="砍价产品主图片">
-        <single-pic v-model="form.imageArr" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
+        <single-pic v-model="form.image" style="width: 500px" type="image" :num="1" :width="150" :height="150" />
       </el-form-item>
       <el-form-item label="砍价产品轮播图">
         <MaterialList v-model="form.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
