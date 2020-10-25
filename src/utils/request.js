@@ -8,7 +8,6 @@ import Config from '@/settings'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_API : '/', // api 的 base_url
-  // baseURL: 'http://192.168.100.253:8001',
   timeout: Config.timeout // 请求超时时间
 })
 

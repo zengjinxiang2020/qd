@@ -2,11 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-<<<<<<< HEAD
   title: 'YSHOP-3.1',
-=======
-  title: '农心商城',
->>>>>>> 88fdfe1ae8a01c7ce6c7907f9a20ebc751c8e4d1
   /**
    * @description 是否显示 tagsView
    */

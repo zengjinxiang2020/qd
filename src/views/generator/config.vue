@@ -243,7 +243,6 @@ export default {
       })
       getDicts().then(data => {
         this.dicts = data
-      
       })
     })
   },
@@ -257,7 +256,6 @@ export default {
     saveColumnConfig() {
       this.columnLoading = true
       save(this.data).then(res => {
-        console.log(res)
         this.notify('保存成功', 'success')
         this.columnLoading = false
       }).catch(err => {

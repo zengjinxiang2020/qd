@@ -31,7 +31,7 @@
     <detail ref="formd" />
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
-      <el-table-column prop="realName" label="姓名" />
+      <el-table-column prop="uid" label="用户id" />
       <el-table-column prop="nickname" label="用户昵称" />
       <el-table-column ref="table" prop="avatar" label="用户头像">
         <template slot-scope="scope">
@@ -39,16 +39,62 @@
         </template>
       </el-table-column>
       <el-table-column prop="phone" label="手机号码" />
-
-      <el-table-column prop="productName" label="会员类型" />
-      <el-table-column prop="promotionCode" label="推广码" />
-      <el-table-column prop="birthday" label="生日" />
-
-      <el-table-column prop="authStatus" label="认证状态" />
-      <el-table-column prop="status" label="用户状态" />
-      <el-table-column  prop="createTime" label="注册时间" width="140">
+      <el-table-column prop="nowMoney" label="用户余额" />
+      <el-table-column prop="brokeragePrice" label="佣金金额" />
+      <el-table-column prop="integral" label="用户积分" />
+      <el-table-column  prop="createTime" label="创建日期" width="140">
         <template slot-scope="scope">
           <span>{{ scope.row.createTime }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="状态" align="center">
+        <template slot-scope="scope">
+          <div @click="onStatus(scope.row.uid,scope.row.status)">
+            <el-tag v-if="scope.row.status == 1" style="cursor: pointer" :type="''">正常</el-tag>
+            <el-tag v-else style="cursor: pointer" :type=" 'info' ">禁用</el-tag>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="用户来源" align="center">
+        <template slot-scope="scope">
+          <div>
+            <el-tag v-if="scope.row.userType == 'wechat'">公众号</el-tag>
+            <el-tag v-else-if="scope.row.userType == 'routine'">小程序</el-tag>
+            <el-tag v-else>H5</el-tag>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="spreadUid" label="推荐人" />
+      <el-table-column prop="payCount" label="购买次数" />
+      <el-table-column v-if="checkPermission(['admin','YXUSER_ALL','YXUSER_EDIT','YXUSER_DELETE'])" label="操作" width="215" align="center" fixed="right">
+        <template slot-scope="scope">
+          <el-button
+            v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
+            size="mini"
+            type="danger"
+            @click="editD(scope.row)"
+          >查看下级</el-button>
+          <el-dropdown size="mini" split-button type="primary" trigger="click">
+            操作
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <el-button
+                  v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
+                  size="mini"
+                  type="primary"
+                  @click="edit(scope.row)"
+                >修改用户</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
+                  size="mini"
+                  type="primary"
+                  @click="editP(scope.row)"
+                >修改余额</el-button>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
