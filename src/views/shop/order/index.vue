@@ -664,7 +664,7 @@
             orderNum += 1;
             orderPrice += item.totalPrice;
             storeNum += item.totalNum;
-            user.push(item.userDTO.account);
+            user.push(item.userDTO.nickname);
           })
           user = Array.from(new Set(user));
           this.caculateInfo = {
