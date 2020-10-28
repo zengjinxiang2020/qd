@@ -69,7 +69,7 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="拼团人数" prop="people">
-              <el-input-number v-model="formValidate.people" />
+              <el-input-number  :min="1" :max="99" v-model="formValidate.people" />
             </el-form-item>
           </el-col>
 
@@ -258,10 +258,10 @@ export default {
         sliderImageArr: [],
         title: '',
         attr: '',
-        people: '1',
+        people: 1,
         info: '',
         price: '',
-        sort: '',
+        sort: 0,
         sales: '',
         stock: '',
         addTime: '',
@@ -274,7 +274,7 @@ export default {
         description: '',
         startTime: '',
         stopTime: '',
-        effectiveTime: '',
+        effectiveTime: 1,
         cost: '',
         unitName: '',
         combination: 1,
@@ -376,7 +376,7 @@ export default {
     // },
 
     'formValidate.slider_image': function(val) {
-      if (val) {
+      if (val && Array.isArray(val)) {
         this.formValidate.images = val.join(',')
       }
     },
@@ -510,15 +510,18 @@ export default {
         let data = res.productInfo;
         if(data){
           that.attrs = data.items || [];
-          that.formValidate = data;
+          //that.formValidate = data;
+          Object.keys(that.formValidate).forEach(key=>{
+                if(data[key]) that.formValidate[key] = data[key];
+          })
           that.formValidate.id = 0;
           that.formValidate.productId = id
           that.formValidate.title = data.store_name
           that.formValidate.info = data.store_info
           that.formValidate.unitName = data.unit_name
           that.formValidate.isShow = 1
-          that.formValidate.people = 1
-          that.formValidate.effectiveTime = 1
+          // that.formValidate.people = 0
+          // that.formValidate.effectiveTime = 0
           that.oneFormValidate = [data.attr];
           that.formValidate.header = [];
           that.generate(null);

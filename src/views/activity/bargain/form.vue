@@ -3,7 +3,7 @@
     <el-form ref="form" :model="form" :rules="rules" :inline="true" size="small" label-width="140px">
       <el-col :span="24">
         <el-form-item label="选择商品：" prop="good">
-          <cgood v-model="form1.good":disabled="true" ></cgood>
+          <cgood v-model="form1.good" :disabled="true" ></cgood>
         </el-form-item>
       </el-col>
       <el-form-item label="砍价名称">
@@ -121,6 +121,11 @@ export default {
         }
       },
       form: {
+        //that.form.minPrice = 0
+          //that.form.num = 1
+          //that.form.bargainMaxPrice = 0
+          //that.form.bargainMinPrice = 0
+          //that.form.bargainNum = 1
         id: '',
         productId: '',
         title: '',
@@ -135,11 +140,11 @@ export default {
         stopTime: '',
         storeName: '',
         price: '',
-        minPrice: '',
-        num: '',
-        bargainMaxPrice: '',
-        bargainMinPrice: '',
-        bargainNum: '',
+        minPrice: 0,
+        num: 1,
+        bargainMaxPrice: 0,
+        bargainMinPrice: 0,
+        bargainNum: 1,
         status: 1,
         description: '',
         giveIntegral: '',
@@ -164,12 +169,13 @@ export default {
   },
   watch: {
     'form.imageArr': function(val) {
-      if (val) {
+      if (val && Array.isArray(val)) {
         this.form.image = val.join(',')
       }
     },
     'form.sliderImageArr': function(val) {
-      if (val) {
+      console.log("aaa:"+val)
+      if (val && Array.isArray(val)) {
         this.form.images = val.join(',')
       }
     },
@@ -186,10 +192,13 @@ export default {
       let that = this;
       getInfo(id).then(async res => {
         let data = res.productInfo;
-        console.log('data:'+data)
+        console.info('data:'+JSON.stringify(data))
         if(data){
           let cate_id = parseInt(data.cate_id) || 0;
-          that.form = data;
+          //that.form = data;
+          Object.keys(that.form).forEach(key=>{
+                if(data[key]) that.form[key] = data[key];
+          })
           that.form.productId = data.id
           that.form.cate_id = cate_id;
           that.form.title = data.store_name
@@ -198,11 +207,11 @@ export default {
           that.form.imageArr = data.image
           that.form.sliderImageArr = data.slider_image
           that.form.status = 1
-          that.form.minPrice = 0
-          that.form.num = 1
-          that.form.bargainMaxPrice = 0
-          that.form.bargainMinPrice = 0
-          that.form.bargainNum = 1
+          //that.form.minPrice = 0
+          //that.form.num = 1
+          //that.form.bargainMaxPrice = 0
+          //that.form.bargainMinPrice = 0
+          //that.form.bargainNum = 1
 
         }
         that.templateList = res.tempList;

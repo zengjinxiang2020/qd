@@ -65,7 +65,7 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="产品轮播图">
-              <MaterialList v-model="formValidate.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
+              <MaterialList v-model="formValidate.slider_image" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -252,10 +252,11 @@ export default {
         }
       },
       formValidate: {
+        slider_image: [],
         otPrice: '',
         giveIntegral: '',
         status: '',
-        num: '',
+        num: 1,
         id: 0,
         timeId: null,
         seckillId: 0,
@@ -270,7 +271,7 @@ export default {
         people: '',
         info: '',
         price: '',
-        sort: '',
+        sort: 0,
         sales: '',
         stock: '',
         addTime: '',
@@ -279,7 +280,7 @@ export default {
         isDel: 0,
         merUse: '',
         isPostage: '',
-        postage: '',
+        postage: 0,
         description: '',
         startTime: '',
         stopTime: '',
@@ -377,7 +378,7 @@ export default {
   watch: {
 
     'formValidate.slider_image': function(val) {
-      if (val) {
+      if (val && Array.isArray(val)) {
         this.formValidate.images = val.join(',')
       }
     },
@@ -515,7 +516,10 @@ export default {
         if(data){
           let cate_id = parseInt(data.cate_id) || 0;
           that.attrs = data.items || [];
-          that.formValidate = data;
+          //that.formValidate = data;
+          Object.keys(that.formValidate).forEach(key=>{
+                if(data[key]) that.formValidate[key] = data[key];
+          })
           that.formValidate.id = 0;
           that.formValidate.productId = id
           that.formValidate.cate_id = cate_id;
@@ -523,9 +527,9 @@ export default {
           that.formValidate.title = data.store_name
           that.formValidate.info = data.store_info
           that.formValidate.unitName = data.unit_name
-          that.formValidate.sliderImageArr = data.slider_image
+          //that.formValidate.sliderImageArr = data.slider_image
           that.formValidate.status = 1
-          that.formValidate.num = 1
+          //that.formValidate.num = 1
           that.formValidate.header = [];
           that.generate(null);
           that.manyFormValidate = data.attrs;
