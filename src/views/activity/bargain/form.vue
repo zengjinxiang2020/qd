@@ -147,7 +147,7 @@ export default {
         bargainNum: 1,
         status: 1,
         description: '',
-        giveIntegral: '',
+        giveIntegral: 0,
         info: '',
         cost: '',
         sort: 0,
