@@ -260,10 +260,10 @@ export default {
       this.materialgroupLoading = true
       materialgroupPage({
         total: 0, // 总页数
-        currentPage: 1, // 当前页数
-        pageSize: 100, // 每页显示多少条
+        page: 1, // 当前页数
+        size: 100, // 每页显示多少条
         ascs: [], // 升序字段
-        descs: 'create_time'// 降序字段
+        sort: 'create_time,desc'// 降序字段
       }).then(response => {
         this.materialgroupLoading = false
         const materialgroupList = response.content
@@ -466,7 +466,6 @@ export default {
       this.urls.forEach(item => {
         str += '<img src="' + item + '">'
         // this.$set(this.value, this.value.length, item)
-        
       })
       nowEditor.dialog.close(true)
       nowEditor.editor.setContent(str, true)

@@ -1,20 +1,20 @@
 <template>
   <div v-if="type == 'image'">
     <div v-if="myValue != ''">
-      <ul  class="el-upload-list el-upload-list--picture-card">
+      <ul class="el-upload-list el-upload-list--picture-card">
         <li tabindex="0" class="el-upload-list__item is-ready" :style="'width: '+width+'px;height: '+height+'px'">
           <div>
             <img :src="myValue" alt="" class="el-upload-list__item-thumbnail">
             <span class="el-upload-list__item-actions">
-                <span class="el-upload-list__item-delete" @click="deleteMaterial">
-                  <i class="el-icon-delete" />
-                </span>
+              <span class="el-upload-list__item-delete" @click="deleteMaterial">
+                <i class="el-icon-delete" />
               </span>
+            </span>
           </div>
         </li>
       </ul>
     </div>
-    <div v-else tabindex="0" class="el-upload el-upload--picture-card" :style="'width: '+width+'px;height: '+height+'px;'+'line-height:'+height+'px;'"  @click="toSeleteMaterial">
+    <div v-else tabindex="0" class="el-upload el-upload--picture-card" :style="'width: '+width+'px;height: '+height+'px;'+'line-height:'+height+'px;'" @click="toSeleteMaterial">
       <i class="el-icon-plus" />
     </div>
 
@@ -210,7 +210,7 @@ export default {
     ])
   },
   watch: {
-    value: function (val) {
+    value: function(val) {
       this.myValue = val
     }
   },
@@ -252,10 +252,10 @@ export default {
       this.materialgroupLoading = true
       materialgroupPage({
         total: 0, // 总页数
-        currentPage: 1, // 当前页数
-        pageSize: 100, // 每页显示多少条
+        page: 1, // 当前页数
+        size: 100, // 每页显示多少条
         ascs: [], // 升序字段
-        descs: 'create_time'// 降序字段
+        sort: 'create_time,desc'// 降序字段
       }).then(response => {
         this.materialgroupLoading = false
         const materialgroupList = response.content
@@ -454,7 +454,7 @@ export default {
       return isPic && isLt2M
     },
     sureUrls() {
-      console.log('this.urls:'+this.urls)
+      console.log('this.urls:' + this.urls)
       this.myValue = this.urls[0]
       this.$emit('input', this.urls[0])
       this.listDialogVisible = false
