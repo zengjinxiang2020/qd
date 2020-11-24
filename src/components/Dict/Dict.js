@@ -18,13 +18,11 @@ export default class Dict {
       ps.push(getDictDetail(n).then(data => {
         this.dict[n].splice(0, 0, ...data.content)
         data.content.forEach(d => {
-          if (parseFloat(d.value).toString() == 'NaN') {
-            Vue.set(this.dict.dict[n], d.value, d)
-            Vue.set(this.dict.label[n], d.value, d.label)
-          } else {
-            Vue.set(this.dict.dict[n], parseFloat(d.value), d)
-            Vue.set(this.dict.label[n], parseFloat(d.value), d.label)
+          if (parseInt(d.value).toString() != 'NaN') {
+            d.value = parseInt(d.value)
           }
+          Vue.set(this.dict.dict[n], d.value, d)
+          Vue.set(this.dict.label[n], d.value, d.label)
         })
       }))
     })
