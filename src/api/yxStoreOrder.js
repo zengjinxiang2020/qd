@@ -77,3 +77,9 @@ export function getOrderDetail(id) {
   })
 }
 
+export function getNowOrderStatus(id) {
+  return request({
+    url: '/api/getNowOrderStatus/' + id,
+    method: 'get'
+  })
+}

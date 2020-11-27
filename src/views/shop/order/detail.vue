@@ -1,13 +1,19 @@
 <template>
   <div class="app-container">
     <div>
-      <el-steps :active="formatStepStatus(order._status)" finish-status="success" align-center>
-        <el-step title="提交订单" :description="formatTime(order.createTime)"></el-step>
-        <el-step title="支付订单" :description="formatTime(order.payTime)"></el-step>
-        <el-step title="平台发货" :description="formatTime(order.deliveryTime)"></el-step>
-        <el-step title="确认收货" :description="formatTime(order.receiveTime)"></el-step>
-        <el-step title="完成评价" :description="formatTime(order.commentTime)"></el-step>
+      <el-steps v-if="order.refundStatus===0" :active="orderStatus.size" align-center process-status="process" finish-status="success">
+        <el-step title="用户下单" :description="orderStatus.cacheKeyCreateOrder"></el-step>
+        <el-step title="待发货" :description="orderStatus.paySuccess"></el-step>
+        <el-step title="待收货" :description="orderStatus.deliveryGoods"></el-step>
+        <el-step title="待评价" :description="orderStatus.userTakeDelivery"></el-step>
+        <el-step title="已完成" :description="orderStatus.checkOrderOver"></el-step>
       </el-steps>
+      <el-steps v-else :active="order.refundStatus+1" align-center process-status="process" finish-status="success">
+        <el-step title="用户下单" :description="orderStatus.cacheKeyCreateOrder"></el-step>
+        <el-step title="用户申请退款" :description="orderStatus.applyRefund"></el-step>
+        <el-step title="退款申请通过" :description="orderStatus.refundOrderSuccess"></el-step>
+      </el-steps>
+
     </div>
     <el-card shadow="never" style="margin-top: 15px">
       <div class="operate-container">
@@ -373,7 +379,8 @@
   </div>
 </template>
 <script>
-import { express, getOrderDetail } from '@/api/yxStoreOrder'
+import { express, getOrderDetail,
+  getNowOrderStatus} from '@/api/yxStoreOrder'
 import {formatTimeTwo} from '@/utils/index';
 import eForm from './form'
 import eRefund from './refund'
@@ -394,6 +401,7 @@ import eRemark from './remark'
     components: {eForm, eRefund, editOrder, eRemark},
     data() {
       return {
+        orderStatus:null,
         isAdd: false,
         id: null,
         order: {
@@ -765,6 +773,7 @@ import eRemark from './remark'
       init(){
         let that = this;
         let id = that.$route.params.id || 0;
+        this.getNowOrderStatus();
         getOrderDetail(id).then(response => {
           this.order = response;
           this.userDTO = this.order.userDTO;
@@ -784,13 +793,19 @@ import eRemark from './remark'
       },
       formatStepStatus(value) {
         //todo  1-未付款 2-未发货 3-退款中 4-待收货 5-待评价 6-已完成 7-已退款
-        if (value === 2) {
+        if (value === 1) {
           //待发货
-          return 2;
-        } else if (value === 4) {
+          return 1;
+        } else if (value === 2) {
           //已发货
           return 3;
-        } else if (value === 6) {
+        } else if (value === 3) {
+          //已完成
+          return 4;
+        } else if (value === 4) {
+          //已完成
+          return 5;
+        } else if (value === 5) {
           //已完成
           return 4;
         }else {
@@ -949,7 +964,19 @@ import eRemark from './remark'
       showLogisticsDialog(){
         this.express();
 
-      }
+      }, //获取当前订单状态
+
+      getNowOrderStatus() {
+        let id = this.$route.params.id || 0;
+
+        getNowOrderStatus(id)
+          .then(res => {
+            this.orderStatus = res;
+          })
+          .catch(err => {
+            console.log(err.response.data.message);
+          });
+      },
     }
   }
 </script>
