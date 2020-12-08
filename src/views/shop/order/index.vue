@@ -159,6 +159,14 @@
                     @click="edit(scope.row)"
                   >
                     去发货</el-button>
+                  <el-button
+                    v-if="scope.row._status == 4"
+                    v-permission="['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT']"
+                    size="mini"
+                    type="primary"
+                    @click="edit(scope.row)"
+                  >
+                    修改快递</el-button>
                 </el-dropdown-item>
                 <el-dropdown-item>
                   <el-button
@@ -396,7 +404,8 @@
           shippingType: data.shippingType,
           isChannel: data.isChannel,
           isRemind: data.isRemind,
-          isSystemDel: data.isSystemDel
+          isSystemDel: data.isSystemDel,
+          _status:data._status
         }
         _this.dialog = true
       },
