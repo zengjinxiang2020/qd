@@ -79,6 +79,10 @@
                       label="日期框"
                       value="Date"
                     />
+                    <el-option
+                      label="图片文件"
+                      value="Imges"
+                    />
                   </el-select>
                 </template>
               </el-table-column>
