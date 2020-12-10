@@ -42,15 +42,6 @@
           </el-form-item>
           <el-form-item label="扫码获取">
             <div class="qrcode_img">
-              <el-image :src="src" class="qrcode">
-                <div slot="placeholder" class="image-slot">
-                  加载中
-                  <span class="dot">...</span>
-                </div>
-              </el-image>
-            </div>
-
-            <div class="qrcode_img">
               <el-image :src="gzhsrc" class="qrcode">
                 <div slot="placeholder" class="image-slot">
                   加载中
@@ -60,6 +51,14 @@
               <div class="attention">
                 <span class="demonstration">注:未关注公众号请先关注</span>
               </div>
+            </div>
+            <div class="qrcode_img">
+              <el-image :src="src" class="qrcode">
+                <div slot="placeholder" class="image-slot">
+                  加载中
+                  <span class="dot">...</span>
+                </div>
+              </el-image>
             </div>
           </el-form-item>
           <el-form-item label="备注" style="margin-top:40px">
