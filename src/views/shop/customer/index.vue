@@ -40,7 +40,7 @@
           <el-form-item label="openId">
             <el-input v-model="form.openId" style="width: 485px;" :disabled="true" />
           </el-form-item>
-          <el-form-item label="门店二维码">
+          <el-form-item label="扫码获取">
             <div class="qrcode_img">
               <el-image :src="src" class="qrcode">
                 <div slot="placeholder" class="image-slot">
