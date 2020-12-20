@@ -160,9 +160,14 @@
                     <el-input type="text" v-model="scope.row.weight" :disabled="true"/>
                   </template>
                 </el-table-column>
-                <el-table-column prop="volume" label="体积(m³" align="center">
+                <el-table-column prop="volume" label="体积(m³)" align="center">
                   <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.volume" :disabled="true"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="volume" label="所需兑换积分" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.integral"/>
                   </template>
                 </el-table-column>
               </el-table>
@@ -223,7 +228,8 @@ export default {
           pink_stock: 0,
           pink_price: 0,
           weight: 0,
-          volume: 0
+          volume: 0,
+          integral:0
         }
       ],
       // 规格数据
@@ -262,6 +268,7 @@ export default {
         info: '',
         price: '',
         sort: 0,
+        integral: 0,
         sales: '',
         stock: '',
         addTime: '',
@@ -295,7 +302,8 @@ export default {
             cost: 0,
             ot_price: 0,
             stock: 0,
-            bar_code: ''
+            bar_code: '',
+            integral:0
           }
         ],
         header: [],
@@ -323,7 +331,8 @@ export default {
           weight: 0,
           volume: 0,
           brokerage: 0,
-          brokerage_two: 0
+          brokerage_two: 0,
+          integral:0
         }
       ],
       images: [],

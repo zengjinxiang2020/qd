@@ -50,6 +50,14 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
+          <el-col :span="24">
+            <el-form-item label="开启积分兑换：" props="is_integral">
+              <el-radio-group v-model="formValidate.is_integral"  @change="changeSpec">
+                <el-radio :label="0" class="radio">不开启</el-radio>
+                <el-radio :label="1">开启</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
           <!-- 多规格添加-->
           <el-col :span="24" v-if="formValidate.spec_type === 1" class="noForm">
             <el-col :span="24">
@@ -169,9 +177,14 @@
                     <el-input type="text" v-model="scope.row.weight"/>
                   </template>
                 </el-table-column>
-                <el-table-column prop="volume" label="体积(m³" align="center">
+                <el-table-column prop="volume" label="体积(m³)" align="center">
                   <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.volume"/>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="volume" label="所需兑换积分" align="center">
+                  <template slot-scope="scope">
+                    <el-input type="text" v-model="scope.row.integral"/>
                   </template>
                 </el-table-column>
               </el-table>
@@ -202,7 +215,7 @@
             </el-form-item>
           </el-col>
           <el-col v-bind="grid">
-            <el-form-item label="积分：">
+            <el-form-item label="购买返回积分：">
               <el-input-number  v-model="formValidate.give_integral" :min="0" placeholder="请输入积分" />
             </el-form-item>
           </el-col>
@@ -268,7 +281,8 @@
                 <el-table-column prop="stock" label="库存" align="center" />
                 <el-table-column prop="bar_code" label="商品编号" align="center" />
                 <el-table-column prop="weight" label="重量（KG）" align="center" />
-                <el-table-column prop="volume" label="体积(m³" align="center" />
+                <el-table-column prop="volume" label="体积(m³)" align="center" />
+                <el-table-column prop="integral" label="所需兑换积分" align="center" />
                 <el-table-column prop="volume" label="一级返佣" align="center">
                   <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.brokerage"/>
@@ -375,7 +389,8 @@ export default {
           pink_stock: 0,
           pink_price: 0,
           weight: 0,
-          volume: 0
+          volume: 0,
+          integral:0
         }
       ],
       // 规格数据
@@ -415,6 +430,7 @@ export default {
         is_good: 0,
         is_postage: 0,
         is_sub: 0,
+        is_integral: 0,
         id: 0,
         spec_type: 0,
         temp_id: '',
@@ -426,7 +442,8 @@ export default {
             cost: 0,
             ot_price: 0,
             stock: 0,
-            bar_code: ''
+            bar_code: '',
+            integral:0
           }
         ],
         header: [],
@@ -454,7 +471,8 @@ export default {
           weight: 0,
           volume: 0,
           brokerage: 0,
-          brokerage_two: 0
+          brokerage_two: 0,
+          integral: 0
         }
       ],
       images: [],
@@ -674,7 +692,8 @@ export default {
                 weight:0,
                 volume:0,
                 brokerage:0,
-                brokerage_two:0
+                brokerage_two:0,
+                integral:0
               }
             ]
           }
