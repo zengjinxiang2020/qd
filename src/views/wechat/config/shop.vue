@@ -71,6 +71,7 @@ export default {
       })
 
       this.form.file_store_mode = parseInt(this.form.file_store_mode)
+      this.form.yshop_show_recharge = parseInt(this.form.yshop_show_recharge)
     })
   },
   methods: {
