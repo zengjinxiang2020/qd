@@ -4,52 +4,57 @@
       <!--<yshop-info />-->
       <panel-group />
       <panel-group-t />
-      <order-count></order-count>
 
       <div class="divBox">
-        <el-row :gutter="24">
-          <el-col
-            :xl="16"
-            :lg="12"
-            :md="24"
-            :sm="24"
-            :xs="24"
-            class="ivu-mb mb10 dashboard-console-visit"
-          >
-            <el-card :bordered="false" dis-hover>
-              <div slot="header">
-                <div class="acea-row row-middle">
-                  <el-avatar
-                    icon="el-icon-s-operation"
-                    size="small"
-                    style="color: #1890ff; background: #e6f7ff; font-size: 13px"
-                  />
-                  <span class="ivu-pl-8">本月成交额</span>
-                </div>
-              </div>
-              <bar-chart />
-            </el-card>
-          </el-col>
-          <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
-            <el-card
-              :bordered="false"
-              dis-hover
-              class="dashboard-console-visit"
+        <el-card :bordered="false" dis-hover>
+          <div slot="header">
+            <div class="acea-row row-middle">
+              <el-avatar
+                icon="el-icon-s-operation"
+                size="small"
+                style="color: #1890ff; background: #e6f7ff; font-size: 13px"
+              />
+              <span class="ivu-pl-8">订单</span>
+            </div>
+          </div>
+          <el-row :gutter="24">
+            <el-col
+              :xl="8"
+              :lg="8"
+              :md="24"
+              :sm="24"
+              :xs="24"
+              class="ivu-mb mb10 dashboard-console-visit"
             >
-              <div slot="header">
-                <div class="acea-row row-middle">
-                  <el-avatar
-                    icon="el-icon-picture-outline-round"
-                    size="small"
-                    style="color: #1890ff; background: #e6f7ff; font-size: 13px"
-                  />
-                  <span class="ivu-pl-8">本月订单数</span>
-                </div>
-              </div>
+              <span class="ivu-pl-8">商品分析</span>
+              <order-count></order-count>
+            </el-col>
+            <el-col
+              :xl="8"
+              :lg="8"
+              :md="24"
+              :sm="24"
+              :xs="24"
+              class="ivu-mb mb10 dashboard-console-visit"
+            >
+              <span class="ivu-pl-8">本月成交额</span>
+            
+              <bar-chart />
+            </el-col>
+            <el-col
+              :xl="8"
+              :lg="8"
+              :md="24"
+              :sm="24"
+              :xs="24"
+              class="ivu-mb mb10 dashboard-console-visit"
+            >
+              <span class="ivu-pl-8">本月订单数</span>
+
               <pie-chart />
-            </el-card>
-          </el-col>
-        </el-row>
+            </el-col>
+          </el-row>
+        </el-card>
       </div>
     </div>
   </div>

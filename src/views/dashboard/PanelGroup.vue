@@ -9,35 +9,7 @@
               <el-tag type="success">昨日</el-tag>
             </div>
             <div class="content" v-if="count">
-              <span class="content-number spBlock mb15">{{
-                count.userCount
-              }}</span>
-              <div>
-                <span class="content-time mr20"
-                  >日同比：<i
-                    class="content-is"
-                    :class="Number(count.dayRate) >= 0 ? 'up' : 'down'"
-                    >{{ count.dayRate }}</i
-                  ><i
-                    :class="
-                      Number(count.dayRate) >= 0
-                        ? 'el-icon-caret-top'
-                        : 'el-icon-caret-bottom'
-                    "
-                /></span>
-                <span class="content-time"
-                  >周同比：<i
-                    class="content-is"
-                    :class="Number(count.weekRate) >= 0 ? 'up' : 'down'"
-                    >{{ count.weekRate }}</i
-                  ><i
-                    :class="
-                      Number(count.weekRate) >= 0
-                        ? 'el-icon-caret-top'
-                        : 'el-icon-caret-bottom'
-                    "
-                /></span>
-              </div>
+              <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.userCount" :duration="2600" class="card-panel-num" /></span>
               <el-divider></el-divider>
               <div class="acea-row row-between-wrapper">
                 <span class="content-time">总销售额</span>
@@ -53,35 +25,7 @@
               <el-tag type="success">昨日</el-tag>
             </div>
             <div class="content" v-if="count">
-              <span class="content-number spBlock mb15">{{
-                count.userCount
-              }}</span>
-              <div>
-                <span class="content-time mr20"
-                  >日同比：<i
-                    class="content-is"
-                    :class="Number(count.dayRate) >= 0 ? 'up' : 'down'"
-                    >{{ count.dayRate }}</i
-                  ><i
-                    :class="
-                      Number(count.dayRate) >= 0
-                        ? 'el-icon-caret-top'
-                        : 'el-icon-caret-bottom'
-                    "
-                /></span>
-                <span class="content-time"
-                  >周同比：<i
-                    class="content-is"
-                    :class="Number(count.weekRate) >= 0 ? 'up' : 'down'"
-                    >{{ count.weekRate }}</i
-                  ><i
-                    :class="
-                      Number(count.weekRate) >= 0
-                        ? 'el-icon-caret-top'
-                        : 'el-icon-caret-bottom'
-                    "
-                /></span>
-              </div>
+              <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.orderCount" :duration="3000" class="card-panel-num" /></span>
               <el-divider></el-divider>
               <div class="acea-row row-between-wrapper">
                 <span class="content-time">总访问量</span>
@@ -97,35 +41,7 @@
               <el-tag type="success">昨日</el-tag>
             </div>
             <div class="content" v-if="count">
-              <span class="content-number spBlock mb15">{{
-                count.userCount
-              }}</span>
-              <div>
-                <span class="content-time mr20"
-                  >日同比：<i
-                    class="content-is"
-                    :class="Number(count.dayRate) >= 0 ? 'up' : 'down'"
-                    >{{ count.dayRate }}</i
-                  ><i
-                    :class="
-                      Number(count.dayRate) >= 0
-                        ? 'el-icon-caret-top'
-                        : 'el-icon-caret-bottom'
-                    "
-                /></span>
-                <span class="content-time"
-                  >周同比：<i
-                    class="content-is"
-                    :class="Number(count.weekRate) >= 0 ? 'up' : 'down'"
-                    >{{ count.weekRate }}</i
-                  ><i
-                    :class="
-                      Number(count.weekRate) >= 0
-                        ? 'el-icon-caret-top'
-                        : 'el-icon-caret-bottom'
-                    "
-                /></span>
-              </div>
+              <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.priceCount" :duration="3200" class="card-panel-num" /></span>
               <el-divider></el-divider>
               <div class="acea-row row-between-wrapper">
                 <span class="content-time">总订单量</span>
@@ -141,35 +57,7 @@
               <el-tag type="success">昨日</el-tag>
             </div>
             <div class="content" v-if="count">
-              <span class="content-number spBlock mb15">{{
-                count.userCount
-              }}</span>
-              <div>
-                <span class="content-time mr20"
-                  >日同比：<i
-                    class="content-is"
-                    :class="Number(count.dayRate) >= 0 ? 'up' : 'down'"
-                    >{{ count.dayRate }}</i
-                  ><i
-                    :class="
-                      Number(count.dayRate) >= 0
-                        ? 'el-icon-caret-top'
-                        : 'el-icon-caret-bottom'
-                    "
-                /></span>
-                <span class="content-time"
-                  >周同比：<i
-                    class="content-is"
-                    :class="Number(count.weekRate) >= 0 ? 'up' : 'down'"
-                    >{{ count.weekRate }}</i
-                  ><i
-                    :class="
-                      Number(count.weekRate) >= 0
-                        ? 'el-icon-caret-top'
-                        : 'el-icon-caret-bottom'
-                    "
-                /></span>
-              </div>
+              <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.goodsCount" :duration="3600" class="card-panel-num" /></span>
               <el-divider></el-divider>
               <div class="acea-row row-between-wrapper">
                 <span class="content-time">总用户</span>

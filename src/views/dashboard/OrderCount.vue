@@ -1,33 +1,5 @@
 <template>
-  <div class="divBox">
-    <el-row :gutter="24">
-      <el-col san="24" class="ivu-mb">
-        <el-card :bordered="false" class="dashboard-console-visit">
-          <div slot="header">
-            <div class="acea-row row-between-wrapper">
-              <div class="acea-row row-middle">
-                <el-avatar
-                  icon="el-icon-s-data"
-                  size="small"
-                  style="color: #1890ff; background: #e6f7ff; font-size: 13px"
-                />
-                <span class="ivu-pl-8">订单</span>
-              </div>
-              <div class="checkTime">
-                <!-- <el-radio-group v-model="visitDate" class="ivu-mr-8">
-                                    <el-radio label="last30" @change="handleChangeVisitType">30天</el-radio>
-                                    <el-radio label="week" @change="handleChangeWeek">周</el-radio>
-                                    <el-radio label="month" @change="handleChangeMonth">月</el-radio>
-                                    <el-radio label="year" @change="handleChangeYear">年</el-radio>
-                                </el-radio-group> -->
-              </div>
-            </div>
-          </div>
           <div :class="className" ref="chart" :style="{ height: height, width: width }" />
-        </el-card>
-      </el-col>
-    </el-row>
-  </div>
 </template>
 
 <script>
