@@ -146,7 +146,7 @@
 </template>
 
 <script>
-import { getPage as materialgroupPage, addObj as materialgroupAdd, delObj as materialgroupDel, putObj as materialgroupEdit } from '@/api/tools/materialgroup'
+import { getList as materialgroupPage, addObj as materialgroupAdd, delObj as materialgroupDel, putObj as materialgroupEdit } from '@/api/tools/materialgroup'
 import { getPage, addObj, delObj, putObj } from '@/api/tools/material'
 import { getToken } from '@/utils/auth'
 import { mapGetters } from 'vuex'
@@ -262,7 +262,7 @@ export default {
         sort: 'create_time,desc'// 降序字段
       }).then(response => {
         this.materialgroupLoading = false
-        const materialgroupList = response.content
+        const materialgroupList = response
         materialgroupList.unshift({
           id: '-1',
           name: '全部分组'
