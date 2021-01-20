@@ -81,7 +81,7 @@ export default {
         monthPrice: 0, monthCount: 0, lastWeekCount: 0, lastWeekPrice: 0 },
         grid: {
         xl: 3,
-        lg: 6,
+        lg: 3,
         md: 6,
         sm: 8,
         xs: 8,

@@ -6,14 +6,14 @@
           <el-card :bordered="false" dis-hover :padding="12">
             <div slot="header" class="acea-row row-between-wrapper">
               <span>会员总数</span>
-              <el-tag type="success">昨日</el-tag>
+              <el-tag type="success">全平台</el-tag>
             </div>
             <div class="content" v-if="count">
               <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.userCount" :duration="2600" class="card-panel-num" /></span>
               <el-divider></el-divider>
               <div class="acea-row row-between-wrapper">
-                <span class="content-time">总销售额</span>
-                <span>{{ count.total }} 元</span>
+                <span class="content-time">今日订单数</span>
+                <span>{{ count.todayCount }} 单</span>
               </div>
             </div>
           </el-card>
@@ -22,14 +22,14 @@
           <el-card :bordered="false" dis-hover :padding="12">
             <div slot="header" class="acea-row row-between-wrapper">
               <span>订单总数</span>
-              <el-tag type="success">昨日</el-tag>
+              <el-tag type="success">全平台</el-tag>
             </div>
             <div class="content" v-if="count">
               <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.orderCount" :duration="3000" class="card-panel-num" /></span>
               <el-divider></el-divider>
               <div class="acea-row row-between-wrapper">
-                <span class="content-time">总访问量</span>
-                <span>{{ count.total }} Pv</span>
+                <span class="content-time">昨日订单数</span>
+                <span>{{ count.lastWeekCount }} 单</span>
               </div>
             </div>
           </el-card>
@@ -38,14 +38,14 @@
           <el-card :bordered="false" dis-hover :padding="12">
             <div slot="header" class="acea-row row-between-wrapper">
               <span>总金额</span>
-              <el-tag type="success">昨日</el-tag>
+              <el-tag type="success">全平台</el-tag>
             </div>
             <div class="content" v-if="count">
               <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.priceCount" :duration="3200" class="card-panel-num" /></span>
               <el-divider></el-divider>
               <div class="acea-row row-between-wrapper">
-                <span class="content-time">总订单量</span>
-                <span>{{ count.total }} 单</span>
+                <span class="content-time">近七天订单数</span>
+                <span>{{ count.lastWeekCount }} 单</span>
               </div>
             </div>
           </el-card>
@@ -54,14 +54,14 @@
           <el-card :bordered="false" dis-hover :padding="12">
             <div slot="header" class="acea-row row-between-wrapper">
               <span>商品总数</span>
-              <el-tag type="success">昨日</el-tag>
+              <el-tag type="success">全平台</el-tag>
             </div>
             <div class="content" v-if="count">
               <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.goodsCount" :duration="3600" class="card-panel-num" /></span>
               <el-divider></el-divider>
               <div class="acea-row row-between-wrapper">
-                <span class="content-time">总用户</span>
-                <span>{{ count.total }} 人</span>
+                <span class="content-time">本月订单数</span>
+                <span>{{ count.monthCount }} 单</span>
               </div>
             </div>
           </el-card>

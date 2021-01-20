@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'YSHOP-3.1',
+  title: 'YSHOP-3.2',
   /**
    * @description 是否显示 tagsView
    */
@@ -46,5 +46,5 @@ module.exports = {
   /**
    * 备案号
    */
-  caseNumber: '豫ICP备17049587号'
+  caseNumber: '豫ICP备17049587-2号'
 }
