@@ -14,7 +14,7 @@
                 size="small"
                 style="color: #1890ff; background: #e6f7ff; font-size: 13px"
               />
-              <span class="ivu-pl-8">订单</span>
+              <span class="ivu-pl-8">统计</span>
             </div>
           </div>
           <el-row :gutter="24">
