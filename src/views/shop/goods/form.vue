@@ -275,6 +275,7 @@
                     </el-image>
                   </template>
                 </el-table-column>
+                <el-table-column prop="sku" label="规格" align="center" />
                 <el-table-column prop="price" label="售价" align="center" />
                 <el-table-column prop="cost" label="成本价" align="center" />
                 <el-table-column prop="ot_price" label="原价" align="center" />
