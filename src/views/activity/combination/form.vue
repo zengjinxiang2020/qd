@@ -515,7 +515,7 @@ export default {
     // 详情选择商品生成规格用
     getInfoChooseGood (id) {
       let that = this;
-      getInfo(id).then(async res => {
+      getInfo(id==null?0:id).then(async res => {
         let data = res.productInfo;
         if(data){
           that.attrs = data.items || [];
