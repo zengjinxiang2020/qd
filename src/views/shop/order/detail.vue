@@ -66,7 +66,7 @@
           <el-col :span="4" class="table-cell-title">物流单号</el-col>
           <el-col :span="4" class="table-cell-title">自动确认收货时间</el-col>
           <el-col :span="4" class="table-cell-title">订单可得积分</el-col>
-          <el-col :span="4" class="table-cell-title">填空待补充。。</el-col>
+          <el-col :span="4" class="table-cell-title">消费积分。</el-col>
           <el-col :span="4" class="table-cell-title">活动信息</el-col>
         </el-row>
         <el-row>
@@ -74,7 +74,7 @@
           <el-col :span="4" class="table-cell">{{order.deliverySn | formatNull}}</el-col>
           <el-col :span="4" class="table-cell">7天</el-col>
           <el-col :span="4" class="table-cell">{{order.gainIntegral}}</el-col>
-          <el-col :span="4" class="table-cell">{{order.growth}}</el-col>
+          <el-col :span="4" class="table-cell">{{order.payIntegral}}</el-col>
           <el-col :span="4" class="table-cell">
             <el-popover
               placement="top-start"
@@ -574,6 +574,7 @@ import eRemark from './remark'
           shippingType: data.shippingType,
           isChannel: data.isChannel,
           isRemind: data.isRemind,
+          payIntegral: data.payIntegral,
           isSystemDel: data.isSystemDel
         }
         _this.dialog = true
@@ -633,6 +634,7 @@ import eRemark from './remark'
           shippingType: data.shippingType,
           isChannel: data.isChannel,
           isRemind: data.isRemind,
+          payIntegral: data.payIntegral,
           isSystemDel: data.isSystemDel
         }
         _this.dialog = true
@@ -691,6 +693,7 @@ import eRemark from './remark'
           shippingType: data.shippingType,
           isChannel: data.isChannel,
           isRemind: data.isRemind,
+          payIntegral: data.payIntegral,
           isSystemDel: data.isSystemDel
         }
         _this.dialog = true
@@ -749,6 +752,7 @@ import eRemark from './remark'
           shippingType: data.shippingType,
           isChannel: data.isChannel,
           isRemind: data.isRemind,
+          payIntegral: data.payIntegral,
           isSystemDel: data.isSystemDel
         }
         _this.dialog = true

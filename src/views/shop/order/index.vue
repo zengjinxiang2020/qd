@@ -118,6 +118,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="payPrice" label="实际支付" />
+        <el-table-column prop="payIntegral" label="消费积分" />
         <el-table-column prop="payTypeName" label="支付状态" />
         <el-table-column prop="statusName" label="订单状态">
           <template slot-scope="scope">
@@ -283,7 +284,9 @@
           { value: '1', label: '普通订单' },
           { value: '2', label: '拼团订单' },
           { value: '3', label: '秒杀订单' },
-          { value: '4', label: '砍价订单' }
+          { value: '4', label: '砍价订单' },
+          { value: '5', label: '核销订单' },
+          { value: '6', label: '积分订单' }
         ],
         handleOptions: [
           {value: '', label: '批量操作'},
