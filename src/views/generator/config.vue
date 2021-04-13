@@ -79,6 +79,10 @@
                       label="日期框"
                       value="Date"
                     />
+                    <el-option
+                      label="图片文件"
+                      value="Imges"
+                    />
                   </el-select>
                 </template>
               </el-table-column>
@@ -267,6 +271,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           this.configLoading = true
+          this.form.apiPath='';
           update(this.form).then(res => {
             this.notify('保存成功', 'success')
             this.form = res

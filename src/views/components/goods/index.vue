@@ -34,7 +34,7 @@
     <!--表单组件-->
 
     <!--表格渲染-->
-    <el-table v-loading="loading" :data="data" size="small" style="width: 100%;" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="data" size="small" style="width: 100%;" @selection-change="handleSelectionChange" ref="multipleTable">
       <el-table-column
         type="selection"
         width="55">
@@ -96,9 +96,41 @@ export default {
       }
     }
   },
+  watch: {
+    page: function (val) {
+      var map = this.selectGoods;
+      map.set(this.lastPage, this.multipleSelection);
+      this.selectGoods = map;
+
+      if (map.get(val)) {
+        this.multipleSelection = map.get(val);
+      }
+      this.lastPage = val;
+    },
+    data: function (val) {
+      const _this=this;
+      _this.$nextTick(()=> {
+        //获取map
+        var map = this.selectGoods;
+        //判断当前页是否有数据
+        var thePageData = map.get(this.page);
+        if (thePageData) {
+          thePageData.forEach(thePageData=>{
+            val.forEach(tableData=>{
+              if(tableData.id==thePageData.id){
+                this.$refs.multipleTable.toggleRowSelection(tableData,true);
+              }
+            })
+          })
+        }
+      })
+    }
+  },
   data() {
     return {
-      newValue:this.value,
+      lastPage: 0,
+      selectGoods: new Map(),
+      newValue: this.value,
       delLoading: false,
       visible: false,
       queryTypeOptions: [
@@ -126,11 +158,20 @@ export default {
       })
     },
     doSelect() {
-      this.newValue = this.multipleSelection
+      this.newValue =[];
+      var dataList=this.selectGoods;
+      dataList.forEach(i=>{
+        i.forEach(j=>{
+          this.newValue.push(j)
+        })
+      })
       this.$emit("selectGoods", this.newValue)
       this.dialog = false
     },
     handleSelectionChange(val) {
+      var map = this.selectGoods;
+      map.set(this.lastPage, val);
+      this.selectGoods = map;
       this.multipleSelection = val;
     },
     toSelete() {
@@ -140,11 +181,13 @@ export default {
     beforeInit() {
       this.url = 'api/yxStoreProduct'
       const sort = 'id,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, isShow: 1, isDel: 0 }
+      this.params = {page: this.page, size: this.size, sort: sort, isShow: 1, isDel: 0,isIntegral:0}
       const query = this.query
       const type = query.type
       const value = query.value
-      if (type && value) { this.params[type] = value }
+      if (type && value) {
+        this.params[type] = value
+      }
       return true
     }
   }

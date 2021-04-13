@@ -41,7 +41,8 @@ export default {
   data() {
     return {
       zones: ['华东', '华北', '华南', '北美', '东南亚'], dialog: false,
-      loading: false, form: { accessKey: '', secretKey: '', bucket: '', host: '', zone: '', type: '' },
+      loading: false,
+      form: { accessKey: '', secretKey: '', bucket: '', host: '', zone: '', type: '' },
       rules: {
         accessKey: [
           { required: true, message: '请输入accessKey', trigger: 'blur' }
@@ -64,7 +65,9 @@ export default {
   methods: {
     init() {
       get().then(res => {
-        this.form = res
+        if(res){
+          this.form = res
+        }
       })
     },
     doSubmit() {

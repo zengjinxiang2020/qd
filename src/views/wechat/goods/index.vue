@@ -26,62 +26,62 @@
       </crudOperation>
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="800px">
-          <el-form ref="form" :model="form" :rules="rules" size="small" label-width="140px">
-              <el-form-item label="选择商品" prop="coverImgeUrl" >
-                <cgood v-model="form.good":disabled="isdisabled" ></cgood>
-              </el-form-item>
-              <el-form-item label="商品封面图：" prop="coverImgeUrl">
-                <single-pic v-model="form.coverImgeUrl"  type="image" :num="1" :width="150" :height="150" />
-                <p  style="color: #cf0f0f">图片规则：图片尺寸最大300像素*300像素；</p>
-              </el-form-item>
+        <el-form ref="form" :model="form" :rules="rules" size="small" label-width="140px">
+          <el-form-item label="选择商品" prop="coverImgeUrl" >
+            <cgood v-model="form.good":disabled="isdisabled" ></cgood>
+          </el-form-item>
+          <el-form-item label="商品封面图：" prop="coverImgeUrl">
+            <single-pic v-model="form.coverImgeUrl"  type="image" :num="1" :width="150" :height="150" />
+            <p  style="color: #cf0f0f">图片规则：图片尺寸最大300像素*300像素；</p>
+          </el-form-item>
 
-              <el-form-item label="商品小程序路径" prop="url" >
-                <el-input v-model="form.url" style="width: 370px;" :disabled="isdisabled"/>
-              </el-form-item>
-    <!--          1：一口价（只需要传入price，price2不传）-->
-    <!--          2：价格区间（price字段为左边界，price2字段为右边界，price和price2必传）-->
-    <!--          3：显示折扣价（price字段为原价，price2字段为现价， price和price2必传）-->
-              <el-form-item label="商品名称" prop="name"  >
-                <el-input v-model="form.name" style="width: 370px;" :disabled="isdisabled"/>
-              </el-form-item>
-              <el-form-item label="价格类型" prop="priceType" >
-                <el-radio-group v-model="form.priceType" >
-                  <el-radio :label="'1'" class="radio">一口价</el-radio>
-                  <el-radio :label="'2'" class="radio">价格区间</el-radio>
-                  <el-radio :label="'3'" class="radio">显示折扣价</el-radio>
-                </el-radio-group>
-                <p v-if="isdisabled" style="color: #cf0f0f">商品审核通过已入库，只能修改价格</p>
-              </el-form-item>
-              <el-col v-if="form.priceType=='1'" v-bind="grid">
-                <el-form-item  label="一口价" prop="price" >
-                  <el-input v-model="form.price" style="width: 200px;" />
-                </el-form-item>
-              </el-col>
-              <el-col v-if="form.priceType=='2'" v-bind="grid">
-                <el-form-item label="最低价格" prop="price" >
-                  <el-input v-model="form.price"  style="width: 200px;"/>
-                </el-form-item>
-              </el-col>
-              <el-col v-if="form.priceType=='2'" v-bind="grid">
-                <el-form-item label="最高价格" prop="price2"  >
-                  <el-input v-model="form.price2"  style="width: 200px;"/>
-                </el-form-item>
-              </el-col>
-              <el-col v-if="form.priceType=='3'" v-bind="grid">
-                <el-form-item label="市场价" prop="price" >
-                  <el-input v-model="form.price" style="width: 200px;" />
-                </el-form-item>
-              </el-col>
-              <el-col v-if="form.priceType=='3'" v-bind="grid">
-                <el-form-item label="现价" prop="price2" >
-                  <el-input v-model="form.price2"  style="width: 200px;"/>
-                </el-form-item>
-              </el-col>
-            </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button type="text" @click="crud.cancelCU">取消</el-button>
-            <el-button :loading="crud.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
-          </div>
+          <el-form-item label="商品小程序路径" prop="url" >
+            <el-input v-model="form.url" style="width: 370px;" :disabled="true"/>
+          </el-form-item>
+          <!--          1：一口价（只需要传入price，price2不传）-->
+          <!--          2：价格区间（price字段为左边界，price2字段为右边界，price和price2必传）-->
+          <!--          3：显示折扣价（price字段为原价，price2字段为现价， price和price2必传）-->
+          <el-form-item label="商品名称" prop="name"  >
+            <el-input v-model="form.name" style="width: 370px;" :disabled="isdisabled"/>
+          </el-form-item>
+          <el-form-item label="价格类型" prop="priceType" >
+            <el-radio-group v-model="form.priceType" >
+              <el-radio :label="'1'" class="radio">一口价</el-radio>
+              <el-radio :label="'2'" class="radio">价格区间</el-radio>
+              <el-radio :label="'3'" class="radio">显示折扣价</el-radio>
+            </el-radio-group>
+            <p v-if="isdisabled" style="color: #cf0f0f">商品审核通过已入库，只能修改价格</p>
+          </el-form-item>
+          <el-col v-if="form.priceType=='1'" v-bind="grid">
+            <el-form-item  label="一口价" prop="price" >
+              <el-input v-model="form.price" style="width: 200px;" />
+            </el-form-item>
+          </el-col>
+          <el-col v-if="form.priceType=='2'" v-bind="grid">
+            <el-form-item label="最低价格" prop="price" >
+              <el-input v-model="form.price"  style="width: 200px;"/>
+            </el-form-item>
+          </el-col>
+          <el-col v-if="form.priceType=='2'" v-bind="grid">
+            <el-form-item label="最高价格" prop="price2"  >
+              <el-input v-model="form.price2"  style="width: 200px;"/>
+            </el-form-item>
+          </el-col>
+          <el-col v-if="form.priceType=='3'" v-bind="grid">
+            <el-form-item label="市场价" prop="price" >
+              <el-input v-model="form.price" style="width: 200px;" />
+            </el-form-item>
+          </el-col>
+          <el-col v-if="form.priceType=='3'" v-bind="grid">
+            <el-form-item label="现价" prop="price2" >
+              <el-input v-model="form.price2"  style="width: 200px;"/>
+            </el-form-item>
+          </el-col>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="text" @click="crud.cancelCU">取消</el-button>
+          <el-button :loading="crud.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
+        </div>
       </el-dialog>
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
@@ -104,10 +104,10 @@
             </div>
           </template>
         </el-table-column>
-<!--        <el-table-column v-if="columns.visible('price')" prop="price" label="price" />-->
-<!--        <el-table-column v-if="columns.visible('price2')" prop="price2" label="price2" />-->
+        <!--        <el-table-column v-if="columns.visible('price')" prop="price" label="price" />-->
+        <!--        <el-table-column v-if="columns.visible('price2')" prop="price2" label="price2" />-->
         <el-table-column v-if="columns.visible('auditStatus')" prop="auditStatus" label="审核状态" >
-<!--          //0：未审核，1：审核中，2:审核通过，3审核失败-->
+          <!--          //0：未审核，1：审核中，2:审核通过，3审核失败-->
           <template slot-scope="scope">
             <div>
               <el-tag v-if="scope.row.auditStatus === 0" :type="''">未审核</el-tag>
@@ -117,7 +117,7 @@
             </div>
           </template>
         </el-table-column>
-<!--        1, 2：表示是为api添加商品，否则是直播控制台添加的商品-->
+        <!--        1, 2：表示是为api添加商品，否则是直播控制台添加的商品-->
         <el-table-column v-if="columns.visible('thirdPartyTag')" prop="thirdPartyTag" label="添加途径" >
           <template slot-scope="scope">
             <div>
@@ -179,9 +179,6 @@ export default {
         coverImgUrl: [
           { required: true, message: '商品图片不能为空', trigger: 'blur' }
         ],
-        url: [
-          { required: true, message: '商品小程序路径不能为空', trigger: 'blur' }
-        ],
         priceType: [
           { required: true, message: '价格类型不能为空', trigger: 'blur' }
         ],
@@ -199,12 +196,15 @@ export default {
   },
   watch:{
     'form.good': {
-        handler(val,oldVal){
+      handler(val,oldVal){
         this.form.productId = val.productId
         this.form.name = val.storeName
         this.form.price = val.price
         this.form.price2 = val.otPrice
         this.form.priceType = '3'
+        if(val.productId){
+          this.form.url="/pages/shop/GoodsCon/index?id="+val.productId
+        }
         this.isdisabled=false;
       },
       deep:true//对象内部的属性监听，也叫深度监听
@@ -301,17 +301,17 @@ export default {
 </script>
 
 <style scoped>
-  .table-img {
-    display: inline-block;
-    text-align: center;
-    background: #ccc;
-    color: #fff;
-    white-space: nowrap;
-    position: relative;
-    overflow: hidden;
-    vertical-align: middle;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-  }
+.table-img {
+  display: inline-block;
+  text-align: center;
+  background: #ccc;
+  color: #fff;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
 </style>

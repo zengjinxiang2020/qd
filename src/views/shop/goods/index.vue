@@ -48,6 +48,12 @@
       <el-table-column prop="price" label="商品价格" />
       <el-table-column prop="sales" label="销量" />
       <el-table-column prop="stock" label="库存" />
+      <el-table-column label="商品类型" align="center">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.isIntegral === 1" style="cursor: pointer" :type="'warning'">积分商品</el-tag>
+          <el-tag v-else style="cursor: pointer" :type=" 'info' ">普通商品</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="状态" align="center">
         <template slot-scope="scope">
           <div @click="onSale(scope.row.id,scope.row.isShow)">

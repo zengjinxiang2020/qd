@@ -99,7 +99,7 @@ export default {
     beforeInit() {
       this.url = 'api/yxStoreProduct'
       const sort = 'id,desc'
-      this.params = { page: this.page, size: this.size, sort: sort, isShow: 1, isDel: 0 }
+      this.params = { page: this.page, size: this.size, sort: sort, isShow: 1, isDel: 0 ,isIntegral:0}
       const query = this.query
       const type = query.type
       const value = query.value

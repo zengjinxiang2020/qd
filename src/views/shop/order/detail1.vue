@@ -2,6 +2,28 @@
   <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '订单详情'" width="700px">
     <el-card>
       <div slot="header">
+        <span>进度信息</span>
+      </div>
+      <el-steps
+        v-if="form.refundStatus===0"
+        :active="orderStatus.size"
+        align-center
+        process-status="process"
+        finish-status="success"
+      >
+        <el-step title="用户下单" :description="orderStatus.cacheKeyCreateOrder"></el-step>
+        <el-step title="待核销" :description="orderStatus.paySuccess"></el-step>
+        <el-step title="待评价" :description="orderStatus.orderVerific"></el-step>
+        <el-step title="已完成" :description="orderStatus.checkOrderOver"></el-step>
+      </el-steps>
+      <el-steps v-else :active="form.refundStatus+1" align-center process-status="process" finish-status="success">
+        <el-step title="用户下单" :description="orderStatus.cacheKeyCreateOrder"></el-step>
+        <el-step title="用户申请退款" :description="orderStatus.applyRefund"></el-step>
+        <el-step title="退款申请通过" :description="orderStatus.refundOrderSuccess"></el-step>
+      </el-steps>
+    </el-card>
+    <el-card>
+      <div slot="header">
         <span>收货信息</span>
       </div>
       <div class="text item">用户昵称:{{ form.nickname }}</div>
@@ -65,8 +87,9 @@
 </template>
 
 <script>
-import { add, edit, express } from '@/api/yxStoreOrder'
-import { parseTime } from '@/utils/index'
+import { add, edit, express,
+  getNowOrderStatus } from '@/api/yxStoreOrder'
+import {formatTimeTwo, parseTime} from '@/utils/index'
 export default {
   props: {
     isAdd: {
@@ -76,6 +99,7 @@ export default {
   },
   data() {
     return {
+      orderStatus:null,
       loading: false, dialog: false, expressInfo: [],
       form: {
         id: '',
@@ -138,6 +162,11 @@ export default {
       }
     }
   },
+  watch: {
+    'form': function(val) {
+      this.getNowOrderStatus();
+    }
+  },
   methods: {
     parseTime,
     cancel() {
@@ -196,6 +225,28 @@ export default {
         this.loading = false
         console.log(err.response.data.message)
       })
+    }, formatTime(time) {
+      if (time == null || time === '') {
+        return '';
+      }
+      let date = new Date(time);
+      return formatTimeTwo(date, 'yyyy-MM-dd hh:mm:ss')
+    },
+    formatStepStatus(value) {
+      //todo  1-未付款 2-未发货 3-退款中 4-待收货 5-待评价 6-已完成 7-已退款
+      if (value === 2) {
+        //待发货
+        return 2;
+      } else if (value === 4) {
+        //已发货
+        return 3;
+      } else if (value === 6) {
+        //已完成
+        return 4;
+      }else {
+        //待付款、已关闭、无限订单
+        return 1;
+      }
     },
     resetForm() {
       this.dialog = false
@@ -253,7 +304,18 @@ export default {
         isRemind: '',
         isSystemDel: ''
       }
-    }
+    },
+    getNowOrderStatus() {
+      let id = this.form.id || 0;
+
+      getNowOrderStatus(id)
+        .then(res => {
+          this.orderStatus = res;
+        })
+        .catch(err => {
+          console.log(err.response.data.message);
+        });
+    },
   }
 }
 </script>

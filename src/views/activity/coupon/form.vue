@@ -48,6 +48,13 @@ export default {
       required: true
     }
   },
+  watch: {
+    "form.product":function(val){
+      if(val){
+        this.getGoods(val)
+      }
+    }
+  },
   data() {
     return {
       loading: false, dialog: false,
