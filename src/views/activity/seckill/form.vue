@@ -254,7 +254,12 @@ export default {
       },
       form1: {
         good:{
-
+          productId: null,
+          storeName: null,
+          image: null,
+          otPrice: null,
+          price: null,
+          cform: null
         }
       },
       formValidate: {
