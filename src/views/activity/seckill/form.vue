@@ -396,9 +396,12 @@ export default {
         this.formValidate.images = val.join(',')
       }
     },
-    'form1.good': {
+    'form1.good.productId': {
       handler(val,oldVal){
-        this.getInfoChooseGood (val.cform.id)
+        if(val){
+          this.getInfoChooseGood (val)
+        }
+      
       },
     },
   },

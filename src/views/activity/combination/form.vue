@@ -253,7 +253,7 @@ export default {
          image: null,
          otPrice: null,
          price: null,
-         cform: null
+        
         }
       },
       formValidate: {
@@ -394,10 +394,11 @@ export default {
         this.formValidate.images = val.join(',')
       }
     },
-    'form1.good': {
+    'form1.good.productId': {
       handler(val,oldVal){
-        console.log(val)
-        this.getInfoChooseGood (val.productId)
+        if(val){
+          this.getInfoChooseGood (val)
+        }
       },
     },
   },
