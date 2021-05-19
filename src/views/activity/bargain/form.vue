@@ -118,6 +118,11 @@ export default {
       templateList: [],
       form1: {
         good:{
+          productId: null,
+          storeName: null,
+          image: null,
+          otPrice: null,
+          price: null,
         }
       },
       form: {
@@ -168,10 +173,10 @@ export default {
     }
   },
   watch: {
-    'form.imageArr': function(val) {
-      if (val && Array.isArray(val)) {
-        this.form.image = val.join(',')
-      }
+    'form.image': function(val) {
+      this.form1.good.image = this.form.image
+      this.form1.good.productId = this.form.productId
+     
     },
     'form.sliderImageArr': function(val) {
       console.log("aaa:"+val)
@@ -179,13 +184,16 @@ export default {
         this.form.images = val.join(',')
       }
     },
-    'form1.good': {
+    'form1.good.productId': {
       handler(val,oldVal){
-        this.getInfoChooseGood (val.cform.id)
+        if(val){
+          this.getInfoChooseGood (val)
+        }
       },
       deep:true//对象内部的属性监听，也叫深度监听
     },
   },
+ 
   methods: {
     // 详情选择商品生成规格用
     getInfoChooseGood (id) {
