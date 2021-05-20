@@ -28,6 +28,10 @@
           <el-form-item label="直播间分享图片" prop="shareImg" >
             <MaterialList v-model="form.shareImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150":disabled="isDisabled" />
           </el-form-item>
+          <el-form-item label="封面图" prop="feedsImg" >
+            <MaterialList v-model="form.feedsImgArr" style="width: 370px" type="image" :num="1" :width="150" :height="150":disabled="isDisabled" />
+            <p style="color: #cf0f0f">购物直播封面图 ，建议尺寸800*800</p>
+          </el-form-item>
           <el-form-item label="计划直播开始时间" prop="startDate" >
             <el-date-picker v-model="form.startDate" type="datetime" style="width: 370px;" :disabled="isDisabled"/>
             <p style="color: #cf0f0f">开播时间需要在当前时间的10分钟后,并且开始时间不能在6个月后</p>
@@ -221,7 +225,7 @@ const defaultCrud = CRUD({ optShow: {
     del: false,
     download: true
   },title: '直播房间', url: 'api/yxWechatLive', sort: 'room_id,desc', crudMethod: { ...crudYxWechatLive }})
-const defaultForm = { product: [],roomId: null,productId: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: 0, screenType: 0, closeLike: 0,closeGoods: 0, closeComment: 0,closeReplay: 0,closeShare:0,closeKf:0 }
+const defaultForm = { product: [],roomId: null,productId: null,feedsImg: null, name: null, coverImge: null, startDate: null, endDate : null,shareImge: null, liveStatus: null,  coverImgArr: [],shareImgArr: [],anchorImgArr: [],feedsImgArr:[],startTime: null, endTime: null, anchorName: null, anchorWechat: null, anchorImge: null, type: 0, screenType: 0, closeLike: 0,closeGoods: 0, closeComment: 0,closeReplay: 0,closeShare:0,closeKf:0 }
 export default {
   name: 'YxWechatLive',
   components: { pagination, crudOperation, rrOperation ,MaterialList,udOperation,LiveGoods},
@@ -341,6 +345,7 @@ export default {
       this.form.coverImge = this.form.coverImgArr.join(',')
       this.form.shareImge = this.form.shareImgArr.join(',')
       this.form.anchorImge = this.form.anchorImgArr.join(',')
+      this.form.feedsImg = this.form.feedsImgArr.join(',')
     },
     // 新增与编辑前做的操作
     [CRUD.HOOK.beforeToAdd](crud, form) {
