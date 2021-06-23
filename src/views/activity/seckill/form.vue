@@ -527,6 +527,7 @@ export default {
     // 详情选择商品生成规格用
     getInfoChooseGood (id) {
       let that = this;
+      let cid = that.$route.params.id || 0;
       getInfo(id).then(async res => {
         let data = res.productInfo;
         console.log('data:'+data)
@@ -537,7 +538,7 @@ export default {
           Object.keys(that.formValidate).forEach(key=>{
                 if(data[key]) that.formValidate[key] = data[key];
           })
-          that.formValidate.id = 0;
+          that.formValidate.id = cid;
           that.formValidate.productId = id
           that.formValidate.cate_id = cate_id;
           that.oneFormValidate = [data.attr];
@@ -652,7 +653,7 @@ export default {
           if(this.formValidate.spec_type === 1 && this.manyFormValidate.length===0){
             return this.$message.warning('请点击生成规格！');
           }
-          add(this.formValidate).then(async res => {
+          edit(this.formValidate).then(async res => {
             this.$message({
               message:'操作成功',
               type: 'success'
