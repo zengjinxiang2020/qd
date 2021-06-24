@@ -8,6 +8,14 @@ export function add(data) {
   })
 }
 
+export function edit(data) {
+  return request({
+    url: 'api/yxStoreCombination',
+    method: 'put',
+    data
+  })
+}
+
 export function del(id) {
   return request({
     url: 'api/yxStoreCombination/' + id,
