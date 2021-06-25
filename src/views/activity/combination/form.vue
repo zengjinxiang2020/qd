@@ -248,7 +248,12 @@ export default {
       },
       form1: {
         good:{
-
+         productId: null,
+         storeName: null,
+         image: null,
+         otPrice: null,
+         price: null,
+        
         }
       },
       formValidate: {
@@ -389,10 +394,13 @@ export default {
         this.formValidate.images = val.join(',')
       }
     },
-    'form1.good': {
+    'form1.good.productId': {
       handler(val,oldVal){
-        console.log(val)
-        this.getInfoChooseGood (val.productId)
+        console.info("val:"+val)
+        console.info("oldval:"+oldVal)
+        if(val){
+          this.getInfoChooseGood (val)
+        }
       },
     },
   },
@@ -515,6 +523,8 @@ export default {
     // 详情选择商品生成规格用
     getInfoChooseGood (id) {
       let that = this;
+      let cid = that.$route.params.id || 0;
+      
       getInfo(id==null?0:id).then(async res => {
         let data = res.productInfo;
         if(data){
@@ -523,7 +533,8 @@ export default {
           Object.keys(that.formValidate).forEach(key=>{
                 if(data[key]) that.formValidate[key] = data[key];
           })
-          that.formValidate.id = 0;
+          that.formValidate.id = cid;
+          //that.formValidate.id = 0;
           that.formValidate.productId = id
           that.formValidate.title = data.store_name
           that.formValidate.info = data.store_info
@@ -572,6 +583,7 @@ export default {
     getInfo () {
       let that = this;
       let id = that.$route.params.id || 0;
+      that.formValidate.id = id;
       getCombinationInfo(id).then(async res => {
         let data = res.productInfo;
         if(data){
@@ -634,7 +646,7 @@ export default {
           if(this.formValidate.spec_type === 1 && this.manyFormValidate.length===0){
             return this.$message.warning('请点击生成规格！');
           }
-          add(this.formValidate).then(async res => {
+          edit(this.formValidate).then(async res => {
             this.$message({
               message:'操作成功',
               type: 'success'

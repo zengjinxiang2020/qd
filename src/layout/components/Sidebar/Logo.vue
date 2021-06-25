@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      title: 'YSHOP-后台管理',
+      title: '乐享美酒-后台管理',
       logo: Logo
     }
   }
