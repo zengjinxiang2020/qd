@@ -67,7 +67,8 @@
       </div>
       <!--表单组件-->
       <eForm ref="form" :is-add="isAdd" />
-      <eDetail ref="form1" :is-add="isAdd" />
+      <!-- <eDetail ref="form1" :is-add="isAdd" /> -->
+      <!-- <eDetail ref="form1" :is-add="isAdd" /> -->
       <eRefund ref="form2" :is-add="isAdd" />
       <editOrder ref="form3" :is-add="isAdd" />
       <eRemark ref="form4" :is-add="isAdd" />
@@ -97,23 +98,43 @@
         </el-table-column>
         <el-table-column prop="cartInfoList" width="300" label="商品信息">
           <template slot-scope="scope">
-            <div v-for="(item,index) in scope.row.cartInfoList" v-if="item.cartInfoMap.productInfo.attrInfo">
-            <span>
-              <img
-                style="width: 30px;height: 30px;margin:0;cursor: pointer;"
-                :src="item.cartInfoMap.productInfo.attrInfo.image"
-              >
-            </span>
+            <!-- <div v-for="(item,index) in scope.row.cartInfoList"
+            :key="index"
+            v-if="item.cartInfoMap.productInfo.attrInfo">
+              <span>
+                <img style="width: 30px;height: 30px;margin:0;cursor: pointer;"
+                  :src="item.cartInfoMap.productInfo.attrInfo.image"
+                >
+              </span>
               <span>{{ item.cartInfoMap.productInfo.storeName }}&nbsp;{{ item.cartInfoMap.productInfo.attrInfo.suk }}</span>
               <span> | ￥{{ item.cartInfoMap.truePrice }}×{{ item.cartInfoMap.cartNum }}</span>
             </div>
             <div v-else>
-            <span><img
-              style="width: 30px;height: 30px;margin:0;cursor: pointer;"
-              :src="item.cartInfoMap.productInfo.image"
-            ></span>
+              <span>
+                <img
+                style="width: 30px;height: 30px;margin:0;cursor: pointer;"
+                :src="item.cartInfoMap.productInfo.image">
+              </span>
               <span>{{ item.cartInfoMap.productInfo.storeName }}</span>
               <span> | ￥{{ item.cartInfoMap.truePrice }}×{{ item.cartInfoMap.cartNum }}</span>
+            </div> -->
+            <div v-for="(item,index) in scope.row.cartInfoList"
+            :key="index">
+                <span v-if="item.cartInfoMap.productInfo.attrInfo">
+                  <img style="width: 30px;height: 30px;margin:0;cursor: pointer;"
+                    :src="item.cartInfoMap.productInfo.attrInfo.image"
+                  >
+                </span>
+                <span v-else>
+                  <img
+                  style="width: 30px;height: 30px;margin:0;cursor: pointer;"
+                  :src="item.cartInfoMap.productInfo.image">
+                </span>
+                <span>
+                  {{ item.cartInfoMap.productInfo.storeName }}
+                  <span v-if="item.cartInfoMap.productInfo.attrInfo">&nbsp;{{ item.cartInfoMap.productInfo.attrInfo.suk }}</span>
+                </span>
+                <span> | ￥{{ item.cartInfoMap.truePrice }}×{{ item.cartInfoMap.cartNum }}</span>
             </div>
           </template>
         </el-table-column>
@@ -238,8 +259,7 @@
         style="margin-top: 8px;"
         layout="total, prev, pager, next, sizes"
         @size-change="sizeChange"
-        @current-change="pageChange"
-      />
+        @current-change="pageChange" />
     </el-footer>
   </div>
 </template>
@@ -262,7 +282,15 @@
     mixins: [initData],
     data() {
       return {
-        delLoading: false, status: '-9', orderType: '0',createTime: '', checkList: [], printChecked: false, batchHandle: '', batchExport: '', listContent: [],
+        delLoading: false,
+        status: '-9',
+        orderType: '0',
+        createTime: '',
+        checkList: [],
+        printChecked: false,
+        batchHandle: '',
+        batchExport: '',
+        listContent: [],
         queryTypeOptions: [
           { key: 'orderId', display_name: '订单号' },
           { key: 'realName', display_name: '用户姓名' },
@@ -323,7 +351,15 @@
       beforeInit() {
         this.url = 'api/yxStoreOrder'
         const sort = 'id,desc'
-        this.params = { page: this.page, size: this.size, sort: sort, orderStatus: this.status, orderType: this.orderType, createTime: this.createTime, listContent: this.listContent  }
+        this.params = {
+          page: this.page,
+          size: this.size,
+          sort: sort,
+          orderStatus: this.status,
+          orderType: this.orderType,
+          createTime: this.createTime,
+          listContent: this.listContent
+        }
         const query = this.query
         const type = query.type
         const value = query.value
@@ -701,6 +737,7 @@
           this.$refs.multipleTable.clearSelection();
         }
       },
+      // 导出选中
       handlePrintOption(val){
         switch (val) {
           case '0':
