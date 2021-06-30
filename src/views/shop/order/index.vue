@@ -67,8 +67,7 @@
       </div>
       <!--表单组件-->
       <eForm ref="form" :is-add="isAdd" />
-      <!-- <eDetail ref="form1" :is-add="isAdd" /> -->
-      <!-- <eDetail ref="form1" :is-add="isAdd" /> -->
+      <eDetail ref="form1" :is-add="isAdd" />
       <eRefund ref="form2" :is-add="isAdd" />
       <editOrder ref="form3" :is-add="isAdd" />
       <eRemark ref="form4" :is-add="isAdd" />
@@ -831,7 +830,6 @@
     display: flex;
     background-color: #f6f6f6;
     bottom: 0;
-    flex-align: center;
     align-items: center;
     justify-content: space-between;
     width: 100%;
