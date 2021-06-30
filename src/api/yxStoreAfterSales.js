@@ -8,6 +8,13 @@ export function getData(data) {
   })
 }
 
+export function salesCheck() {
+  return request({
+    url: '/api/yxStoreAfterSales/salesCheck',
+    method: 'post'
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/yxStoreAfterSales',
