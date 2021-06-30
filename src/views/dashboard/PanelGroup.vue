@@ -204,7 +204,7 @@ export default {
   }
 }
 .baseInfo {
-  /deep/ .el-card__header {
+  ::v-deep .el-card__header {
     padding: 15px 20px !important;
   }
 }

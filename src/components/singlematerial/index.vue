@@ -464,7 +464,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /deep/ .el-icon-circle-close{
+  ::v-deep .el-icon-circle-close{
     color: red;
   }
   .material-name{
