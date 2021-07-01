@@ -119,7 +119,7 @@
       @current-change="pageChange" />
 
       <!-- 审核、订单详情 -->
-      <CheckDialog ref="addForm" :visible="addVisible"/>
+      <CheckDialog ref="addForm" :visible="addVisible" @checkSuccess="toQuery"/>
       <!-- 退款 -->
       <el-dialog
         title="退款"

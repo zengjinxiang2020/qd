@@ -133,6 +133,7 @@ export default {
       var res = await salesCheck(this.form)
       if (res) {
         this.$message.success('审核成功')
+        this.$emit('checkSuccess')
       } else {
         this.$message.error(res.msg || '审核失败！')
       }
