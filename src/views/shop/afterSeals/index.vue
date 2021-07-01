@@ -1,7 +1,8 @@
 <template>
   <div class="afterSealsContainer">
+    <!-- 搜索栏 -->
     <div class="titleSearch">
-      <el-input v-model="query.orderCode" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+      <el-input v-model="query.orderCode" clearable placeholder="输入搜索订单号" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
       <el-date-picker
         v-model="searchTime"
         :default-time="['00:00:00','23:59:59']"
@@ -49,7 +50,7 @@
       size="mini"
       type="warning"
       icon="el-icon-refresh-left"
-      @click="query.orderCode = query.type = query.salesState = query.state = ''; searchTime = []">重置</el-button>
+      @click="resetSearch">重置</el-button>
     </div>
     <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
     <!-- <crudOperation :permission="permission" /> -->
@@ -65,7 +66,7 @@
     <!-- @selection-change="selectionChangeHandler" -->
       <el-table-column type="selection" width="55" />
       <el-table-column prop="orderCode" label="订单号" />
-      <el-table-column prop="refundAmount" label="退款金额" />
+      <el-table-column prop="refundAmount" label="退款金额" width="100px"/>
       <el-table-column prop="serviceType" label="服务类型" >
         <template slot-scope="scope">
           <span v-if="scope.row.serviceType === 0">仅退款</span>
@@ -74,35 +75,37 @@
       </el-table-column>
       <el-table-column prop="reasons" label="申请原因" />
       <el-table-column prop="explains" label="说明" />
-      <el-table-column prop="state" label="状态" >
-        <template slot-scope="scope">
-          <span v-if="scope.row.state === 0">等待审核</span>
-          <span v-if="scope.row.state === 1">等待用户发货</span>
-          <span v-if="scope.row.state === 2">用户已发货</span>
-          <span v-if="scope.row.state === 3">退款成功</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="salesState" label="售后状态" >
-        <template slot-scope="scope">
-          <span v-if="scope.row.salesState === 0" :style="'color: #42b983'">正常</span>
-          <span v-if="scope.row.salesState === 1" :style="'color: #F56C6C'">用户已取消</span>
-          <span v-if="scope.row.salesState === 2" :style="'color: #F56C6C'">已拒绝用户</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="createTime" label="申请时间">
+      <el-table-column prop="createTime" label="申请时间" align="center">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column v-permission="['admin','yxStoreAfterSales:edit','yxStoreAfterSales:del']" label="操作" width="150px" align="center">
+      <el-table-column prop="state" label="状态" width="100px" align="center">
         <template slot-scope="scope">
-          <!-- <udOperation
-            :data="scope.row"
-            :permission="permission"
-          /> -->
-          <el-button size="mini" type="success" v-if="scope.row.state === 0" @click="checkItem(scope.row)">审核</el-button>
-          <el-button size="mini" type="primary" v-if="scope.row.state === 2" @click="toQuery">退款</el-button>
-          <el-button size="mini" type="danger" v-if="scope.row.state === 3" @click="deleteItem(scope.row)">删除</el-button>
+          <span v-if="scope.row.state === 0" :style="'color: #E6A23C'">等待审核</span>
+          <span v-if="scope.row.state === 1" :style="'color: #409EFF'">等待用户发货</span>
+          <span v-if="scope.row.state === 2" :style="'color: #F56C6C'">用户已发货</span>
+          <span v-if="scope.row.state === 3" :style="'color: #909399'">退款成功</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="salesState" label="售后状态" width="100px" align="center">
+        <template slot-scope="scope">
+          <span v-if="scope.row.salesState === 0" :style="'color: #42b983'">正常</span>
+          <span v-if="scope.row.salesState === 1" :style="'color: #409EFF'">用户已取消</span>
+          <span v-if="scope.row.salesState === 2" :style="'color: #F56C6C'">已拒绝用户</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+      v-permission="['admin','yxStoreAfterSales:edit','yxStoreAfterSales:del']" label="操作" width="150px" align="center">
+        <template slot-scope="scope">
+          <el-button type="text" @click="checkItem(scope.row, 0)">订单详情</el-button>
+          <el-button size="mini" type="success" v-if="scope.row.state === 0" @click="checkItem(scope.row, 1)">审核</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            v-if="scope.row.state === 2"
+            @click="rebackVisible = true;rebackQuery.salesId = scope.row.id;rebackQuery.orderCode = scope.row.orderCode">
+            退款</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -115,21 +118,36 @@
       @size-change="sizeChange"
       @current-change="pageChange" />
 
-      <ADialog ref="addForm" :visible="addVisible"/>
+      <!-- 审核、订单详情 -->
+      <CheckDialog ref="addForm" :visible="addVisible"/>
+      <!-- 退款 -->
+      <el-dialog
+        title="退款"
+        :visible.sync="rebackVisible"
+        width="400px">
+        <span>
+          是否给订单号：<b :style="'color: #409EFF'">{{ this.rebackQuery.orderCode }}</b> 确认退款？
+        </span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="rebackVisible = false">取 消</el-button>
+          <el-button type="primary" @click="rebackItem">确 定</el-button>
+        </span>
+      </el-dialog>
   </div>
 </template>
 
 <script>
 import initData from '@/mixins/crud'
-import crudYxStoreAfterSales from '@/api/yxStoreAfterSales'
-import ADialog from './addDialog.vue'
+import {rebackMoney} from '@/api/yxStoreAfterSales'
+import CheckDialog from './checkDialog.vue'
 export default {
   name: 'YxStoreAfterSales',
-  components: { ADialog },
+  components: { CheckDialog },
   mixins: [initData],
   data() {
     return {
       addVisible: false,
+      rebackVisible: false,
       searchTime: [],
       permission: {
         add: ['admin', 'yxStoreAfterSales:add'],
@@ -142,7 +160,7 @@ export default {
         { key: 2, name: '已拒绝用户'}
       ],
       serviceTypeOptions: [
-        { key: '', name: '全部' },
+        { key: null, name: '全部' },
         { key: 0, name: '仅退款' },
         { key: 1, name: '退货退款' }
       ],
@@ -151,7 +169,12 @@ export default {
         { key: 1, name: '等待用户发货'},
         { key: 2, name: '用户已发货'},
         { key: 3, name: '已完成'},
-      ]
+      ],
+      // 退款参数
+      rebackQuery: {
+        salesId: 0, // 数据的id
+        orderCode: '' // 订单号
+      }
     }
   },
   created() {
@@ -162,31 +185,48 @@ export default {
   methods: {
     beforeInit() {
       this.url = 'api/yxStoreAfterSales/sales/List'
+      console.log(this.searchTime)
       this.params = {
         page: this.page,
         size: this.size,
         
         serviceType: this.query.type || '', // 查询类型
-        salesState: 0, // 售后状态
-        state: '',
+        salesState: this.query.salesState || 0, // 售后状态
+        state: this.query.state,
         orderCode: this.query.orderCode || '',
-        // startingTime: this.searchTime[0] || '',
-        // endTime: this.searchTime[1] || ''
+        time: this.searchTime
+        // startingTime: `${this.searchTime[0]}` || '',
+        // endTime: `${this.searchTime[1]}` || ''
       }
+      if (this.query.state === 0) this.params.state = 0;
       return true
     },
+    resetSearch() {
+      this.query.orderCode = this.query.type = this.query.salesState = this.query.state = '';
+      this.searchTime = [];
+      this.toQuery()
+    },
     // 审核
-    checkItem(row) {
-      console.log(row)
+    checkItem(row, type) {
+      this.$refs.addForm.checkForm = row
       this.$refs.addForm.serviceType = row.serviceType
 
       this.$refs.addForm.form.salesId = row.id
       this.$refs.addForm.form.orderCode = row.orderCode
 
+      if (type === 1) {
+        this.$refs.addForm.isShow = true
+      } else {
+        this.$refs.addForm.isShow = false
+      }
       this.$refs.addForm.visible = true
     },
-    // 删除
-    deleteItem() {}
+    // 退款
+    async rebackItem() {
+      console.log(this.rebackQuery)
+      // var res = await rebackMoney(this.rebackQuery)
+      // console.log(res)
+    }
   }
 }
 
