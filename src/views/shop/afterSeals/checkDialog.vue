@@ -67,7 +67,7 @@
       </el-form>
     </div>
     <div v-if="serviceType === 0 && isShow">
-      <span>该订单为仅退款订单，审核通过之后需进行退款，是否审核通过？</span>
+      <span>该订单为仅退款订单，审核通过之后将直接退款，是否审核通过？</span>
     </div>
     <div v-if="serviceType === 1 && isShow">
       <span>该订单为退货退款，请输入退货地址：</span>
@@ -125,9 +125,9 @@ export default {
     async submit(type) {
       this.loading = true
       if (this.serviceType === 0) {
-        consignee = ''
-        phoneNumber = ''
-        address = ''
+        this.form.consignee = ''
+        this.form.phoneNumber = ''
+        this.form.address = ''
       }
       this.form.approvalStatus = type // 0成功 1失败
       var res = await salesCheck(this.form)
