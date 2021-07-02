@@ -265,39 +265,39 @@
                   :description="item.acceptTime"></el-step>
       </el-steps>
     </el-dialog>
-<!--    <el-dialog title="修改收货人信息"-->
-<!--               :visible.sync="receiverDialogVisible"-->
-<!--               width="40%">-->
-<!--      <el-form :model="receiverInfo"-->
-<!--               ref="receiverInfoForm"-->
-<!--               label-width="150px">-->
-<!--        <el-form-item label="收货人姓名：">-->
-<!--          <el-input v-model="receiverInfo.receiverName" style="width: 200px"></el-input>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="手机号码：">-->
-<!--          <el-input v-model="receiverInfo.receiverPhone" style="width: 200px">-->
-<!--          </el-input>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="邮政编码：">-->
-<!--          <el-input v-model="receiverInfo.receiverPostCode" style="width: 200px">-->
-<!--          </el-input>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="所在区域：">-->
-<!--          <v-distpicker :province="receiverInfo.receiverProvince"-->
-<!--                        :city="receiverInfo.receiverCity"-->
-<!--                        :area="receiverInfo.receiverRegion"-->
-<!--                        @selected="onSelectRegion"></v-distpicker>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="详细地址：">-->
-<!--          <el-input v-model="receiverInfo.receiverDetailAddress" type="textarea" rows="3">-->
-<!--          </el-input>-->
-<!--        </el-form-item>-->
-<!--      </el-form>-->
-<!--      <span slot="footer" class="dialog-footer">-->
-<!--      <el-button @click="receiverDialogVisible = false">取 消</el-button>-->
-<!--      <el-button type="primary" @click="handleUpdateReceiverInfo">确 定</el-button>-->
-<!--      </span>-->
-<!--    </el-dialog>-->
+   <!-- <el-dialog title="修改收货人信息"
+              :visible.sync="receiverDialogVisible"
+              width="40%">
+     <el-form :model="receiverInfo"
+              ref="receiverInfoForm"
+              label-width="150px">
+       <el-form-item label="收货人姓名：">
+         <el-input v-model="receiverInfo.receiverName" style="width: 200px"></el-input>
+       </el-form-item>
+       <el-form-item label="手机号码：">
+         <el-input v-model="receiverInfo.receiverPhone" style="width: 200px">
+         </el-input>
+       </el-form-item>
+       <el-form-item label="邮政编码：">
+         <el-input v-model="receiverInfo.receiverPostCode" style="width: 200px">
+         </el-input>
+       </el-form-item>
+       <el-form-item label="所在区域：">
+         <v-distpicker :province="receiverInfo.receiverProvince"
+                       :city="receiverInfo.receiverCity"
+                       :area="receiverInfo.receiverRegion"
+                       @selected="onSelectRegion"></v-distpicker>
+       </el-form-item>
+       <el-form-item label="详细地址：">
+         <el-input v-model="receiverInfo.receiverDetailAddress" type="textarea" rows="3">
+         </el-input>
+       </el-form-item>
+     </el-form>
+     <span slot="footer" class="dialog-footer">
+     <el-button @click="receiverDialogVisible = false">取 消</el-button>
+     <el-button type="primary" @click="handleUpdateReceiverInfo">确 定</el-button>
+     </span>
+   </el-dialog> -->
     <!-- <el-dialog title="修改费用信息"
                :visible.sync="moneyDialogVisible"
                width="80%">
@@ -766,9 +766,8 @@ import eRemark from './remark'
         }
 
         express(params).then(res=>{
-          console.log(res,89888)
           this.expressInfo = res.Traces
-          this.kuaidiDialogVisible=true;
+          this.kuaidiDialogVisible = true;
           this.logisticsList = this.expressInfo
         }).catch(err => {
         })
@@ -784,9 +783,9 @@ import eRemark from './remark'
         });
       },
       onSelectRegion(data){
-        this.receiverInfo.receiverProvince=data.province.value;
-        this.receiverInfo.receiverCity=data.city.value;
-        this.receiverInfo.receiverRegion=data.area.value;
+        this.receiverInfo.receiverProvince = data.province.value;
+        this.receiverInfo.receiverCity = data.city.value;
+        this.receiverInfo.receiverRegion = data.area.value;
       },
       formatTime(time) {
         if (time == null || time === '') {
@@ -925,6 +924,7 @@ import eRemark from './remark'
         this.markInfo.id=this.id;
         this.order.remark=null;
       },
+      // 备注订单
       handleMarkOrder(){
         this.$confirm('是否要备注订单?', '提示', {
           confirmButtonText: '确定',
@@ -968,8 +968,8 @@ import eRemark from './remark'
       showLogisticsDialog(){
         this.express();
 
-      }, //获取当前订单状态
-
+      },
+      //获取当前订单状态
       getNowOrderStatus() {
         let id = this.$route.params.id || 0;
 
