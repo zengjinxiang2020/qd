@@ -84,8 +84,8 @@
       </el-form>
     </div>
     <div slot="footer" class="dialog-footer">
-      <el-button type="text" @click="cancel">退出</el-button>
-      <el-button v-if="isShow" :loading="loading" type="primary" @click="submit">确认</el-button>
+      <el-button class="refuse" type="danger" v-if="isShow" :loading="loading" @click="submit(1)">拒绝</el-button>
+      <el-button class="check" type="primary" v-if="isShow" :loading="loading" @click="submit(0)">确认</el-button>
     </div>
   </el-dialog>
 </template>
@@ -122,20 +122,21 @@ export default {
       this.visible = false
       this.$refs['form'].resetFields()
     },
-    async submit() {
+    async submit(type) {
       this.loading = true
       if (this.serviceType === 0) {
         consignee = ''
         phoneNumber = ''
         address = ''
       }
-      this.form.approvalStatus = 0
+      this.form.approvalStatus = type // 0成功 1失败
       var res = await salesCheck(this.form)
       if (res) {
         this.$message.success('审核成功')
+        this.visible = false
         this.$emit('checkSuccess')
       } else {
-        this.$message.error(res.msg || '审核失败！')
+        this.$message.error(res.message || '审核失败！')
       }
       this.loading = false
     }
@@ -145,6 +146,7 @@ export default {
 
 <style lang="scss" scoped>
 .afterSealsAdd{
+  padding-bottom: 10vh;
   span{
     color: #F56C6C;
     line-height: 40px;
@@ -155,5 +157,15 @@ export default {
 }
 .afterSealsAdd ::v-deep.el-input.is-disabled .el-input__inner{
   color: #333333;
+}
+.afterSealsAdd ::v-deep .dialog-footer{
+  display: flex;
+  justify-content: space-around;
+  .el-button{
+    width: 120px;
+    height: 40px;
+  }
+  .refuse{}
+  .check{}
 }
 </style>

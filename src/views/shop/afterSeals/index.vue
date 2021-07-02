@@ -99,12 +99,18 @@
       v-permission="['admin','yxStoreAfterSales:edit','yxStoreAfterSales:del']" label="操作" width="150px" align="center">
         <template slot-scope="scope">
           <el-button type="text" @click="checkItem(scope.row, 0)">订单详情</el-button>
-          <el-button size="mini" type="success" v-if="scope.row.state === 0" @click="checkItem(scope.row, 1)">审核</el-button>
+          <el-button
+          size="mini"
+          type="success"
+          v-if="scope.row.state === 0 && scope.row.salesState === 0"
+          @click="checkItem(scope.row, 1)">审核</el-button>
           <el-button
             size="mini"
             type="danger"
             v-if="scope.row.state === 2"
-            @click="rebackVisible = true;rebackQuery.salesId = scope.row.id;rebackQuery.orderCode = scope.row.orderCode">
+            @click="rebackVisible = true;
+            rebackQuery.salesId = scope.row.id;
+            rebackQuery.orderCode = scope.row.orderCode">
             退款</el-button>
         </template>
       </el-table-column>
@@ -172,8 +178,8 @@ export default {
       ],
       // 退款参数
       rebackQuery: {
-        salesId: 0, // 数据的id
-        orderCode: '' // 订单号
+        orderCode: '', // 订单号
+        salesId: 0 // 数据的id
       }
     }
   },
@@ -185,7 +191,6 @@ export default {
   methods: {
     beforeInit() {
       this.url = 'api/yxStoreAfterSales/sales/List'
-      console.log(this.searchTime)
       this.params = {
         page: this.page,
         size: this.size,
@@ -223,9 +228,14 @@ export default {
     },
     // 退款
     async rebackItem() {
-      console.log(this.rebackQuery)
-      // var res = await rebackMoney(this.rebackQuery)
-      // console.log(res)
+      var res = await rebackMoney(this.rebackQuery)
+      if (res) {
+        this.$message.success('提交退款成功！')
+        this.rebackVisible = false
+        this.toQuery()
+      } else {
+        this.$message.error(res.message || '提交退款失败！')
+      }
     }
   }
 }

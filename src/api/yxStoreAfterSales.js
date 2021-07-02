@@ -16,11 +16,11 @@ export function salesCheck(data) {
   })
 }
 
-export function rebackMoney(data) {
+export function rebackMoney(params) {
   return request({
     url: '/api/yxStoreAfterSales/makeMoney',
-    method: '',
-    data
+    method: 'post',
+    params
   })
 }
 export function add(data) {
