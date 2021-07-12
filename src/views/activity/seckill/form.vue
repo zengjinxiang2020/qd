@@ -401,13 +401,13 @@ export default {
         if(val){
           this.getInfoChooseGood (val)
         }
-      
+
       },
     },
   },
   mounted () {
     this.getInfo(),
-    initData('api/yxSystemGroupData',{ groupName: 'yshop_seckill_time' }).then(res => {
+    initData('api/yxSystemGroupData',{ groupName: 'yshop_seckill_time',status:1 }).then(res => {
       this.myTimes = res.content
     })
   },
@@ -604,6 +604,7 @@ export default {
           that.form1.good.image = data.image
           that.generate(data.productId);
           that.manyFormValidate = data.attrs;
+          console.log(data)
           if(data.spec_type === 0){
             that.manyFormValidate = [];
           }else {

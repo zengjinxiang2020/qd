@@ -78,7 +78,7 @@ export default {
     beforeInit() {
       return true
     },
-    getQueryParame: function() {
+    getQueryParame() {
       return {
         page: this.page,
         size: this.size,
