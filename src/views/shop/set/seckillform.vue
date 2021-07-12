@@ -51,6 +51,10 @@ export default {
       } else this.doEdit()
     },
     doAdd() {
+      if(this.form.continued + this.form.time　> 24){
+        this.loading = false
+        return  this.$message.error("开启+持续时间不能超过24小时")
+      }
       add(this.form).then(res => {
         this.resetForm()
         this.$notify({
@@ -66,6 +70,10 @@ export default {
       })
     },
     doEdit() {
+      if(this.form.continued + this.form.time　> 24){
+        this.loading = false
+        return  this.$message.error("开启+持续时间不能超过24小时")
+      }
       edit(this.form).then(res => {
         this.resetForm()
         this.$notify({
