@@ -222,6 +222,7 @@ export default {
   components: { editor, picUpload, mulpicUpload, Treeselect, MaterialList, UeditorWrap, singlePic,cgood },
   data() {
     return {
+      isAdd:false,// 是否是添加
       spinShow: false,myTimes: [],
       // 批量设置表格data
       oneFormBatch: [
@@ -410,6 +411,11 @@ export default {
     initData('api/yxSystemGroupData',{ groupName: 'yshop_seckill_time',status:1 }).then(res => {
       this.myTimes = res.content
     })
+    if(this.$route.params.id){
+      this.isAdd = false
+    } else {
+      this.isAdd = true
+    }
   },
   methods: {
     onInput(){
@@ -654,17 +660,35 @@ export default {
           if(this.formValidate.spec_type === 1 && this.manyFormValidate.length===0){
             return this.$message.warning('请点击生成规格！');
           }
-          edit(this.formValidate).then(async res => {
-            this.$message({
-              message:'操作成功',
-              type: 'success'
-            });
-            setTimeout(() => {
-              this.$router.push({ path: '/activity/seckill' });
-            }, 500);
-          }).catch(res => {
-            this.$message.error(res.msg);
-          })
+
+
+          // 判断是否是添加
+          if(this.isAdd){
+            console.log(this.formValidate)
+            add(this.formValidate).then(res=>{
+              this.$message({
+                message:'操作成功',
+                type: 'success'
+              });
+              setTimeout(() => {
+                this.$router.push({ path: '/activity/seckill' });
+              }, 500);
+            }).catch(res => {
+              this.$message.error(res.msg);
+            })
+          }else{
+            add(this.formValidate).then(async res => {
+              this.$message({
+                message:'操作成功',
+                type: 'success'
+              });
+              setTimeout(() => {
+                this.$router.push({ path: '/activity/seckill' });
+              }, 500);
+            }).catch(res => {
+              this.$message.error(res.msg);
+            })
+          }
         } else {
           if(!this.formValidate.store_name || !this.formValidate.cate_id || !this.formValidate.keyword
             || !this.formValidate.unit_name || !this.formValidate.store_info
