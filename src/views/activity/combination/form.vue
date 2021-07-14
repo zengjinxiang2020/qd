@@ -293,8 +293,6 @@ export default {
         browse: 0,
         startTimeDate: '',
         endTimeDate: '',
-
-
         spec_type: 0,
         temp_id: '',
         attrs: [],
