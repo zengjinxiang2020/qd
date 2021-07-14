@@ -147,7 +147,7 @@
                 </el-table-column>
                 <el-table-column prop="stock" label="库存" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.stock" :disabled="true"/>
+                    <el-input type="text" v-model="scope.row.stock" maxlength="7" :disabled="true"/>
                   </template>
                 </el-table-column>
 
@@ -158,7 +158,7 @@
                 </el-table-column>
                 <el-table-column prop="stock" label="秒杀库存" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.seckill_stock" />
+                    <el-input type="text" v-model="scope.row.seckill_stock" maxlength="7"/>
                   </template>
                 </el-table-column>
                 <el-table-column prop="weight" label="重量（KG）" align="center ">
@@ -222,6 +222,7 @@ export default {
   components: { editor, picUpload, mulpicUpload, Treeselect, MaterialList, UeditorWrap, singlePic,cgood },
   data() {
     return {
+      isAdd:false,// 是否是添加
       spinShow: false,myTimes: [],
       // 批量设置表格data
       oneFormBatch: [
@@ -401,15 +402,20 @@ export default {
         if(val){
           this.getInfoChooseGood (val)
         }
-      
+
       },
     },
   },
   mounted () {
     this.getInfo(),
-    initData('api/yxSystemGroupData',{ groupName: 'yshop_seckill_time' }).then(res => {
+    initData('api/yxSystemGroupData',{ groupName: 'yshop_seckill_time',status:1 }).then(res => {
       this.myTimes = res.content
     })
+    if(this.$route.params.id){
+      this.isAdd = false
+    } else {
+      this.isAdd = true
+    }
   },
   methods: {
     onInput(){
@@ -604,6 +610,7 @@ export default {
           that.form1.good.image = data.image
           that.generate(data.productId);
           that.manyFormValidate = data.attrs;
+          console.log(data)
           if(data.spec_type === 0){
             that.manyFormValidate = [];
           }else {
@@ -653,17 +660,35 @@ export default {
           if(this.formValidate.spec_type === 1 && this.manyFormValidate.length===0){
             return this.$message.warning('请点击生成规格！');
           }
-          edit(this.formValidate).then(async res => {
-            this.$message({
-              message:'操作成功',
-              type: 'success'
-            });
-            setTimeout(() => {
-              this.$router.push({ path: '/activity/seckill' });
-            }, 500);
-          }).catch(res => {
-            this.$message.error(res.msg);
-          })
+
+
+          // 判断是否是添加
+          if(this.isAdd){
+            console.log(this.formValidate)
+            add(this.formValidate).then(res=>{
+              this.$message({
+                message:'操作成功',
+                type: 'success'
+              });
+              setTimeout(() => {
+                this.$router.push({ path: '/activity/seckill' });
+              }, 500);
+            }).catch(res => {
+              this.$message.error(res.msg);
+            })
+          }else{
+            add(this.formValidate).then(async res => {
+              this.$message({
+                message:'操作成功',
+                type: 'success'
+              });
+              setTimeout(() => {
+                this.$router.push({ path: '/activity/seckill' });
+              }, 500);
+            }).catch(res => {
+              this.$message.error(res.msg);
+            })
+          }
         } else {
           if(!this.formValidate.store_name || !this.formValidate.cate_id || !this.formValidate.keyword
             || !this.formValidate.unit_name || !this.formValidate.store_info

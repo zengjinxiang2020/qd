@@ -164,7 +164,7 @@
                 </el-table-column>
                 <el-table-column prop="stock" label="库存" align="center">
                   <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.stock"/>
+                    <el-input type="text" v-model="scope.row.stock" maxlength="7"/>
                   </template>
                 </el-table-column>
                 <el-table-column prop="bar_code" label="商品编号" align="center">

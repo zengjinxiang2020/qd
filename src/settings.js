@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: '乐享美酒',
+  title: 'YSHOP-3.2',
   /**
    * @description 是否显示 tagsView
    */
@@ -42,9 +42,9 @@ module.exports = {
   /**
    * 底部文字，支持html语法
    */
-  footerTxt: '',
+  footerTxt: '© 2019-2021 YSHOP <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">All Rights Reserved</a>',
   /**
    * 备案号
    */
-  caseNumber: ''
+  caseNumber: '豫ICP备17049587-2号'
 }

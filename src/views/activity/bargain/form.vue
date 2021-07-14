@@ -40,7 +40,7 @@
         <MaterialList v-model="form.sliderImageArr" style="width: 500px" type="image" :num="4" :width="150" :height="150" />
       </el-form-item>
       <el-form-item label="库存">
-        <el-input-number v-model="form.stock" />
+        <el-input-number v-model="form.stock" maxlength="7"/>
       </el-form-item>
       <el-form-item label="销量">
         <el-input-number v-model="form.sales" />
