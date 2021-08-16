@@ -114,8 +114,8 @@ export default {
     },
     // 读取画布
     async canvasGet () {
-      var res = await getCanvasData({'terminal': 3})
-      // var res = await getCanvasData({'terminal': this.terminal})
+      // var res = await getCanvasData({'terminal': 3})
+      var res = await getCanvasData({'terminal': this.terminal})
       if (JSON.stringify(res) !== '{}') {
         this.canvasId = res.canvasId
         var componentsData = JSON.parse(res.json)
