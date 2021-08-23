@@ -15,8 +15,8 @@
         </i>
       </el-upload>
       <div class="overlay" v-if="imageUrl">
-        <i class="iconfont icon-chakan" @click="showImage"></i>
-        <i class="iconfont icon-shanchu1" @click="delImage"></i>
+        <!-- <i class="iconfont icon-chakan" @click="showImage"></i>
+        <i class="iconfont icon-shanchu1" @click="delImage"></i> -->
       </div>
     </div>
     <el-dialog title="图片展示" :visible.sync="dialogVisible">
@@ -26,51 +26,48 @@
 </template>
 
 <script>
-  // import api from '@/api'
-  // import {listSearchMixin} from '@/config/mixin'
-  export default {
-    name: 'tool-single-img',
-    // mixins: [listSearchMixin],
-    data () {
-      return {
-        dialogVisible: false,
-        dialogImageUrl: '',
-        fileUploadURL: ''
-      }
+export default {
+  name: 'tool-single-img',
+  data () {
+    return {
+      dialogVisible: false,
+      dialogImageUrl: '',
+      fileUploadURL: ''
+    }
+  },
+  props: {
+    imageUrl: {
+      type: String,
+      default: ''
     },
-    props: {
-      imageUrl: {
-        type: String,
-        default: ''
-      },
-      tip: {
-        type: String,
-        default: '建议尺寸: 1080*900px, 小于1MB'
-      }
+    tip: {
+      type: String,
+      default: '建议尺寸: 1080*900px, 小于1MB'
+    }
+  },
+  mounted () {
+    this.fileUploadURL = process.env.VUE_APP_BASE_API +'/api/canvas/upload?name=demo&type=console'
+  },
+  methods: {
+    handleAvatarSuccess (res, file) {
+      this.$emit('update:imageUrl', res.link)
     },
-    mounted () {
-      this.fileUploadURL = process.env.VUE_APP_BASE_API +'?name=demo&type=console'
-    },
-    methods: {
-      handleAvatarSuccess (res, file) {
-        this.$emit('update:imageUrl', res.link)
-      },
-      beforeAvatarUpload (file) {
-        const isLt1M = file.size / 1024 / 1024 < 1
-        if (!isLt1M) {
-          this.$message.error('上传图片大小不能超过 1MB!')
-        }
-        return isLt1M
-      },
-      showImage () {
-        this.dialogImageUrl = this.imageUrl
-        this.dialogVisible = true
-      },
-      delImage () {
-        this.$emit('update:imageUrl', '')
+    beforeAvatarUpload (file) {
+      const isLt1M = file.size / 1024 / 1024 < 1
+      if (!isLt1M) {
+        this.$message.error('上传图片大小不能超过 1MB!')
       }
+      return isLt1M
+    },
+    showImage () {
+      this.dialogImageUrl = this.imageUrl
+      this.dialogVisible = true
+    },
+    delImage () {
+      this.$emit('update:imageUrl', '')
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

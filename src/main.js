@@ -28,6 +28,8 @@ import 'quill/dist/quill.bubble.css'
 import VueHighlightJS from 'vue-highlightjs'
 import 'highlight.js/styles/atom-one-dark.css'
 
+import '@/assets/font_icon/iconfont.css'
+
 import App from './App'
 import store from './store'
 import router from './router/routers'
