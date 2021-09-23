@@ -114,7 +114,7 @@ export default {
 
 .panelBox {
   width: 0px;
-  min-height: 100%;
+  height: 100%;
   display: flex;
   overflow: hidden;
   transition: 0.2s width ease;
@@ -166,6 +166,9 @@ export default {
     border-left: 1px solid #f0f3f4;
     width: 186px;
     padding: 20px 0;
+    height: auto;
+    overflow-y: auto;
+    padding-bottom:40px;
 
     .itemBox {
       h3 {

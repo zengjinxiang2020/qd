@@ -146,7 +146,8 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height:calc(100vh - 84px);
+  overflow: hidden;
 
   .topBox {
     height: 52px;
@@ -188,7 +189,7 @@ export default {
   .bottomWarp {
     flex: 1;
     display: flex;
-    height: 0;
+    overflow:hidden
   }
   .leftBox {
     height: 100%;
