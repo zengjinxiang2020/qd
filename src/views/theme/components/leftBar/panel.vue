@@ -9,7 +9,7 @@
             :class="{ on: componentActive == index }"
             @click="componentActive = index"
           >
-            <i class="iconfont el-icon-files"></i>
+            <i class="iconfont icon-fangkuai"></i>
             <span>{{ item }}</span>
           </li>
         </ul>

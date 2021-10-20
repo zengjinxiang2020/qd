@@ -17,7 +17,7 @@
         :terminal="terminal"></component>
         <div class="btns">
           <span @click="delComponent(item,index)">
-            <i class="iconfont el-icon-delete"></i>
+            <i class="iconfont icon-shanchu"></i>
             </span>
         </div>
       </div>

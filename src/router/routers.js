@@ -38,7 +38,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'dashboard',
-        component: (resolve) => require(['@/views/home'], resolve),
+        component: (resolve) => require(['@/views/theme/container'], resolve),
         name: 'Dashboard',
         meta: { title: '首页', icon: 'index', affix: true, noCache: true }
       }
@@ -67,7 +67,7 @@ export const constantRouterMap = [
     },
     component: (resolve) => require(['@/components/editorMaterial/index'], resolve),
     hidden: true
-  },
+  }
 ]
 
 export default new Router({

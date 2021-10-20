@@ -7,7 +7,7 @@
       <div class="TPNleft">
           <div>
             <router-link to="/">
-              <img src="static\img\logo.png" style="width:58px;height:23px;" alt="logo">
+              <img src="../../../../../assets/canvasImg/logo.png" style="width:58px;height:23px;" alt="logo">
             </router-link>
           </div>
       </div>

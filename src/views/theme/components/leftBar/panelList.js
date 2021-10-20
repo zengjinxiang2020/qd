@@ -386,13 +386,13 @@ export const panelList = [
               {
                 'title': '微信公众号',
                 'des': '微信公众号',
-                'pic': 'static/img/erweima@2x.png',
+                'pic': '/static/img/erweima@2x.png',
                 'linkTo': ''
               },
               {
                 'title': '小程序码',
                 'des': '小程序码',
-                'pic': 'static/img/xcxm.png',
+                'pic': '/static/img/xcxm.png',
                 'linkTo': ''
               }
             ]

@@ -10,7 +10,7 @@
           :class="{ on: terminal == item.id }"
         >
           <!-- <i class="iconfont" :class="'icon-' + item.name"></i> -->
-          <i class="iconfont" :class="'el-icon-' + item.name"></i>
+          <i class="iconfont" :class="'icon-' + item.name"></i>
         </li>
       </ul>
       <el-button class="btn-save"
@@ -61,11 +61,11 @@ export default {
         // },
         {
           id: 3,
-          name: 'mobile-phone'
+          name: 'phone'
         },
         {
           id: 4,
-          name: 'monitor'
+          name: 'pc'
         }
         // {
         //   id: 1,
@@ -155,6 +155,7 @@ export default {
     border-bottom: 1px solid #f0f3f4;
     position: relative;
     display: flex;
+    align-items: center;
     justify-content: center;
     // .btn-black {
     //   position: absolute;
@@ -163,6 +164,10 @@ export default {
     // }
     ul{
       margin: 0;
+      padding: 0;
+      height: 52px;
+      display: flex;
+      align-items: center;
     }
     li {
       width: 56px;
@@ -170,9 +175,10 @@ export default {
       cursor: pointer;
       text-align: center;
       display: inline-block;
+      vertical-align: text-top;
       .iconfont {
         font-size: 24px;
-        line-height: 52px;
+        // line-height: 52px;
       }
       &:hover,
       &.on {
@@ -184,6 +190,10 @@ export default {
       position: absolute;
       right: 20px;
       top: 5px;
+          font-weight: 500;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px;
     }
   }
   .bottomWarp {
