@@ -131,7 +131,7 @@
                 </span>
                 <span>
                   {{ item.cartInfoMap.productInfo.storeName }}
-                  <span v-if="item.cartInfoMap.productInfo.attrInfo">&nbsp;{{ item.cartInfoMap.productInfo.attrInfo.suk }}</span>
+                  <span v-if="item.cartInfoMap.productInfo.attrInfo">&nbsp;{{ item.cartInfoMap.productInfo.attrInfo.sku }}</span>
                 </span>
                 <span> | ￥{{ item.cartInfoMap.truePrice }}×{{ item.cartInfoMap.cartNum }}</span>
             </div>
