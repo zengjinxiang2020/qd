@@ -68,7 +68,7 @@
     </div>
     <!-- 轮播图 -->
     <div class="toolPanel" v-if="activeComponent.type == 'PcBanner'">
-      <!-- <PcBanner /> -->
+      <PcBanner />
     </div>
     <!-- 底部版权相关 -->
     <div class="toolPanel" v-if="activeComponent.type == 'Footer'">
