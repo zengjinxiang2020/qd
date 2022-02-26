@@ -157,8 +157,8 @@ export default {
     },
     //新增与编辑前做的操作
     [CRUD.HOOK.afterToCU](crud, form) {
-      crudYxSystemStore.get().then(res => {
-         this.mystores= res.content
+      crudYxSystemStore.getAll().then(res => {
+         this.mystores= res
       })
     },
     // 编辑前
