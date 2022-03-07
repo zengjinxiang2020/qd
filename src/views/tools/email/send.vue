@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="form" :model="form" :rules="rules" style="margin-top: 6px;" size="small" label-width="100px">
+    <el-form ref="form" :model="form" :rules="rules" style="margin-top: 6px;margin-bottom:46px" size="small" label-width="100px">
       <el-form-item label="邮件标题" prop="subject">
         <el-input v-model="form.subject" style="width: 646px"/>
       </el-form-item>
@@ -18,9 +18,11 @@
                       style="width: 90%;"></ueditor-wrap>
       </el-form-item>
 
-      <div ref="editor" class="editor"/>
-      <el-button :loading="loading" style="margin-left:1.6%;" size="medium" type="primary" @click="doSubmit">发送邮件
+      <!-- <div ref="editor" class="editor"/> -->
+      <el-form-item label=""> 
+      <el-button :loading="loading"  size="medium" type="primary" @click="doSubmit">发送邮件
       </el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
