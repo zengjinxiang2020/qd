@@ -21,12 +21,12 @@
         <el-tab-pane name="4">
           <span slot="label"><i class="el-icon-circle-check"></i> 交易完成</span>
         </el-tab-pane>
-        <el-tab-pane name="-1">
-          <span slot="label"><i class="el-icon-back"></i> 退款中</span>
-        </el-tab-pane>
-        <el-tab-pane name="-2">
-          <span slot="label"><i class="el-icon-finished"></i> 已退款</span>
-        </el-tab-pane>
+        <!--<el-tab-pane name="-1">-->
+        <!--  <span slot="label"><i class="el-icon-back"></i> 退款中</span>-->
+        <!--</el-tab-pane>-->
+        <!--<el-tab-pane name="-2">-->
+        <!--  <span slot="label"><i class="el-icon-finished"></i> 已退款</span>-->
+        <!--</el-tab-pane>-->
       </el-tabs>
       <!--工具栏-->
       <div class="head-container">
