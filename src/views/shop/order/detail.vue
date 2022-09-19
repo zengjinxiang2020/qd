@@ -456,7 +456,11 @@ import eRemark from './remark'
       formatShippingType(value){
         if (value === 1) {
           return '快递';
-        } else {
+        }
+        else if(value ===3){
+          return '同城配送';
+        }
+        else {
           return '门店自提';
         }
       },

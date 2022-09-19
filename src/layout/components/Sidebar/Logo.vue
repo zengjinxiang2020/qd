@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Logo from '@/assets/images/logo.png'
+// import Logo from '@/assets/images/威友.png'
 export default {
   name: 'SidebarLogo',
   props: {
@@ -25,8 +25,8 @@ export default {
   },
   data() {
     return {
-      title: 'YSHOP-后台管理',
-      logo: Logo
+      title: '威友批发商城-后台管理'
+      // logo: Logo
     }
   }
 }
@@ -67,7 +67,7 @@ export default {
       color: #fff;
       font-weight: 600;
       line-height: 50px;
-      font-size: 14px;
+      font-size: 16px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }

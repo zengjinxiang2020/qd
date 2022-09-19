@@ -51,7 +51,7 @@ export const panelList = [
                 uniapp_url: '/pages/shop/news/NewsList/index',
                 url: '/news_list',
                 info:
-                  'yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等',
+                  '威友批发商城盛大开张，本超市以“卖得便宜,购得满意”为经营理念欢迎各位前来选购',
                 wxapp_url: '/pages/shop/news/NewsList/main'
               }
             ]

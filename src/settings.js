@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'YSHOP-3.2',
+  title: '威友商城-管理后台',
   /**
    * @description 是否显示 tagsView
    */
