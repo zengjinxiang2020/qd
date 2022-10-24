@@ -2,6 +2,7 @@ import { login, getInfo, logout } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
+  // 用于存储数据
   state: {
     token: getToken(),
     user: {},
@@ -10,6 +11,7 @@ const user = {
     loadMenus: false
   },
 
+  // 用于操作数据(state)
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
@@ -25,6 +27,7 @@ const user = {
     }
   },
 
+  // 用于响应组件中的动作
   actions: {
     // 登录
     Login({ commit }, userInfo) {

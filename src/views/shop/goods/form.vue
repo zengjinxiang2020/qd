@@ -18,7 +18,7 @@
             </el-form-item>
           </el-col>
           <el-col v-bind="grid2">
-            <el-form-item label="商品关键字：" prop="">
+            <el-form-item label="商品关键字：" prop="keyword">
               <el-input v-model="formValidate.keyword" placeholder="请输入商品关键字"  />
             </el-form-item>
           </el-col>

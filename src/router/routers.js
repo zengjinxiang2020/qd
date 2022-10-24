@@ -70,6 +70,7 @@ export const constantRouterMap = [
   }
 ]
 
+// 创建一个路由器
 export default new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
